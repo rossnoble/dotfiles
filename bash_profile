@@ -24,11 +24,6 @@ alias sobash='source ~/.bash_profile'
 alias vimrc='vim ~/.vimrc'
 alias gitconfig='vim ~/.gitconfig'
 
-# Navigation
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
 source '/usr/local/share/chruby/chruby.sh'
@@ -36,5 +31,21 @@ source '/usr/local/share/chruby/auto.sh'
 # Default ruby version
 chruby ruby-1.9
 
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Personal locations
+alias mylogins='cd ~/.logins'
+alias hosts='sudo vim /etc/hosts'
+alias code='cd ~/Code'
+alias reel='cd ~/Code/personal/reelonrails'
+
 # PasswordBox locations
-alias lckr='cd ~/Code/pbox/lckr'
+alias pbox='cd ~/Code/work/pbox'
+alias lckr='cd ~/Code/work/pbox/lckr'
+
+# Development
+alias ztest='zeus test'
+alias rtest='rake test TEST='
