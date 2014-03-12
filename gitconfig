@@ -1,0 +1,57 @@
+[user]
+  name = Ross Noble
+  email = rosshnoble@gmail.com
+[github]
+  user = rossnoble
+  token = 3b88656cb3d0c4e4b831b859632cf266
+[credential]
+  helper = osxkeychain
+[gui]
+  recentrepo = /Users/Ross/Sites/passwordbox/lckr
+[alias]
+  st = status
+  cm = commit
+  df = diff
+  dt = difftool
+  br = branch
+  co = checkout
+  cp = cherry-pick
+  m = merge 
+  p = pull
+  nb = checkout -b
+  db = br -d 
+  pom = pull origin master
+  pos = pull origin stable
+  por = pull origin release
+  rhead = reset HEAD
+  aa = add -u
+  lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
+  graph = log -20 --pretty=format:"%h%x20%x2D%x20%s%x20%x20%x20%x28%cd%x20%x7C%x20%an%x29" --date=relative --graph
+  deploy = push heroku master # for heroku apps
+[push]
+  default = current
+[merge]
+  tool = Kaleidoscope
+[mergetool "diffmerge"]
+  cmd = diffmerge --merge\n--result=$MERGED $LOCAL $BASE $REMOTE
+  trustExitCode = true
+[diff]
+  tool = Kaleidoscope
+[color]
+  ui = true
+[color "diff"]
+  meta = blue black bold
+[color "status"]
+  meta = blue black bold
+[core]
+  excludesfile = /Users/ross/.gitignore_global
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+  prompt = false
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[mergetool]
+  prompt = false
+
