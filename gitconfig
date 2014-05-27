@@ -24,9 +24,11 @@
   pos = pull origin stable
   por = pull origin release
   rhead = reset HEAD
+  rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
   aa = add -u
   lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
   graph = log -20 --pretty=format:"%h%x20%x2D%x20%s%x20%x20%x20%x28%cd%x20%x7C%x20%an%x29" --date=relative --graph
+  cleanup = !git remote prune origin && git gc && git stash clear
   deploy = push heroku master # for heroku apps
 [push]
   default = current

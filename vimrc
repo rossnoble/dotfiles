@@ -36,12 +36,13 @@ set backspace=indent,eol,start "Allow backspace to overwrite"
 
 " THEMING
 " -------
-if has("gui_macvim")
-  set fuopt=maxvert,maxhorz" full screen takes entire screen
-  colorscheme jellyx
-else 
-  colorscheme grb256
-endif
+"if has("gui_macvim")
+"  set fuopt=maxvert,maxhorz" full screen takes entire screen
+"  colorscheme jellyx
+"else
+"  colorscheme grb256
+"endif
+colorscheme grb256
 
 set guifont=Menlo\ Regular:h12
 " Enable syntax highlighting for non standard file types 
@@ -76,7 +77,7 @@ map <C-Y><C-Y> :bufdo e<CR>
 nmap <C-N><C-N> :set invnumber<CR>
 nmap <C-e> :e#<CR>
 nmap <C-L><C-L> :set list!<CR>
-imap jj <esc>
+"imap jj <esc>
 cmap <C-b> <left>
 cmap <C-f> <right>
 
@@ -94,7 +95,7 @@ endfun
 
 "helptags ~/.vim_runtime/doc
 
-set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc
+set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
 
 " Store plugins and colorschemes in .vim
 call pathogen#infect()

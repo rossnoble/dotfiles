@@ -5,6 +5,9 @@ export LSCOLORS=GxFxCxDxBxegedabagacad
 # MySQL socket location
 export MYSQL_SOCKET='/tmp/mysql.sock'
 
+# added by Anaconda 1.9.2 installer
+export PATH="//anaconda/bin:$PATH"
+
 # Enables color for iTerm
 export TERM=xterm-color
 
@@ -14,6 +17,7 @@ export EDITOR=vim
 # Sets up the prompt color (currently a green similar to linux terminal)
 source "/usr/local/etc/bash_completion.d/git-completion.bash"
 source "/usr/local/etc/bash_completion.d/git-prompt.sh"
+source "/usr/local/etc/bash_completion.d/password-store"
 
 # Show user@server path (git branch)
 export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
@@ -28,8 +32,9 @@ alias gitconfig='vim ~/.gitconfig'
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
 source '/usr/local/share/chruby/chruby.sh'
 source '/usr/local/share/chruby/auto.sh'
+
 # Default ruby version
-chruby ruby-1.9
+chruby ruby-2.0
 
 # Navigation
 alias ..="cd .."
@@ -41,11 +46,24 @@ alias mylogins='cd ~/.logins'
 alias hosts='sudo vim /etc/hosts'
 alias code='cd ~/Code'
 alias reel='cd ~/Code/personal/reelonrails'
+alias pjm='cd ~/Code/personal/pjmsl'
+alias softball='cd ~/Code/personal/pjmsl-rails'
+alias lists='cd ~/Lists'
+alias songs='vim ~/Lists/songs_to_cover.mdown'
+alias movies='vim ~/Lists/movies.mdown'
+alias reviews='vim ~/Lists/movie_reviews.mdown'
+alias books='vim ~/Lists/books.mdown'
 
-# PasswordBox locations
+# PasswordBox aliases
 alias pbox='cd ~/Code/work/pbox'
 alias lckr='cd ~/Code/work/pbox/lckr'
+alias corp='cd ~/Code/work/pbox/corporate'
+alias sasspbox='bundle exec sass --watch --scss --compass app/stylesheets:public/stylesheets'
+alias pboxstaging='ssh deploy@qa-staging2.it.pboxlabs.com'
 
 # Development
 alias ztest='zeus test'
 alias rtest='rake test TEST='
+alias jtest='jasmine-headless-webkit -c --no-full-run'
+alias routes='rake routes > routes.txt && mate routes.txt'
+alias zroutes='zeus rake routes > routes.txt && mate routes.txt'
