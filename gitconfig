@@ -46,7 +46,7 @@
 [color "status"]
   meta = blue black bold
 [core]
-  excludesfile = /Users/ross/.gitignore_global
+	excludesfile = /Users/ross/.gitignore_global
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]

@@ -23,9 +23,10 @@ set noswapfile      " No swap files
 set linebreak       " Break lines
 set guioptions-=L   " Remove left scroll bar
 set guioptions-=r   " Remove right scroll bar 
-set ruler           " Always show info at bottom of screen
+"set ruler           " Always show info at bottom of screen
 set laststatus=2    " Always show status line
 set backspace=indent,eol,start "Allow backspace to overwrite"
+set noshowmode      " Hide status bar
 
 "set hls             " Search highlighting
 "set cindent         " Indent curly braces
@@ -81,6 +82,14 @@ nmap <C-L><C-L> :set list!<CR>
 cmap <C-b> <left>
 cmap <C-f> <right>
 
+" CTRL-P SETTINGS
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  'git\|hg\|node_modules',
+  \ 'file': '\v\.(exe|so|dll)$'
+  \ }
+
 " MISC
 " ----
 
@@ -99,4 +108,3 @@ set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc
 
 " Store plugins and colorschemes in .vim
 call pathogen#infect()
-
