@@ -22,11 +22,13 @@ set nowritebackup   " Only in case you don't want a backup file while editing
 set noswapfile      " No swap files
 set linebreak       " Break lines
 set guioptions-=L   " Remove left scroll bar
-set guioptions-=r   " Remove right scroll bar 
+set guioptions-=r   " Remove right scroll bar
 "set ruler           " Always show info at bottom of screen
 set laststatus=2    " Always show status line
 set backspace=indent,eol,start "Allow backspace to overwrite"
 set noshowmode      " Hide status bar
+set encoding=utf-8
+set fileencoding=utf-8
 
 "set hls             " Search highlighting
 "set cindent         " Indent curly braces
@@ -37,20 +39,50 @@ set noshowmode      " Hide status bar
 
 " THEMING
 " -------
-"if has("gui_macvim")
-"  set fuopt=maxvert,maxhorz" full screen takes entire screen
-"  colorscheme jellyx
-"else
-"  colorscheme grb256
-"endif
 colorscheme grb256
 
-set guifont=Menlo\ Regular:h12
-" Enable syntax highlighting for non standard file types 
+if has("gui_macvim")
+  "colorscheme grb256
+  colorscheme Black
+endif
+
+"set guifont=Menlo\ Regular:h12
+set guifont=Office\ Code\ Pro\ D:h12
+
+" unicode support
+"if has("multi_byte")
+"  if &termencoding == ""
+"    let &termencoding = &encoding
+"  endif
+"  set encoding=utf-8           " better default than latin1
+"  setglobal fileencoding=utf-8 " change default file encoding when writing new files
+"endif
+
+" Unicode options
+if has("multi_byte")
+  " set the display encoding
+  " (default is "", or "utf-8" in the GUI)
+  if &termencoding == ""
+      " we're probably not using the GUI
+      " note: :set won't allow &-replacement
+      let &termencoding = &encoding
+  endif
+  " set the internal encoding
+  set encoding=utf-8
+
+  " &fileencoding (controls how characters in the internal encoding will
+  " be written to the file) will be set according to &fileencodings
+  " (default: "ucs-bom", "ucs-bom,utf-8,default,latin1" when 'encoding'
+  " is set to a Unicode value)
+endif " has("multi_byte")
+
+" Enable syntax highlighting for non standard file types
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.jst  set filetype=html
+au BufNewFile,BufRead *.ejs  set filetype=html
 au BufNewFile,BufRead *.jade set filetype=html
-"au BufNewFile,BufRead *.html set filetype=php
+au BufNewFile,BufRead *.hbs  set filetype=html
+au BufNewFile,BufRead Guardfile set filetype=ruby
 
 "autocmd ColorScheme * highlight NonText ctermbg=None
 "autocmd ColorScheme * highlight Normal ctermbg=None
@@ -63,6 +95,9 @@ autocmd FileType php set noexpandtab
 autocmd FileType less set noexpandtab
 autocmd FileType jade set noexpandtab
 autocmd FileType c set noexpandtab
+
+" Spell check commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Indent guides
 hi IndentGuidesOdd  ctermbg=black
@@ -86,7 +121,7 @@ cmap <C-f> <right>
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'git\|hg\|node_modules',
+  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|doc',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
@@ -108,3 +143,17 @@ set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc
 
 " Store plugins and colorschemes in .vim
 call pathogen#infect()
+
+"Vundle config
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+
+"Bundle 'gmarik/Vundle.vim'
+"Bundle 'davidpthomas/vim4rally'
+
+"call vundle#end()
+"filetype plugin indent on
+
+" 80 character highlighting
+highlight ColorColumn ctermbg=darkred
+call matchadd('ColorColumn', '\%81v', 100)

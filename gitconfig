@@ -5,7 +5,7 @@
   user = rossnoble
   token = 3b88656cb3d0c4e4b831b859632cf266
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 [gui]
   recentrepo = /Users/Ross/Sites/passwordbox/lckr
 [alias]
@@ -16,10 +16,10 @@
   br = branch
   co = checkout
   cp = cherry-pick
-  m = merge 
+  m = merge
   p = pull
   nb = checkout -b
-  db = br -d 
+  db = br -d
   pom = pull origin master
   pos = pull origin stable
   por = pull origin release
@@ -28,6 +28,8 @@
   aa = add -u
   lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
   graph = log -20 --pretty=format:"%h%x20%x2D%x20%s%x20%x20%x20%x28%cd%x20%x7C%x20%an%x29" --date=relative --graph
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
   cleanup = !git remote prune origin && git gc && git stash clear
   deploy = push heroku master # for heroku apps
 [push]
@@ -56,4 +58,9 @@
   trustExitCode = true
 [mergetool]
   prompt = false
-
+#[commit]
+#  template = ~/.gitmessage
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
