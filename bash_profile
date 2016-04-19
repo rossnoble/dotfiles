@@ -16,10 +16,6 @@ export PGHOST=localhost
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# Set default ruby to use for gems. Might not be great idea
-# to hard code like this.
-#export GEM_PATH="/Users/$(whoami)/.rubies/ruby-2.1.2/lib/ruby/gems/2.1.0"
-
 # Enables color for iTerm
 export TERM=xterm-color
 
@@ -44,7 +40,7 @@ source '/usr/local/share/chruby/auto.sh'
 source '/usr/local/share/gem_home/gem_home.sh'
 
 # Default ruby version
-chruby ruby-2.1.7
+#chruby ruby-2.1.7
 
 alias pgstart="postgres -D /usr/local/var/postgres"
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
