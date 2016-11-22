@@ -77,7 +77,7 @@ if has("multi_byte")
 endif " has("multi_byte")
 
 " Enable syntax highlighting for non standard file types
-au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead *.jst  set filetype=html
 au BufNewFile,BufRead *.ejs  set filetype=html
 au BufNewFile,BufRead *.jade set filetype=html
@@ -91,7 +91,7 @@ au BufNewFile,BufRead Guardfile set filetype=ruby
 " -----------
 autocmd FileType * set tabstop=2|set shiftwidth=2|set expandtab
 autocmd FileType make set noexpandtab
-autocmd FileType php set noexpandtab
+autocmd FileType php set expandtab
 autocmd FileType less set noexpandtab
 autocmd FileType jade set noexpandtab
 autocmd FileType c set noexpandtab
@@ -118,10 +118,8 @@ cmap <C-b> <left>
 cmap <C-f> <right>
 
 " CTRL-P SETTINGS
-"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|doc',
+  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|doc\|cookbooks',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
@@ -149,7 +147,6 @@ call pathogen#infect()
 "call vundle#begin()
 
 "Bundle 'gmarik/Vundle.vim'
-"Bundle 'davidpthomas/vim4rally'
 
 "call vundle#end()
 "filetype plugin indent on
