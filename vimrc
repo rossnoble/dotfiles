@@ -126,6 +126,8 @@ let g:ctrlp_custom_ignore = {
 " MISC
 " ----
 
+:let g:NERDTreeWinSize=25
+
 "Yankring history file location
 "TODO: Do we need really need yankring?
 let g:yankring_history_dir = '~/tmp'

@@ -22,8 +22,7 @@ export TERM=xterm-color
 export EDITOR=vim
 
 # Show user@server path (git branch)
-#export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
-export PS1='\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
 
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
@@ -54,7 +53,7 @@ alias ebash='vim ~/.bashrc'
 alias sobash='source ~/.bashrc'
 alias vimrc='vim ~/.vimrc'
 alias gitconfig='vim ~/.gitconfig'
-alias tmuxconfig='vim ~/.tmux.conf'
+alias tconfig='vim ~/.tmux.conf'
 alias hosts='sudo vim /etc/hosts'
 
 alias tmux="tmux -2"
