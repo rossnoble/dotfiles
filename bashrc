@@ -2,6 +2,11 @@ if [ -f ~/.remote_locations ]; then
   source ~/.remote_locations
 fi
 
+if [ -f ~/.coomo_commands ]; then
+  source ~/.coomo_commands
+  alias ecoomo="vim ~/.coomo_commands"
+fi
+
 # Enables color highlighting
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad
@@ -15,6 +20,12 @@ export PGHOST=localhost
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# Add Go to PATH and set GOPATH
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/Code/Go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
 # Enables color for iTerm
 export TERM=xterm-color
 
@@ -22,7 +33,8 @@ export TERM=xterm-color
 export EDITOR=vim
 
 # Show user@server path (git branch)
-export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
+#export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__git_ps1 " (%s)")$ '
 
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
@@ -64,12 +76,12 @@ alias routes='rake routes > routes.txt && mate routes.txt'
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
 alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO'
 
-alias iossim='open /Applications/Xcode.app/Contents/Developer/Applications/   Simulator.app'
 alias mampsql='/Applications/MAMP/Library/bin/mysql -uroot -proot'
 alias genpass='openssl rand -base64 15'
 
 # Functions
 
+# Kill a tmux session by name
 function tkill() {
   tmux kill-session -t ${1}
   echo "Killed session ${1}"

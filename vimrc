@@ -126,7 +126,8 @@ let g:ctrlp_custom_ignore = {
 " MISC
 " ----
 
-:let g:NERDTreeWinSize=25
+"let g:NERDTreeWinSize=25
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 "Yankring history file location
 "TODO: Do we need really need yankring?
@@ -144,14 +145,8 @@ set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc
 " Store plugins and colorschemes in .vim
 call pathogen#infect()
 
-"Vundle config
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-
-"Bundle 'gmarik/Vundle.vim'
-
-"call vundle#end()
-"filetype plugin indent on
+" Enable filetype plguins
+filetype plugin indent on
 
 " 80 character highlighting
 highlight ColorColumn ctermbg=darkred
