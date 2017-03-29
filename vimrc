@@ -110,6 +110,10 @@ map <C-B><C-B> :NERDTreeToggle<CR>
 "Reload all buffers
 map <C-Y><C-Y> :bufdo e<CR>
 
+"Disable line joinin command because I do it accidentally
+"all the time and never really use it intentionally
+map <S-j> <Nop>
+
 nmap <C-N><C-N> :set invnumber<CR>
 nmap <C-e> :e#<CR>
 nmap <C-L><C-L> :set list!<CR>

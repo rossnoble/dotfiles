@@ -13,7 +13,7 @@
   cm = commit
   df = diff
   dt = difftool
-  br = branch
+  br = branch --sort=committerdate
   co = checkout
   cp = cherry-pick
   m = merge

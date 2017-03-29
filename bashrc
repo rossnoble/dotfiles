@@ -61,12 +61,14 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+alias ls='ls -l'
 alias ebash='vim ~/.bashrc'
 alias sobash='source ~/.bashrc'
 alias vimrc='vim ~/.vimrc'
 alias gitconfig='vim ~/.gitconfig'
 alias tconfig='vim ~/.tmux.conf'
 alias hosts='sudo vim /etc/hosts'
+alias gohome='cd ~/Code/Go/src/github.com/rossnoble'
 
 alias tmux="tmux -2"
 alias tat='tmux new-session -As "$(basename "$PWD" | tr . -)"'
@@ -122,3 +124,13 @@ function restart_ssh_agent() {
 # gpg-agent
 GPG_TTY=$(tty)
 export GPG_TTY
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/ross/google-cloud-sdk/path.bash.inc ]; then
+  source '/Users/ross/google-cloud-sdk/path.bash.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/ross/google-cloud-sdk/completion.bash.inc ]; then
+  source '/Users/ross/google-cloud-sdk/completion.bash.inc'
+fi
