@@ -1,6 +1,28 @@
 " VIMRC CONFIGURATION
 " -------------------
 
+" THEMING
+" -------
+colorscheme grb256
+
+if has("gui_macvim")
+  colorscheme Black
+endif
+
+set guifont=Office\ Code\ Pro\ D:h12
+
+" unicode support
+"if has("multi_byte")
+"  if &termencoding == ""
+"    let &termencoding = &encoding
+"  endif
+"  set encoding=utf-8           " better default than latin1
+"  setglobal fileencoding=utf-8 " change default file encoding when writing new files
+"endif
+
+" GENERAL SETTINGS
+" ----------------
+
 syntax on
 filetype on
 filetype plugin off
@@ -37,27 +59,6 @@ set fileencoding=utf-8
 "set list            " Show hidden characters
 "set smartindent     " Intelligent indentation
 
-" THEMING
-" -------
-colorscheme grb256
-
-if has("gui_macvim")
-  "colorscheme grb256
-  colorscheme Black
-endif
-
-"set guifont=Menlo\ Regular:h12
-set guifont=Office\ Code\ Pro\ D:h12
-
-" unicode support
-"if has("multi_byte")
-"  if &termencoding == ""
-"    let &termencoding = &encoding
-"  endif
-"  set encoding=utf-8           " better default than latin1
-"  setglobal fileencoding=utf-8 " change default file encoding when writing new files
-"endif
-
 " Unicode options
 if has("multi_byte")
   " set the display encoding
@@ -84,8 +85,8 @@ au BufNewFile,BufRead *.jade set filetype=html
 au BufNewFile,BufRead *.hbs  set filetype=html
 au BufNewFile,BufRead Guardfile set filetype=ruby
 
-"autocmd ColorScheme * highlight NonText ctermbg=None
-"autocmd ColorScheme * highlight Normal ctermbg=None
+autocmd ColorScheme * highlight NonText ctermbg=None
+autocmd ColorScheme * highlight Normal ctermbg=None
 
 " INDENTATION
 " -----------
@@ -101,8 +102,10 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Indent guides
 hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
+hi IndentGuidesEven ctermbg=black
 
+" Disable background color from theme
+hi Normal ctermbg=none
 
 " KEYBOARD MAPPINGS
 " -----------------
@@ -123,15 +126,28 @@ cmap <C-f> <right>
 
 " CTRL-P SETTINGS
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|doc\|cookbooks',
+  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|cookbooks\|build\|flow',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
 " MISC
 " ----
 
+" NERDTree
+let NERDTreeShowHidden=1
 "let g:NERDTreeWinSize=25
+
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_scss_sass_quiet_messages = {"regex":"File to import not found or unreadable"}
+
+"eslint
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+
+"let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
 
 "Yankring history file location
 "TODO: Do we need really need yankring?
