@@ -6,8 +6,6 @@
   token = 3b88656cb3d0c4e4b831b859632cf266
 [credential]
 	helper = osxkeychain
-[gui]
-  recentrepo = /Users/Ross/Sites/passwordbox/lckr
 [alias]
   st = status
   cm = commit
@@ -21,8 +19,7 @@
   nb = checkout -b
   db = br -d
   pom = pull origin master
-  pos = pull origin stable
-  por = pull origin release
+  poa = pull origin alpha
   rhead = reset HEAD
   rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
   aa = add -u

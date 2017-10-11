@@ -1,10 +1,5 @@
-if [ -f ~/.remote_locations ]; then
-  source ~/.remote_locations
-fi
-
-if [ -f ~/.coomo_commands ]; then
-  source ~/.coomo_commands
-  alias ecoomo="vim ~/.coomo_commands"
+if [ -f ~/.bash_private ]; then
+  source ~/.bash_private
 fi
 
 # Enables color highlighting
@@ -20,9 +15,12 @@ export PGHOST=localhost
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# Yarn binaries
+# export PATH="/usr/local/Cellar/node@6/6.10.3/bin:$PATH"
+
 # Add Go to PATH and set GOPATH
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/Code/Go
+export GOPATH=$HOME/Code/golang
+export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
@@ -33,11 +31,11 @@ export TERM=xterm-color
 export EDITOR=vim
 
 # Show user@server path (git branch)
-#export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]$(__git_ps1 " (%s)")$ '
 export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__git_ps1 " (%s)")$ '
 
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
+# NOTE: chruby is also sourced in /etc/bashrc
 source '/usr/local/share/chruby/chruby.sh'
 source '/usr/local/share/chruby/auto.sh'
 source '/usr/local/share/gem_home/gem_home.sh'
@@ -45,26 +43,30 @@ source '/usr/local/share/gem_home/gem_home.sh'
 # Sets up the prompt color (currently a green similar to linux terminal)
 source "/usr/local/etc/bash_completion.d/git-completion.bash"
 source "/usr/local/etc/bash_completion.d/git-prompt.sh"
-source "/usr/local/etc/bash_completion.d/password-store"
+source "/usr/local/etc/bash_completion.d/pass"
 
 # Default ruby version
-chruby ruby-2.3.1
+# chruby ruby-2.3.1
 
 # z
 . `brew --prefix`/etc/profile.d/z.sh
 
 ## Aliases
-alias pgstart="postgres -D /usr/local/var/postgres"
-alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+alias ag='ag --path-to-ignore ~/.agignore'
+
+alias pgstart="brew services start postgresql"
+alias pgstop="brew services stop postgresql"
 
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias ls='ls -l'
-alias ebash='vim ~/.bashrc'
-alias sobash='source ~/.bashrc'
+alias bashrc='vim ~/.bashrc'
+alias sobashrc='source ~/.bashrc'
+alias bash_private='vim ~/.bash_private'
 alias vimrc='vim ~/.vimrc'
+alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
 alias tconfig='vim ~/.tmux.conf'
 alias hosts='sudo vim /etc/hosts'
@@ -83,19 +85,26 @@ alias genpass='openssl rand -base64 15'
 
 # Functions
 
-# Kill a tmux session by name
+# tkill destroys a tmux session by name
 function tkill() {
   tmux kill-session -t ${1}
   echo "Killed session ${1}"
 }
 
+# server starts a static file server on the given port
 function server() {
   local port="${1:-8000}"
   open "http://localhost:${port}/"
   python -m SimpleHTTPServer "${port}"
 }
 
-_bundle_commands=( rake spec rspec cucumber cap watchr rails rackup )
+# fbr performs a fuzzy match on git branches
+fbr() {
+  local branches branch
+  branches=$(git branch -a) &&
+  branch=$(echo "$branches" | fzf +s +m -e) &&
+  git checkout $(echo "$branch" | sed "s:.* remotes/origin/::" | sed "s:.* ::")
+}
 
 function run_bundler_cmd() {
   if [ -e ./Gemfile ]; then
@@ -107,7 +116,8 @@ function run_bundler_cmd() {
   fi
 }
 
-for cmd in $_bundle_commands
+bundle_commands=( rake rspec spec cucumber cap watchr rails rackup )
+for cmd in $bundle_commands
 do
   alias $cmd="run_bundler_cmd $cmd"
 done
@@ -117,8 +127,8 @@ function rtest () {
 }
 
 function restart_ssh_agent() {
-  eval `ssh-agent -s`
-  ssh-add
+  eval "$(ssh-agent -s)"
+  ssh-add -K ~/.ssh/id_rsa
 }
 
 # gpg-agent
