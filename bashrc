@@ -36,20 +36,41 @@ export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__gi
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
 # NOTE: chruby is also sourced in /etc/bashrc
-source '/usr/local/share/chruby/chruby.sh'
-source '/usr/local/share/chruby/auto.sh'
-source '/usr/local/share/gem_home/gem_home.sh'
+if [ -f /usr/local/share/chruby/chruby.sh ]; then
+  source /usr/local/share/chruby/chruby.sh
+fi
+if [ -f /usr/local/share/chruby/auto.sh ]; then
+  source /usr/local/share/chruby/auto.sh
+fi
+
+# gem_home for gemset management
+# https://github.com/postmodern/gem_home
+if [ -f /usr/local/share/gem_home/gem_home.sh ]; then
+  source /usr/local/share/gem_home/gem_home.sh
+fi
 
 # Sets up the prompt color (currently a green similar to linux terminal)
-source "/usr/local/etc/bash_completion.d/git-completion.bash"
-source "/usr/local/etc/bash_completion.d/git-prompt.sh"
-source "/usr/local/etc/bash_completion.d/pass"
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+  source /usr/local/etc/bash_completion.d/git-completion.bash
+fi
+
+if [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+  source /usr/local/etc/bash_completion.d/git-prompt.sh
+fi
+
+# pass password manager
+# https://www.passwordstore.org/
+if [ -f /usr/local/etc/bash_completion.d/pass ]; then
+  source /usr/local/etc/bash_completion.d/pass
+fi
 
 # Default ruby version
 # chruby ruby-2.3.1
 
 # z
-. `brew --prefix`/etc/profile.d/z.sh
+if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
+  source `brew --prefix`/etc/profile.d/z.sh
+fi
 
 ## Aliases
 alias ag='ag --path-to-ignore ~/.agignore'
