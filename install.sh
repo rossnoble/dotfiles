@@ -1,6 +1,9 @@
 # Install home brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+# XCode tools
+xcode-select --install
+
 # Dev tools
 brew install git
 brew install tmux
@@ -24,3 +27,4 @@ ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 
 # Other stuff
 brew cask install macdown
+brew install npm
