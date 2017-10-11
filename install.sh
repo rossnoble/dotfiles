@@ -26,9 +26,12 @@ ln -s ~/.dotfiles/gitignore_global ~/.gitignore_global
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 
 # Install vim bundles via Pathogen
-git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
-git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
-git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
+git clone --depth=1 https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+git clone --depth=1 https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
+git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
+git clone --depth=1 https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
+git clone --depth=1 https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
 
 # Other stuff
 brew cask install macdown
