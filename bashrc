@@ -68,8 +68,8 @@ fi
 # chruby ruby-2.3.1
 
 # z
-if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
-  source `brew --prefix`/etc/profile.d/z.sh
+if [ -f /usr/local/etc/profile.d/z.sh ]; then
+  source /usr/local/etc/profile.d/z.sh
 fi
 
 ## Aliases
@@ -83,6 +83,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias ls='ls -l'
+alias dotfiles='cd ~/.dotfiles'
 alias bashrc='vim ~/.bashrc'
 alias sobashrc='source ~/.bashrc'
 alias bash_private='vim ~/.bash_private'
