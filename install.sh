@@ -25,6 +25,11 @@ ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/gitignore_global ~/.gitignore_global
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 
+# Install vim bundles via Pathogen
+git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
+
 # Other stuff
 brew cask install macdown
 brew install npm
