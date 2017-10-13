@@ -49,11 +49,16 @@ if [ -f /usr/local/share/gem_home/gem_home.sh ]; then
   source /usr/local/share/gem_home/gem_home.sh
 fi
 
-# Sets up the prompt color (currently a green similar to linux terminal)
-if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
-  source /usr/local/etc/bash_completion.d/git-completion.bash
+# if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+#   source /usr/local/etc/bash_completion.d/git-completion.bash
+# fi
+
+# Custom modifications to git completion to ignore tags
+if [ -f ~/.dotfiles/git-completion.bash ]; then
+  source ~/.dotfiles/git-completion.bash
 fi
 
+# Sets up the prompt color (currently a green similar to linux terminal)
 if [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
   source /usr/local/etc/bash_completion.d/git-prompt.sh
 fi
