@@ -1,8 +1,26 @@
 " VIMRC CONFIGURATION
-" -------------------
+" ===================
 
-" THEMING
-" -------
+" 1. GENERAL
+" ----------
+
+" Store plugins and colorschemes in .vim
+set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
+
+" Currently using Pathogen for bundle/plugin management
+call pathogen#infect()
+
+syntax on
+
+filetype on
+filetype plugin off
+filetype indent off
+filetype plugin indent on
+
+
+" 2. THEMING
+" ----------
+
 colorscheme grb256
 
 if has("gui_macvim")
@@ -11,25 +29,32 @@ endif
 
 set guifont=Office\ Code\ Pro\ D:h12
 
-" unicode support
-"if has("multi_byte")
-"  if &termencoding == ""
-"    let &termencoding = &encoding
-"  endif
-"  set encoding=utf-8           " better default than latin1
-"  setglobal fileencoding=utf-8 " change default file encoding when writing new files
-"endif
+" Indent guides
+highlight IndentGuidesOdd  ctermbg=black
+highlight IndentGuidesEven ctermbg=black
 
-" GENERAL SETTINGS
-" ----------------
+" Disable background color from theme
+highlight Normal ctermbg=none
 
-syntax on
-filetype on
-filetype plugin off
-filetype indent off
+" 80 character highlighting
+highlight ColorColumn ctermbg=darkred
+call matchadd('ColorColumn', '\%81v', 100)
 
-" SETTINGS
-" --------
+" Enable syntax highlighting for non standard file types
+au BufNewFile,BufRead *.less set filetype=css
+au BufNewFile,BufRead *.jst  set filetype=html
+au BufNewFile,BufRead *.ejs  set filetype=html
+au BufNewFile,BufRead *.jade set filetype=html
+au BufNewFile,BufRead *.hbs  set filetype=html
+au BufNewFile,BufRead Guardfile set filetype=ruby
+
+autocmd ColorScheme * highlight NonText ctermbg=None
+autocmd ColorScheme * highlight Normal ctermbg=None
+
+
+" 3. SETTINGS
+" -----------
+
 set t_Co=256        " Enable 256-colors
 set tabstop=2       " Tab spacing
 set shiftwidth=2    " Indent 2 spaces
@@ -45,19 +70,20 @@ set noswapfile      " No swap files
 set linebreak       " Break lines
 set guioptions-=L   " Remove left scroll bar
 set guioptions-=r   " Remove right scroll bar
-"set ruler           " Always show info at bottom of screen
 set laststatus=2    " Always show status line
 set backspace=indent,eol,start "Allow backspace to overwrite"
 set noshowmode      " Hide status bar
 set encoding=utf-8
 set fileencoding=utf-8
 
-"set hls             " Search highlighting
-"set cindent         " Indent curly braces
-"set wildmenu
-"set nowrap          " Don't wrap text
-"set list            " Show hidden characters
-"set smartindent     " Intelligent indentation
+" Disabled rules
+" set ruler           " Always show info at bottom of screen
+" set hls             " Search highlighting
+" set cindent         " Indent curly braces
+" set wildmenu
+" set nowrap          " Don't wrap text
+" set list            " Show hidden characters
+" set smartindent     " Intelligent indentation
 
 " Unicode options
 if has("multi_byte")
@@ -77,19 +103,7 @@ if has("multi_byte")
   " is set to a Unicode value)
 endif " has("multi_byte")
 
-" Enable syntax highlighting for non standard file types
-au BufNewFile,BufRead *.less set filetype=css
-au BufNewFile,BufRead *.jst  set filetype=html
-au BufNewFile,BufRead *.ejs  set filetype=html
-au BufNewFile,BufRead *.jade set filetype=html
-au BufNewFile,BufRead *.hbs  set filetype=html
-au BufNewFile,BufRead Guardfile set filetype=ruby
-
-autocmd ColorScheme * highlight NonText ctermbg=None
-autocmd ColorScheme * highlight Normal ctermbg=None
-
-" INDENTATION
-" -----------
+" Indentation
 autocmd FileType * set tabstop=2|set shiftwidth=2|set expandtab
 autocmd FileType make set noexpandtab
 autocmd FileType php set expandtab
@@ -100,74 +114,51 @@ autocmd FileType c set noexpandtab
 " Spell check commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" Indent guides
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=black
 
-" Disable background color from theme
-hi Normal ctermbg=none
+" 4. KEYBOARD MAPPINGS
+" --------------------
 
-" KEYBOARD MAPPINGS
-" -----------------
 map <C-B><C-B> :NERDTreeToggle<CR>
-"Reload all buffers
+
+" Reload all buffers
 map <C-Y><C-Y> :bufdo e<CR>
 
-"Disable line joinin command because I do it accidentally
-"all the time and never really use it intentionally
+" Disable line joining command because I do it accidentally
+" all the time and never really use it intentionally
 map <S-j> <Nop>
 
 nmap <C-N><C-N> :set invnumber<CR>
 nmap <C-e> :e#<CR>
 nmap <C-L><C-L> :set list!<CR>
-"imap jj <esc>
+
 cmap <C-b> <left>
 cmap <C-f> <right>
 
-" CTRL-P SETTINGS
+
+" 5. PLUGIN CONFIGURATIONS
+" ------------------------
+
+" Ctrl-P
 let g:ctrlp_custom_ignore = {
   \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|cookbooks\|build\|flow',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
-" MISC
-" ----
-
 " NERDTree
 let NERDTreeShowHidden=1
-"let g:NERDTreeWinSize=25
+" let g:NERDTreeWinSize=25
 
+" Syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:syntastic_scss_sass_quiet_messages = {"regex":"File to import not found or unreadable"}
-
-"eslint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
-"let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-
-"Yankring history file location
-"TODO: Do we need really need yankring?
-let g:yankring_history_dir = '~/tmp'
-
-" NOTE: What's this for?
-fun! MySys()
-  return "mac"
-endfun
-
-"helptags ~/.vim_runtime/doc
-
-set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
-
-" Store plugins and colorschemes in .vim
-call pathogen#infect()
-
-" Enable filetype plguins
-filetype plugin indent on
-
-" 80 character highlighting
-highlight ColorColumn ctermbg=darkred
-call matchadd('ColorColumn', '\%81v', 100)
+" Use the_silver_searcher with ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif

@@ -32,6 +32,9 @@ git clone --depth=1 https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim
 git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
 git clone --depth=1 https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone --depth=1 https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
+git clone --depth=1 https://github.com/tpope/vim-rails.git ~/.vim/bundle/vim-rails
+git clone --depth=1 https://github.com/junegunn/goyo.vim ~/.vim/bundle/goyo.vim
+git clone --depth=1 https://github.com/mileszs/ack.vim ~/.vim/bundle/ack.vim
 
 # Other stuff
 brew cask install macdown

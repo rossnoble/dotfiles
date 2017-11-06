@@ -24,6 +24,9 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
+# Local binaries
+export PATH="$HOME/bin:$PATH"
+
 # Enables color for iTerm
 export TERM=xterm-color
 

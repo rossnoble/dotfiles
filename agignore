@@ -6,3 +6,4 @@ yarn.lock
 *.svg
 vendor*
 _vendor*
+spec/examples.txt
