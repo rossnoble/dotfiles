@@ -1,11 +1,5 @@
-[user]
-  name = Ross Noble
-  email = rosshnoble@gmail.com
-[github]
-  user = rossnoble
-  token = 3b88656cb3d0c4e4b831b859632cf266
-[credential]
-	helper = osxkeychain
+[include]
+  path = ./gitconfig.local
 [alias]
   st = status
   cm = commit
@@ -36,6 +30,11 @@
 [mergetool "diffmerge"]
   cmd = diffmerge --merge\n--result=$MERGED $LOCAL $BASE $REMOTE
   trustExitCode = true
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[mergetool]
+  prompt = false
 [diff]
   tool = Kaleidoscope
 [color]
@@ -50,13 +49,6 @@
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
   prompt = false
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
-[mergetool]
-  prompt = false
-#[commit]
-#  template = ~/.gitmessage
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
