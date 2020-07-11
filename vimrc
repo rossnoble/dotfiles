@@ -5,7 +5,9 @@
 " ----------
 
 " Store plugins and colorschemes in .vim
-set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
+" set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
+" set runtimepath+=~/vim-airline
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 " Currently using Pathogen for bundle/plugin management
 call pathogen#infect()
@@ -47,9 +49,13 @@ au BufNewFile,BufRead *.ejs  set filetype=html
 au BufNewFile,BufRead *.jade set filetype=html
 au BufNewFile,BufRead *.hbs  set filetype=html
 au BufNewFile,BufRead Guardfile set filetype=ruby
+au BufNewFile,BufRead *.tsx set filetype=typescript
+au BufNewFile,BufRead *.ts set filetype=typescript
+" set filetypes as typescript.tsx
+au BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-autocmd ColorScheme * highlight NonText ctermbg=None
-autocmd ColorScheme * highlight Normal ctermbg=None
+au ColorScheme * highlight NonText ctermbg=None
+au ColorScheme * highlight Normal ctermbg=None
 
 
 " 3. SETTINGS
@@ -114,7 +120,6 @@ autocmd FileType c set noexpandtab
 " Spell check commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-
 " 4. KEYBOARD MAPPINGS
 " --------------------
 
@@ -140,25 +145,38 @@ cmap <C-f> <right>
 
 " Ctrl-P
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|cookbooks\|build\|flow',
+  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|cookbooks\|build\|flow\|_site',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
 " NERDTree
 let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.DS_Store$']
 " let g:NERDTreeWinSize=25
 
 " Syntastic
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-let g:syntastic_scss_sass_quiet_messages = {"regex":"File to import not found or unreadable"}
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
+"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+"let g:syntastic_ruby_checkers = ['rubocop']
+"let g:syntastic_check_on_open=1
+"let g:syntastic_enable_signs=1
+"let g:syntastic_scss_sass_quiet_messages = {"regex":"File to import not found or unreadable"}
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:statline_syntastic = 0
 
 " Use the_silver_searcher with ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" Vim Plug
+" https://github.com/junegunn/vim-plug
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+call plug#end()

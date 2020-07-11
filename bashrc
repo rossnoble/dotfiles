@@ -2,6 +2,9 @@ if [ -f ~/.bash_private ]; then
   source ~/.bash_private
 fi
 
+# Hide warning about zsh being the new default
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Enables color highlighting
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad
@@ -11,12 +14,20 @@ export MYSQL_SOCKET='/tmp/mysql.sock'
 
 # Postgres
 export PGHOST=localhost
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # Yarn binaries
 # export PATH="/usr/local/Cellar/node@6/6.10.3/bin:$PATH"
+
+# Link to PHP via Homebrew
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+# PHP Composer
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Add Go to PATH and set GOPATH
 export GOPATH=$HOME/Code/golang
@@ -27,6 +38,18 @@ export PATH=$PATH:$GOROOT/bin
 # Local binaries
 export PATH="$HOME/bin:$PATH"
 
+# Homebrew sbins
+export PATH="/usr/local/sbin:$PATH"
+
+# OpenSSL support
+export PATH="/usr/local/opt/openssl@1.0/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl@1.0/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.0/include"
+
+# Volta for node
+export VOLTA_HOME="/Users/ross/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # Enables color for iTerm
 export TERM=xterm-color
 
@@ -36,14 +59,27 @@ export EDITOR=vim
 # Show user@server path (git branch)
 export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__git_ps1 " (%s)")$ '
 
+# NVM (Node Version Manager)
+# export NVM_DIR="$HOME/.nvm"
+# Load NVM
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Load NVM bash_completion
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
 # NOTE: chruby is also sourced in /etc/bashrc
 if [ -f /usr/local/share/chruby/chruby.sh ]; then
   source /usr/local/share/chruby/chruby.sh
 fi
-if [ -f /usr/local/share/chruby/auto.sh ]; then
-  source /usr/local/share/chruby/auto.sh
+
+# Enable auto-switching of Rubies specified by .ruby-version files
+if [ -f /usr/local/opt/chruby/share/chruby/auto.sh ]; then
+  source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
 
 # gem_home for gemset management
@@ -73,7 +109,7 @@ if [ -f /usr/local/etc/bash_completion.d/pass ]; then
 fi
 
 # Default ruby version
-# chruby ruby-2.3.1
+chruby 'ruby-2.3.1'
 
 # z
 if [ -f /usr/local/etc/profile.d/z.sh ]; then
@@ -90,25 +126,31 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias ls='ls -l'
+alias ls='ls -lAh'
+alias find='gfind'
 alias dotfiles='cd ~/.dotfiles'
 alias bashrc='vim ~/.bashrc'
 alias sobashrc='source ~/.bashrc'
 alias bash_private='vim ~/.bash_private'
 alias vimrc='vim ~/.vimrc'
+alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
 alias tconfig='vim ~/.tmux.conf'
 alias hosts='sudo vim /etc/hosts'
 alias gohome='cd ~/Code/Go/src/github.com/rossnoble'
 
+# Tmux
 alias tmux="tmux -2"
 alias tat='tmux new-session -As "$(basename "$PWD" | tr . -)"'
 alias tlist="tmux list-sessions"
-alias routes='rake routes > routes.txt && mate routes.txt'
 
+# Toggle hidden files
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
 alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO'
+
+alias routes='rake routes > routes.txt && mate routes.txt'
+alias be='bundle exec'
 
 alias mampsql='/Applications/MAMP/Library/bin/mysql -uroot -proot'
 alias genpass='openssl rand -base64 15'
@@ -146,7 +188,7 @@ function run_bundler_cmd() {
   fi
 }
 
-bundle_commands=( rake rspec spec cucumber cap watchr rails rackup )
+bundle_commands=( rake rspec spec cucumber cap watchr rails rackup jekyll )
 for cmd in $bundle_commands
 do
   alias $cmd="run_bundler_cmd $cmd"

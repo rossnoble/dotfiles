@@ -9,12 +9,16 @@
   co = checkout
   cp = cherry-pick
   m = merge
-  p = pull
+  rb = rebase
+  rbs = rebase --skip
+  rbc = rebase --continue
+  rba = rebase --abort
   nb = checkout -b
   db = br -d
+  p = pull
+  pr = pull --rebase
   pom = pull origin master
-  poa = pull origin alpha
-  rhead = reset HEAD
+  rh = reset HEAD
   rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
   aa = add -u
   lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
@@ -45,11 +49,18 @@
   meta = blue black bold
 [core]
 	excludesfile = /Users/ross/.gitignore_global
+	autocrlf = input
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
   prompt = false
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
   required = true
+	process = git-lfs filter-process
+[user]
+	name = Ross Noble
+	email = rosshnoble@gmail.com
+[pull]
+	rebase = true
