@@ -18,6 +18,7 @@
   p = pull
   pr = pull --rebase
   pom = pull origin master
+  pod = pull origin develop
   rh = reset HEAD
   rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
   aa = add -u
