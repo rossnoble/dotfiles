@@ -7,3 +7,4 @@ yarn.lock
 vendor*
 _vendor*
 spec/examples.txt
+dist

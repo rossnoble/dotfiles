@@ -1,6 +1,7 @@
 [include]
   path = ./gitconfig.local
 [alias]
+  # Every day shortcuts
   st = status
   cm = commit
   df = diff
@@ -10,24 +11,34 @@
   cp = cherry-pick
   m = merge
   rb = rebase
+  unstage = reset HEAD
+  us = reset HEAD 
+  new-branch = checkout -b
+  nb = checkout -b 
+  pull-current = "!git pull origin $(git branch-name)"
+
+  # Rebase utils
+  pr = pull --rebase
   rbs = rebase --skip
   rbc = rebase --continue
   rba = rebase --abort
-  nb = checkout -b
-  db = br -d
-  p = pull
-  pr = pull --rebase
+
+  # Development workflows
   pom = pull origin master
   pod = pull origin develop
-  rh = reset HEAD
-  rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
-  aa = add -u
-  lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
-  graph = log -20 --pretty=format:"%h%x20%x2D%x20%s%x20%x20%x20%x28%cd%x20%x7C%x20%an%x29" --date=relative --graph
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+  # General utils
+  branch-name = rev-parse --abbrev-ref HEAD # current branch name
+  unpublish = "!git push origin :$(git branch-name)"
   cleanup = !git remote prune origin && git gc && git stash clear
-  deploy = push heroku master # for heroku apps
+  deploy-heroku = push heroku master # for heroku apps
+
+  # Logging
+  lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
+  lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+  # Breathe Life
+  push-sandbox = "!git push -f origin \"$(git rev-parse --abbrev-ref HEAD)\":breathe-sandbox-ross"
 [push]
   default = current
 [merge]
@@ -49,19 +60,19 @@
 [color "status"]
   meta = blue black bold
 [core]
-	excludesfile = /Users/ross/.gitignore_global
-	autocrlf = input
+  excludesfile = /Users/ross/.gitignore_global
+  autocrlf = input
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
   prompt = false
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   required = true
-	process = git-lfs filter-process
+  process = git-lfs filter-process
 [user]
-	name = Ross Noble
-	email = rosshnoble@gmail.com
+  name = Ross Noble
+  email = rosshnoble@gmail.com
 [pull]
-	rebase = true
+  rebase = true
