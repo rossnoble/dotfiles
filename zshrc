@@ -29,12 +29,8 @@ export EDITOR=vim
 source ~/.dotfiles/lib/zsh-git-prompt/zshrc.sh
 PROMPT='%B%m%~%b$(git_super_status) %# '
 
-#  PROMPT='... $(git_prompt_info) ...'
-
-# Custom modifications to git completion to ignore tags
-# if [ -f ~/.dotfiles/git-completion.bash ]; then
-#   source ~/.dotfiles/git-completion.bash
-# fi
+# Git tab completion
+autoload -Uz compinit && compinit
 
 # z browzing utility
 if [ -f /usr/local/etc/profile.d/z.sh ]; then
@@ -52,7 +48,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias ls='ls -lAh'
-alias find='gfind'
+# alias find='gfind'
 
 # Shortcuts to dotfiles
 alias dotfiles='cd ~/.dotfiles'
@@ -63,9 +59,12 @@ alias zshrc='vim ~/.zshrc'
 alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
-alias tconfig='vim ~/.tmux.conf'
-alias hosts='sudo vim /etc/hosts'
+alias tmuxconf='vim ~/.tmux.conf'
+
+alias sozshrc='source ~/.zshrc'
 alias sobashrc='source ~/.bashrc'
+
+alias hosts='sudo vim /etc/hosts'
 
 # Tmux
 alias tmux="tmux -2"
@@ -98,3 +97,6 @@ fi
 if [ -f /Users/ross/google-cloud-sdk/completion.bash.inc ]; then
   source '/Users/ross/google-cloud-sdk/completion.bash.inc'
 fi
+
+export YVM_DIR=/Users/ross/.yvm
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh

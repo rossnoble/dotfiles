@@ -46,29 +46,11 @@ export PATH="/usr/local/opt/openssl@1.0/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/openssl@1.0/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl@1.0/include"
 
-# Volta for node
-export VOLTA_HOME="/Users/ross/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 # Enables color for iTerm
-export TERM=xterm-color
+# export TERM=xterm-color
 
 # Set the default editor to vim
 export EDITOR=vim
-
-# Show user@server path (git branch)
-export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__git_ps1 " (%s)")$ '
-
-# NVM (Node Version Manager)
-# export NVM_DIR="$HOME/.nvm"
-# Load NVM
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# Load NVM bash_completion
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Chruby scripts and config
 # http://zaiste.net/2013/04/towards_simplicity_from_rbenv_to_chruby/
@@ -100,6 +82,9 @@ fi
 # Sets up the prompt color (currently a green similar to linux terminal)
 if [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
   source /usr/local/etc/bash_completion.d/git-prompt.sh
+
+  # Show user@server path (git branch)
+  export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\W\[\033[00m\]$(__git_ps1 " (%s)")$ '
 fi
 
 # pass password manager
@@ -109,7 +94,7 @@ if [ -f /usr/local/etc/bash_completion.d/pass ]; then
 fi
 
 # Default ruby version
-chruby 'ruby-2.3.1'
+# chruby 'ruby-2.3.1'
 
 # z
 if [ -f /usr/local/etc/profile.d/z.sh ]; then
@@ -216,3 +201,14 @@ fi
 if [ -f /Users/ross/google-cloud-sdk/completion.bash.inc ]; then
   source '/Users/ross/google-cloud-sdk/completion.bash.inc'
 fi
+
+# Volta for node
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+export YVM_DIR=/Users/ross/.yvm
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
