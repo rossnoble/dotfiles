@@ -1,15 +1,45 @@
 " VIMRC CONFIGURATION
 " ===================
+"
+" 1. PACKAGES
+" -----------
+"
+" Vim Plug
+" https://github.com/junegunn/vim-plug
 
-" 1. GENERAL
-" ----------
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'preservim/nerdtree'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'ap/vim-css-color'
+Plug 'dense-analysis/ale'
+Plug 'mileszs/ack.vim'
+
+" Experimental
+Plug 'kana/vim-textobj-user'
+Plug 'fvictorio/vim-textobj-backticks'
+
+call plug#end()
+
+" GENERAL
+" -------
+
+" Use the_silver_searchr with Ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " Store plugins and colorschemes in .vim
-" set runtimepath=~/.vim_runtime,~/.vim_runtime/after,\$VIMRUNTIME,~/.vim,~/.vimrc,~/.vim/bundle/ctrlp.vim
-" set runtimepath+=~/vim-airline
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
-" Currently using Pathogen for bundle/plugin management
+" TODO: Migrate all plugin to Plug
 call pathogen#infect()
 
 syntax on
@@ -19,8 +49,11 @@ filetype plugin off
 filetype indent off
 filetype plugin indent on
 
+" Show full file name
+set statusline=%F
+set title
 
-" 2. THEMING
+" THEMING
 " ----------
 
 colorscheme grb256
@@ -58,7 +91,7 @@ au ColorScheme * highlight NonText ctermbg=None
 au ColorScheme * highlight Normal ctermbg=None
 
 
-" 3. SETTINGS
+" SETTINGS
 " -----------
 
 set t_Co=256        " Enable 256-colors
@@ -80,7 +113,7 @@ set laststatus=2    " Always show status line
 set backspace=indent,eol,start "Allow backspace to overwrite"
 set noshowmode      " Hide status bar
 set encoding=utf-8
-set fileencoding=utf-8
+" set fileencoding=utf-8
 
 " Disabled rules
 " set ruler           " Always show info at bottom of screen
@@ -116,6 +149,9 @@ autocmd FileType php set expandtab
 autocmd FileType less set noexpandtab
 autocmd FileType jade set noexpandtab
 autocmd FileType c set noexpandtab
+" Typescript syntax highlighting
+autocmd FileType typescript JsPreTmpl
+autocmd FileType typescript syn clear foldBraces
 
 " Spell check commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
@@ -140,43 +176,31 @@ cmap <C-b> <left>
 cmap <C-f> <right>
 
 
-" 5. PLUGIN CONFIGURATIONS
+" PLUGIN CONFIGURATIONS
 " ------------------------
 
 " Ctrl-P
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|tmp\|cookbooks\|build\|flow\|_site',
+  \ 'dir':  'git\|hg\|node_modules\|coverage\|vendor\|dist\|tmp\|cookbooks\|build\|flow\|_site',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 
 " NERDTree
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.DS_Store$']
-" let g:NERDTreeWinSize=25
+let g:NERDTreeWinSize=25
 
 " Syntastic
-"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-"let g:syntastic_ruby_checkers = ['rubocop']
-"let g:syntastic_check_on_open=1
-"let g:syntastic_enable_signs=1
-"let g:syntastic_scss_sass_quiet_messages = {"regex":"File to import not found or unreadable"}
-"let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:statline_syntastic = 0
+
+" Prettier
+let g:prettier#config#print_width = 80
 
 " Use the_silver_searcher with ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" Vim Plug
-" https://github.com/junegunn/vim-plug
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-call plug#end()
+" ALE settings
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
