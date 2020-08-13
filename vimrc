@@ -1,31 +1,6 @@
 " VIMRC CONFIGURATION
 " ===================
-"
-" 1. PACKAGES
-" -----------
-"
-" Vim Plug
-" https://github.com/junegunn/vim-plug
 
-call plug#begin('~/.vim/plugged')
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'preservim/nerdtree'
-Plug 'cormacrelf/vim-colors-github'
-Plug 'ap/vim-css-color'
-Plug 'dense-analysis/ale'
-Plug 'mileszs/ack.vim'
-
-" Experimental
-Plug 'kana/vim-textobj-user'
-Plug 'fvictorio/vim-textobj-backticks'
-
-call plug#end()
 
 " GENERAL
 " -------
@@ -37,10 +12,6 @@ endif
 
 " Store plugins and colorschemes in .vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-" TODO: Migrate all plugin to Plug
-call pathogen#infect()
 
 syntax on
 
@@ -86,6 +57,12 @@ au BufNewFile,BufRead *.tsx set filetype=typescript
 au BufNewFile,BufRead *.ts set filetype=typescript
 " set filetypes as typescript.tsx
 au BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+" Enable rescanning of syntax highlighting
+" Comes with a performance hit, so consider disabling
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 au ColorScheme * highlight NonText ctermbg=None
 au ColorScheme * highlight Normal ctermbg=None
@@ -186,9 +163,9 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 " NERDTree
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden = 1
 let NERDTreeIgnore=['\.DS_Store$']
-let g:NERDTreeWinSize=25
+let g:NERDTreeWinSize = 40
 
 " Syntastic
 let g:statline_syntastic = 0
@@ -202,5 +179,90 @@ if executable('ag')
 endif
 
 " ALE settings
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
+" let g:ale_set_balloons = 1
+" let g:ale_set_highlights = 0
+" let g:ale_enabled = 0
+
+let g:airline#extensions#ale#enabled = 1
+
+" Experimental enabling of mouse hover
+set mouse=a
+set ttymouse=xterm
+
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
+" CoC packages
+" https://github.com/neoclide/coc.nvim
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+function! ShowDocIfNoDiagnostic(timer_id)
+  if (coc#util#has_float() == 0)
+    silent call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:show_hover_doc()
+  call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to
+" noticeable delays and poor user experience.
+set updatetime=2000
+
+" PACKAGES
+" -----------
+" Vim Plug
+" https://github.com/junegunn/vim-plug
+
+call plug#begin('~/.vim/plugged')
+
+"NERDTree sidebar
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Status line tools
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" JavaScript and Typescript support
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'styled-components/vim-styled-components'
+Plug 'jparise/vim-graphql'
+
+" Linting and code formatting
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'dense-analysis/ale'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'ap/vim-css-color'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Search tools
+Plug 'mileszs/ack.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Experimental
+Plug 'kana/vim-textobj-user'
+Plug 'fvictorio/vim-textobj-backticks'
+
+call plug#end()

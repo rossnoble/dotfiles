@@ -1,3 +1,4 @@
 .DS_Store
-vim/bundle/*
 *.local
+vim/bundle/*
+vim/plugged/*
