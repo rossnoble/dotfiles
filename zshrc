@@ -1,3 +1,5 @@
+bindkey -e
+
 # Enables color highlighting
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad

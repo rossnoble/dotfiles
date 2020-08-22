@@ -14,8 +14,9 @@
   unstage = reset HEAD
   us = reset HEAD 
   new-branch = checkout -b
-  nb = checkout -b 
+  nb = new-branch
   pull-current = "!git pull origin $(git branch-name)"
+  pc = pull-current
 
   # Rebase utils
   pr = pull --rebase
