@@ -8,3 +8,7 @@ vendor*
 _vendor*
 spec/examples.txt
 dist
+node_modules
+build
+coverage
+storybook-static
