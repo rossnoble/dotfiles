@@ -10,13 +10,14 @@ function git_branch() {
   if [[ $branch == "" ]]; then
     :
   else
-    echo '('$branch') '
+    echo "($branch)"
   fi
 }
 
 # Allow command substitution inside the prompt
 setopt prompt_subst
 
+# PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
 PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
 
 # Color highlighting for terminal
