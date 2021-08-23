@@ -27,6 +27,7 @@
   # Development workflows
   pom = pull origin master
   pod = pull origin develop
+  pos = pull origin staging
 
   # General utils
   branch-name = rev-parse --abbrev-ref HEAD # current branch name

@@ -3,6 +3,22 @@
 
 export DOTFILES_DIR=~/Code/dotfiles
 
+# Simple git branch prompt display
+# Source: https://danishpraka.sh/2018/07/06/git-branch-zsh.html
+function git_branch() {
+  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  if [[ $branch == "" ]]; then
+    :
+  else
+    echo '('$branch') '
+  fi
+}
+
+# Allow command substitution inside the prompt
+setopt prompt_subst
+
+PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
+
 # Color highlighting for terminal
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad
