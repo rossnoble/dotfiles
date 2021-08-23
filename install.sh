@@ -8,12 +8,6 @@
 # XCode support
 xcode-select --install
 
-# Dev tools
-brew install git
-brew install tmux
-brew install z
-brew install the_silver_searcher
-
 # Create symlinks for dotfiles
 ln -s ~/Code/dotfiles/zshrc ~/.zshrc
 ln -s ~/Code/dotfiles/vimrc ~/.vimrc
@@ -22,14 +16,18 @@ ln -s ~/Code/dotfiles/gitconfig ~/.gitconfig
 ln -s ~/Code/dotfiles/gitignore_global ~/.gitignore_global
 ln -s ~/Code/dotfiles/tmux.conf ~/.tmux.conf
 
-# Node stuff
-# TODO: Consider using Volta (https://volta.sh)
+# Dev tools
+brew install git
+brew install tmux
+brew install z
+brew install the_silver_searcher
+brew install rbenv
 
-# NVM for node version management
+# Node stuff
+# Install nvm, the latest node (with npm) and yarn
+# TODO: Consider using Volta (https://volta.sh)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v1.38.0/install.sh | bash
-# Latest node (with NPM)
 nvm install node
-# Yarn for package management
 npm install yarn
 
 # Dev applications

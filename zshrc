@@ -17,7 +17,6 @@ function git_branch() {
 # Allow command substitution inside the prompt
 setopt prompt_subst
 
-# PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
 PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
 
 # Color highlighting for terminal
@@ -27,8 +26,9 @@ export LSCOLORS=GxFxCxDxBxegedabagacad
 # Set the default editor to vim
 export EDITOR=vim
 
-# Homebrew if not installed in usr/local
-export PATH="/opt/homebrew/bin:$PATH"
+# Add homebrew to path. Will not work on M1 which requires /usr/local instead.
+# https://nhancv.medium.com/macbook-pro-m1-homebrew-install-error-7170e4816894
+# export PATH="/opt/homebrew/bin:$PATH"
 
 # Local binaries
 export PATH="/usr/local/sbin:$PATH"
@@ -39,6 +39,9 @@ local Z_PATH=/opt/homebrew/etc/profile.d/z.sh
 
 # Git tab completion
 autoload -Uz compinit && compinit
+
+# Init rbenv
+eval "$(rbenv init -)"
 
 # UTILITY ALIASES
 # -----------------
@@ -140,7 +143,3 @@ export NVM_DIR="$HOME/.nvm"
 # if [ -f /Users/ross/google-cloud-sdk/completion.bash.inc ]; then
 #   source '/Users/ross/google-cloud-sdk/completion.bash.inc'
 # fi
-
-# Yarn version manager
-# export YVM_DIR=/Users/ross/.yvm
-# [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh

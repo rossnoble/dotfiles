@@ -1,3 +1,7 @@
+####################################
+## DEPRECATED. USE ZSHRC INSTEAD. ##
+####################################
+
 if [ -f ~/.bash_private ]; then
   source ~/.bash_private
 fi
