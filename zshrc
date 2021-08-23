@@ -1,67 +1,32 @@
-bindkey -e
+# CORE ZSH CONFIGS
+# -----------------
 
-# Enables color highlighting
+export DOTFILES_DIR=~/Code/dotfiles
+
+# Color highlighting for terminal
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad
-
-# MySQL socket location
-export MYSQL_SOCKET='/tmp/mysql.sock'
-
-# Postgres
-export PGHOST=localhost
-export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
-
-# Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-# Local binaries
-export PATH="$HOME/bin:$PATH"
-
-# Homebrew sbins
-export PATH="/usr/local/sbin:$PATH"
-
-# Volta for node
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Set the default editor to vim
 export EDITOR=vim
 
-# Breathelife secrets
-export CONFIG_SECRETS_PATH="$HOME/Code/bliss/.secrets/config.json"
+# Homebrew if not installed in usr/local
+export PATH="/opt/homebrew/bin:$PATH"
 
-# Prompt with git support
-source ~/.dotfiles/lib/zsh-git-prompt/zshrc.sh
-PROMPT='%B%m%~%b$(git_super_status) %# '
+# Local binaries
+export PATH="/usr/local/sbin:$PATH"
 
-# GCloud
-export CLOUDSDK_PYTHON="$(brew --prefix)/opt/python@3.8/libexec/bin/python"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
-# Coverage reporters for bliss
-export JEST_COVERAGE_REPORTERS=html
-
-# PubSub hostname
-export PUBSUB_EMULATOR_HOST=localhost:8085
-
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.local-sandbox-sa-key.json"
+# z browzing utility
+local Z_PATH=/opt/homebrew/etc/profile.d/z.sh
+[ -r $Z_PATH ] && source $Z_PATH
 
 # Git tab completion
 autoload -Uz compinit && compinit
 
-# z browzing utility
-if [ -f /usr/local/etc/profile.d/z.sh ]; then
-  source /usr/local/etc/profile.d/z.sh
-fi
+# UTILITY ALIASES
+# -----------------
 
-## Aliases
-alias ag='ag --path-to-ignore ~/.agignore'
-
-alias pgstart="brew services start postgresql"
-alias pgstop="brew services stop postgresql"
-alias pgrestart="brew services restart postgresql"
-
+# Navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -70,21 +35,32 @@ alias ls='ls -lAh'
 # alias find='gfind'
 
 # Shortcuts to dotfiles
-alias dotfiles='cd ~/.dotfiles'
-alias bashrc='vim ~/.bashrc'
-alias bash_private='vim ~/.bash_private'
+alias dotfiles="cd ${DOTFILES_DIR}"
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
+alias zshrc_local='vim ~/.zshrc_local'
+alias sozshrc='source ~/.zshrc'
+alias sozshrc_local='source ~/.zshrc_local'
 alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
 alias tmuxconf='vim ~/.tmux.conf'
-alias cocsettings='vim ~/.dotfiles/vim/coc-settings.json'
-
-alias sozshrc='source ~/.zshrc'
-alias sobashrc='source ~/.bashrc'
-
+alias cocsettings="vim ${DOTFILES_DIR}/vim/coc-settings.json"
 alias hosts='sudo vim /etc/hosts'
+
+# MacOS
+alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
+alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO'
+alias enable_sleep='sudo pmset disablesleep 0'
+alias disable_sleep='sudo pmset disablesleep 1'
+
+# Silver searcher
+alias ag='ag --path-to-ignore ~/.agignore'
+
+# Postgres
+alias pgstart="brew services start postgresql"
+alias pgstop="brew services stop postgresql"
+alias pgrestart="brew services restart postgresql"
 
 # Tmux
 alias tmux="tmux -2"
@@ -97,21 +73,47 @@ function tkill() {
   echo "Killed session ${1}"
 }
 
-# Toggle hidden files
-alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
-alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO'
-
-alias enable_sleep='sudo pmset disablesleep 0'
-alias disable_sleep='sudo pmset disablesleep 1'
-
-# server starts a static file server on the given port
+# Python static files server on the given port
 function server() {
   local port="${1:-8000}"
   open "http://localhost:${port}/"
   python -m SimpleHTTPServer "${port}"
 }
 
+# LOCAL ZSH CONFIGS
+# -----------------
 
+# Uncomment any as needed. Add custom configurations to .zshrc_local
+# that are unlikely to be shared between machines (see below) or contain
+# private/sensitive data.
+
+# Local zshrc configurations
+export ZSHRC_LOCAL_PATH=~/.zshrc_local
+[ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# MySQL socket location
+# export MYSQL_SOCKET='/tmp/mysql.sock'
+
+# Postgres (uncomment if using)
+# export PGHOST=localhost
+# export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
+
+# Heroku Toolbelt
+# export PATH="/usr/local/heroku/bin:$PATH"
+
+# Volta for node
+# export VOLTA_HOME="$HOME/.volta"
+# export PATH="$VOLTA_HOME/bin:$PATH"
+
+# GCloud SDK
+# export CLOUDSDK_PYTHON="$(brew --prefix)/opt/python@3.8/libexec/bin/python"
+# source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+# source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+#
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f /Users/ross/google-cloud-sdk/path.bash.inc ]; then
 #   source '/Users/ross/google-cloud-sdk/path.bash.inc'
@@ -122,6 +124,6 @@ function server() {
 #   source '/Users/ross/google-cloud-sdk/completion.bash.inc'
 # fi
 
-export YVM_DIR=/Users/ross/.yvm
-[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
-
+# Yarn version manager
+# export YVM_DIR=/Users/ross/.yvm
+# [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh

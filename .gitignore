@@ -2,3 +2,4 @@
 *.local
 vim/bundle/*
 vim/plugged/*
+vim/.netrwhist
