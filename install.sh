@@ -21,7 +21,10 @@ brew install git
 brew install tmux
 brew install z
 brew install the_silver_searcher
+
+# Ruby stuff
 brew install rbenv
+rbenv init
 
 # Node stuff
 # Install nvm, the latest node (with npm) and yarn
@@ -39,14 +42,14 @@ brew install --cask brave
 brew install --cask visual-studio-code
 brew install --cask tower
 brew install --cask kaleidoscope
+brew install --cask spotify
 brew install --cask karabiner-elements
+brew install --cask slack
 
 # Other applications
-# brew install --cask spotify
 # brew install --cask notion
 # brew install --cask vlc
 # brew install --cask zoom
-# brew install --cask slack
 # brew install --cask dropbox
 
 # Ruby stuff
