@@ -75,6 +75,6 @@
   process = git-lfs filter-process
 [user]
   name = Ross Noble
-  email = rosshnoble@gmail.com
+  email = rnoble@fastmail.com
 [pull]
   rebase = true
