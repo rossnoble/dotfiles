@@ -38,6 +38,7 @@ brew install --cask 1password
 brew install --cask iterm2
 brew install --cask alfred
 brew install --cask macdown
+brew install --cask the-clock
 brew install --cask brave
 brew install --cask visual-studio-code
 brew install --cask tower
@@ -51,6 +52,7 @@ brew install --cask slack
 # brew install --cask vlc
 # brew install --cask zoom
 # brew install --cask dropbox
+# brew install --cask soulver
 
 # Ruby stuff
 # TODO: Update and use rbenv instead
