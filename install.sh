@@ -33,21 +33,25 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v1.38.0/install.sh | bash
 nvm install node
 npm install yarn
 
-# Dev applications
+# Applications
+
+# Core
 brew install --cask 1password
 brew install --cask iterm2
 brew install --cask alfred
 brew install --cask macdown
-brew install --cask the-clock
 brew install --cask brave
-brew install --cask visual-studio-code
-brew install --cask tower
 brew install --cask kaleidoscope
-brew install --cask spotify
 brew install --cask karabiner-elements
-brew install --cask slack
+brew install --cask spotify
+brew install --cask visual-studio-code
 
-# Other applications
+# Optional
+# brew install --cask figma
+# brew install --cask slack
+# brew install --cask tower
+# brew install --cask react-native-debugger
+# brew install --cask the-clock
 # brew install --cask notion
 # brew install --cask vlc
 # brew install --cask zoom
