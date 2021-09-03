@@ -6,7 +6,7 @@ export DOTFILES_DIR=~/Code/dotfiles
 # Simple git branch prompt display
 # Source: https://danishpraka.sh/2018/07/06/git-branch-zsh.html
 function git_branch() {
-  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
   if [[ $branch == "" ]]; then
     :
   else

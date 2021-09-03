@@ -338,4 +338,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Experimental
 Plug 'kana/vim-textobj-user'
 
+" Support for comments in JSON
+Plug 'kevinoid/vim-jsonc'
+
 call plug#end()
