@@ -43,6 +43,8 @@ npm install yarn
 # brew install --cask macdown
 # brew install --cask brave
 # brew install --cask kaleidoscope
+# brew install --cask imageoptim
+# brew install --cask flux
 # brew install --cask karabiner-elements
 # brew install --cask nordvpn
 # brew install --cask krisp
@@ -60,6 +62,7 @@ npm install yarn
 # brew install --cask soulver
 # brew install --cask visual-studio-code
 # brew install --cask textmate
+# brew install --cask certbot
 
 # Ruby stuff
 # TODO: Update and use rbenv instead

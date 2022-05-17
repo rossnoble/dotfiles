@@ -26,6 +26,8 @@ export LSCOLORS=GxFxCxDxBxegedabagacad
 # Set the default editor to vim
 export EDITOR=vim
 
+export TERM="xterm-256color"
+
 # Add homebrew to path. Will not work on M1 which requires /usr/local instead.
 # https://nhancv.medium.com/macbook-pro-m1-homebrew-install-error-7170e4816894
 # export PATH="/opt/homebrew/bin:$PATH"
@@ -95,7 +97,7 @@ function tkill() {
 
 # Python static files server on the given port
 function server() {
-  local port="${1:-8000}"
+  local port="${1:-1234}"
   open "http://localhost:${port}/"
   python -m SimpleHTTPServer "${port}"
 }

@@ -6,6 +6,7 @@
   cm = commit
   df = diff
   dt = difftool
+  mt = mergetool
   br = branch --sort=committerdate
   co = checkout
   cp = cherry-pick
@@ -28,6 +29,7 @@
   pom = pull origin master
   pod = pull origin develop
   pos = pull origin staging
+  pop = pull origin prod
 
   # General utils
   branch-name = rev-parse --abbrev-ref HEAD # current branch name

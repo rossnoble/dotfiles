@@ -40,6 +40,10 @@ autocmd BufNewFile,BufRead Guardfile   set filetype=ruby
 autocmd BufNewFile,BufRead *.tsx       set filetype=typescript
 autocmd BufNewFile,BufRead *.ts        set filetype=typescript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufRead,BufNewFile Podfile     set filetype=ruby
+
+" Enable comments in json files. See 'kevinoid/vim-jsonc' plugin below
+autocmd BufRead,BufNewFile *.json      set filetype=jsonc
 
 autocmd BufWritePre *.json5 Prettier
 
@@ -98,6 +102,8 @@ set mouse=a         " Enable mouse
 set ttymouse=xterm  " Enable mouse
 " set signcolumn=yes  " Keep sign column open always
 set signcolumn=number " Combine sign column with numbers
+" Use new regular expression engine
+set re=0 " Use new regular expression engine
 
 " set ruler           " Always show info at bottom of screen
 " set hls             " Search highlighting
@@ -133,6 +139,7 @@ autocmd FileType php set expandtab
 autocmd FileType less set noexpandtab
 autocmd FileType jade set noexpandtab
 autocmd FileType c set noexpandtab
+
 " Typescript syntax highlighting
 autocmd FileType typescript JsPreTmpl
 autocmd FileType typescript syn clear foldBraces
@@ -148,6 +155,12 @@ map <C-B><C-B> :NERDTreeToggle<CR>
 " Reload all buffers
 map <C-Y><C-Y> :bufdo e<CR>
 
+" Reimport vimrc
+nmap <C-R><C-V> :so $MYVIMRC<CR>
+
+" Restart COC
+nmap <C-I><C-I> :CocRestart<CR>
+
 " Disable line joining command because I do it accidentally
 " all the time and never really use it intentionally
 map <S-j> <Nop>
@@ -162,16 +175,20 @@ cmap <C-f> <right>
 " PLUGIN CONFIGURATIONS
 " ------------------------
 
-" let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_map = '<C-P>'
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build)|(\.(swp|ico|git|svn|DS_Store))$'
+" All file types
+" let g:ctrlp_cmd = 'CtrlPMixed'
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
 
 " Set root directory
 let g:ctrlp_working_path_mode = 'r'
 
 " Open files already open in new tab
 " let g:ctrlp_switch_buffer = 'et'
+"
+" let g:ctrlp_working_path_mode = 'cra'
 
 " Custom search method
 " let g:ctrlp_user_command = 'find %s -type f'
@@ -187,23 +204,28 @@ let NERDTreeShowHidden = 1
 let NERDTreeIgnore=['\.DS_Store$']
 let g:NERDTreeWinSize = 40
 
+" Vim-Markdown
+" ---
+let g:vim_markdown_folding_disabled = 1
+
 " Syntastic
-" -------
+" ---
 let g:statline_syntastic = 0
 
 " Prettier
-" -------
+" ---
 " let g:prettier#config#print_width = 80
 
 " Ack.vim
 " -------
-nmap <C-M><C-M> :Ack
+" nmap <C-M><C-M> :Ack # Different view handling (buggy)
+nmap <C-M><C-M> :!ag
 
 " map <leader>a :ag
 
 " Use the_silver_searcher with ack.vim
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --path-to-ignore ~/.agignore'
 endif
 
 " COC.vim
@@ -294,7 +316,13 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " let g:ale_fix_on_save = 1
 
 " vim-sort-imports
-let g:import_sort_auto = 1
+" let g:import_sort_auto = 1
+
+" Convert 4 spaces to 2 spaces
+command Convert4SpacesTo2 %s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g
+
+" Convery tabs to 2 spaces
+command ConvertTabsToSpaces %s/\t/  /g
 
 " PACKAGES
 " -----------
@@ -326,9 +354,9 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
-" Plug 'dense-analysis/ale'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
+" Plug 'dense-analysis/ale'
 " Plug 'ruanyl/vim-sort-imports'
 
 " Search tools
@@ -340,5 +368,8 @@ Plug 'kana/vim-textobj-user'
 
 " Support for comments in JSON
 Plug 'kevinoid/vim-jsonc'
+
+" Markdown support
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
