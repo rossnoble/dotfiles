@@ -1,12 +1,12 @@
 # Create symlinks for dotfiles
-./symlinks.sh
+./scripts/symlinks.sh
 
 # Install homebrew
-./homebrew.sh
+./scripts/homebrew.sh
 
 # Install desktop applications
 # Uncomment app list before running
-./applications.sh
+./scripts/applications.sh
 
 # Install development tools
-./developer.sh
+./scripts/developer.sh
