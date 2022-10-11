@@ -14,6 +14,11 @@ function git_branch() {
   fi
 }
 
+function ssh_agent() {
+  eval "$(ssh-agent -s)"
+  ssh-add -K ~/.ssh/id_rsa
+}
+
 # Allow command substitution inside the prompt
 setopt prompt_subst
 

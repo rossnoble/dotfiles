@@ -23,11 +23,16 @@ These are things that are useful but hard to automate.
 3. Update iTerm full screen mode (General > Window > Native full screen windows)
 4. Configure SSH keys for Github: https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
 
-This could be automated:
-
+Generate a public key (this could be automated):
 ```
 mkdir .ssh
 cd .ssh
 ssh-keygen -o -t rsa -C "rnoble@fastmail.com"
 cat ~/.ssh/id_rsa.pub
+```
+
+Start the ssh-agent (manually);
+```
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_rsa
 ```
