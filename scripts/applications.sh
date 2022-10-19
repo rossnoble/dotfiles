@@ -29,6 +29,10 @@ apps=(
   # textmate
   # certbot
   # telegram
+  # bisq
+  # affinity-photo
+  # affinity-publisher
+  # affinity-designer
 )
 
 for app in ${apps[@]}; do

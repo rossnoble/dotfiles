@@ -20,8 +20,10 @@ These are things that are useful but hard to automate.
 
 1. Change Caps Lock key to Control
 2. Update Cmd + Spacebar to open Alfred
-3. Update iTerm full screen mode (General > Window > Native full screen windows)
-4. Configure SSH keys for Github: https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
+3. Set hot corners in MacOS
+4. Update iTerm full screen mode (General > Window > Native full screen windows)
+5. Configure Alfred search scopes
+6. Configure SSH keys for Github: https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
 
 Generate a public key (this could be automated):
 ```

@@ -14,7 +14,7 @@ function git_branch() {
   fi
 }
 
-function ssh_agent() {
+function start_ssh_agent() {
   eval "$(ssh-agent -s)"
   ssh-add -K ~/.ssh/id_rsa
 }
@@ -118,9 +118,18 @@ function server() {
 export ZSHRC_LOCAL_PATH=~/.zshrc_local
 [ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
 
+# Manual install locations
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Homebrew locations
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Init rbenv automatically
+eval "$(rbenv init - zsh)"
 
 # MySQL socket location
 # export MYSQL_SOCKET='/tmp/mysql.sock'
