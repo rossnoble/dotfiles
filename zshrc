@@ -47,8 +47,8 @@ local Z_PATH=/opt/homebrew/etc/profile.d/z.sh
 # Git tab completion
 autoload -Uz compinit && compinit
 
-# Init rbenv
-eval "$(rbenv init -)"
+# Init rbenv automatically
+# eval "$(rbenv init - zsh)"
 
 # UTILITY ALIASES
 # -----------------
@@ -127,9 +127,6 @@ export ZSHRC_LOCAL_PATH=~/.zshrc_local
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
-# Init rbenv automatically
-eval "$(rbenv init - zsh)"
 
 # MySQL socket location
 # export MYSQL_SOCKET='/tmp/mysql.sock'
