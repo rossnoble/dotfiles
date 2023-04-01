@@ -180,7 +180,7 @@ let g:ctrlp_map = '<C-P>'
 " All file types
 " let g:ctrlp_cmd = 'CtrlPMixed'
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
 
 " Set root directory
 let g:ctrlp_working_path_mode = 'r'
@@ -239,6 +239,12 @@ endif
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
+
+" Vim Projectionist
+" https://github.com/tpope/vim-projectionist
+
+" Jump to  test file
+nnoremap <Leader>gt :A<CR>
 
 " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
 " function! ShowDocIfNoDiagnostic(timer_id)
@@ -362,6 +368,9 @@ Plug 'ap/vim-css-color'
 " Search tools
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+
+" Jump to test files
+Plug 'tpope/vim-projectionist'
 
 " Experimental
 Plug 'kana/vim-textobj-user'
