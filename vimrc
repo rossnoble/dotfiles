@@ -347,12 +347,18 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
+" Search and navigation
+Plug 'mileszs/ack.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-projectionist'
+
 " JavaScript and Typescript support
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
+Plug 'prisma/vim-prisma'
 
 " Linting and code formatting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -362,18 +368,12 @@ Plug 'prettier/vim-prettier', {
 
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
+" Prisma file format support
 " Plug 'dense-analysis/ale'
 " Plug 'ruanyl/vim-sort-imports'
 
-" Search tools
-Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-
-" Jump to test files
-Plug 'tpope/vim-projectionist'
-
 " Experimental
-Plug 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-user'
 
 " Support for comments in JSON
 Plug 'kevinoid/vim-jsonc'
