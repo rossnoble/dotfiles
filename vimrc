@@ -36,6 +36,7 @@ autocmd BufNewFile,BufRead *.jst       set filetype=html
 autocmd BufNewFile,BufRead *.ejs       set filetype=html
 autocmd BufNewFile,BufRead *.jade      set filetype=html
 autocmd BufNewFile,BufRead *.hbs       set filetype=html
+autocmd BufNewFile,BufRead *.ftl       set filetype=html
 autocmd BufNewFile,BufRead Guardfile   set filetype=ruby
 autocmd BufNewFile,BufRead *.tsx       set filetype=typescript
 autocmd BufNewFile,BufRead *.ts        set filetype=typescript
@@ -243,7 +244,7 @@ endif
 " Vim Projectionist
 " https://github.com/tpope/vim-projectionist
 
-" Jump to  test file
+" Jump to test file
 nnoremap <Leader>gt :A<CR>
 
 " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim

@@ -74,6 +74,8 @@ alias gitconfig='vim ~/.gitconfig'
 alias tmuxconf='vim ~/.tmux.conf'
 alias cocsettings="vim ${DOTFILES_DIR}/vim/coc-settings.json"
 alias hosts='sudo vim /etc/hosts'
+alias python='python3'
+alias pip='pip3'
 
 # MacOS
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
@@ -114,19 +116,10 @@ function server() {
 # that are unlikely to be shared between machines (see below) or contain
 # private/sensitive data.
 
-# Local zshrc configurations
+# Load local zshrc configurations that should not be checked
+# into shared .zshrc defaults
 export ZSHRC_LOCAL_PATH=~/.zshrc_local
 [ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
-
-# Manual install locations
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Homebrew locations
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # MySQL socket location
 # export MYSQL_SOCKET='/tmp/mysql.sock'
