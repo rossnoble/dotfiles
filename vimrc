@@ -275,7 +275,7 @@ set cmdheight=2
 set shortmess+=c
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -291,39 +291,49 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Quick vim split resizing
-" https://vim.fandom.com/wiki/Resize_splits_more_quickly
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
 " Add `:OR` command for organize imports of the current buffer.
 " command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 command! -nargs=0 OR :call CocAction('runCommand', 'tsserver.organizeImports')
 
 " Use <CR> for confirming import
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " Use <c-space> for confirming import
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
+"
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" ALE
-" let g:ale_fixers = {}
-" let g:ale_fixers.javascript = ['eslint']
-" let g:ale_fixers.typescript = ['eslint']
-" let g:ale_fix_on_save = 1
-
-" vim-sort-imports
 " let g:import_sort_auto = 1
+
+" Quick vim split resizing
+" https://vim.fandom.com/wiki/Resize_splits_more_quickly
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " Convert 4 spaces to 2 spaces
 command Convert4SpacesTo2 %s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g
@@ -369,8 +379,9 @@ Plug 'prettier/vim-prettier', {
 
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
+
+Plug 'vim-scripts/dbext.vim'
 " Prisma file format support
-" Plug 'dense-analysis/ale'
 " Plug 'ruanyl/vim-sort-imports'
 
 " Experimental
