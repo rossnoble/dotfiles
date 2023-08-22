@@ -3,6 +3,8 @@
 
 export DOTFILES_DIR=~/Code/dotfiles
 
+set LANG="en_US.UTF-8"
+
 # Simple git branch prompt display
 # Source: https://danishpraka.sh/2018/07/06/git-branch-zsh.html
 function git_branch() {
