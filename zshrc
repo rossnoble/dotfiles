@@ -68,10 +68,12 @@ alias zshrc='vim ~/.zshrc'
 alias zshrc_local='vim ~/.zshrc_local'
 alias sozshrc='source ~/.zshrc'
 alias sozshrc_local='source ~/.zshrc_local'
+alias tmuxconf='vim ~/.tmux.conf'
+alias sotmux_conf='tmux source ~/.tmux.conf'
+
 alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
-alias tmuxconf='vim ~/.tmux.conf'
 alias cocsettings="vim ${DOTFILES_DIR}/vim/coc-settings.json"
 alias hosts='sudo vim /etc/hosts'
 alias python='python3'
