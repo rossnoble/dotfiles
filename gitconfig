@@ -4,32 +4,35 @@
   # Every day shortcuts
   st = status
   cm = commit
-  df = diff
-  dt = difftool
-  mt = mergetool
   br = branch --sort=committerdate
   co = checkout
+  sw = switch
+  rs = restore
   cp = cherry-pick
   m = merge
   rb = rebase
+
+  df = diff
+  dt = difftool
+  mt = mergetool
+
+  delete-hard = br -D
+  dh = delete-hard
+
   unstage = reset HEAD
-  us = reset HEAD 
-  new-branch = checkout -b
-  nb = new-branch
+  us = unstage
+
   pull-current = "!git pull origin $(git branch-name)"
   pc = pull-current
+
+  new-branch = checkout -b
+  nb = new-branch
 
   # Rebase utils
   pr = pull --rebase
   rbs = rebase --skip
   rbc = rebase --continue
   rba = rebase --abort
-
-  # Development workflows
-  pom = pull origin master
-  pod = pull origin develop
-  pos = pull origin staging
-  pop = pull origin prod
 
   # General utils
   branch-name = rev-parse --abbrev-ref HEAD # current branch name
