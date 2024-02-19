@@ -370,6 +370,7 @@ Plug 'prettier/vim-prettier', {
 
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
+Plug 'jvirtanen/vim-hcl', { 'branch': 'main' }
 " Prisma file format support
 " Plug 'dense-analysis/ale'
 " Plug 'ruanyl/vim-sort-imports'
