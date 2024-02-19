@@ -266,7 +266,7 @@ set hidden
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to
 " noticeable delays and poor user experience.
-set updatetime=4000
+set updatetime=100
 
 " Expand height of bottom nav for more space
 set cmdheight=2
@@ -357,7 +357,8 @@ Plug 'tpope/vim-projectionist'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'Quramy/vim-js-pretty-template'
-Plug 'styled-components/vim-styled-components'
+" Out of date, maybe
+" Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
 Plug 'prisma/vim-prisma'
 

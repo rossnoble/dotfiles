@@ -16,8 +16,10 @@
   dt = difftool
   mt = mergetool
 
-  delete-hard = br -D
-  dh = delete-hard
+  del = br -d
+  delete = br -d
+  fd = br -D
+  force-delete = br -D
 
   unstage = reset HEAD
   us = unstage
@@ -26,7 +28,7 @@
   pc = pull-current
 
   new-branch = checkout -b
-  nb = new-branch
+  new = new-branch
 
   # Rebase utils
   pr = pull --rebase
@@ -43,9 +45,6 @@
   # Logging
   lg = log -20 --pretty=format:'%Cred%h%Creset %x2D %s %Cgreen(%cd)%Creset %Cblue<%an>%Creset' --date=relative --reverse --abbrev-commit
   lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
-
-  # Breathe Life
-  push-sandbox = "!git push -f origin \"$(git rev-parse --abbrev-ref HEAD)\":breathe-sandbox-ross"
 [push]
   default = current
 [merge]
