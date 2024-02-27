@@ -2,25 +2,24 @@
   "$schema": "http://json-schema.org/draft-06/schema",
   "description": "Configuration file for coc.nvim",
   "additionalProperties": false,
-
   "prettier.bracketSpacing": true,
-
   "eslint.run": "onType",
   "eslint.autoFixOnSave": false,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "tsserver.enable": true,
   "tsserver.formatOnType": true,
   "tsserver.autoFixOnSave": false,
   "tsserver.log": "verbose",
-
   "typescript.suggest.autoImports": true,
   "typescript.format.enabled": false,
-
   "suggest.floatEnable": true,
   "signature.enabled": false,
   "diagnostic.enabled": false,
-
   "coc.source.typescript.enable": true,
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "error",
