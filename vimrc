@@ -37,6 +37,8 @@ autocmd BufNewFile,BufRead *.ejs       set filetype=html
 autocmd BufNewFile,BufRead *.jade      set filetype=html
 autocmd BufNewFile,BufRead *.hbs       set filetype=html
 autocmd BufNewFile,BufRead *.ftl       set filetype=html
+" Causing an error. Will try to re-enable
+" autocmd BufNewFile,BufRead *.svg       set filetype=html
 autocmd BufNewFile,BufRead Guardfile   set filetype=ruby
 autocmd BufNewFile,BufRead *.tsx       set filetype=typescript
 autocmd BufNewFile,BufRead *.ts        set filetype=typescript
@@ -370,6 +372,7 @@ Plug 'Quramy/vim-js-pretty-template'
 Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
 Plug 'prisma/vim-prisma'
+Plug 'tpope/vim-liquid'
 
 " Linting and code formatting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
