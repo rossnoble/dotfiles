@@ -42,7 +42,9 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "ruby",
+    "liquid"
   ],
 
   // Prettier
@@ -51,7 +53,14 @@
   // ES Lint
   "eslint.run": "onSave",
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact", "ruby"],
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "ruby",
+    "liquid"
+  ],
 
   // TypeScript
   "typescript.suggest.autoImports": false,
