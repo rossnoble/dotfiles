@@ -44,7 +44,9 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "json"
+    "json",
+    "ruby",
+    "liquid"
   ],
 
   "typescript.suggest.enabled": true,
@@ -73,7 +75,9 @@
     "typescriptreact",
     "html",
     "markdown",
-    "json"
+    "json",
+    "ruby",
+    "liquid"
   ],
 
    "html.autoClosingTags": false,
