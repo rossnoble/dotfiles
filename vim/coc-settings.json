@@ -1,6 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-06/schema",
   "description": "Configuration file for coc.nvim",
+  "additionalProperties": false,
+  "http.proxySupport": "off",
 
   // TS Server
   "tsserver.enable": true,
@@ -22,7 +24,6 @@
   "suggest.minTriggerInputLength": 4,
 
   "signature.enabled": true,
-  "additionalProperties": false,
 
   // Workspaces
   "workspace.bottomUpFiletypes": ["typescript"],
@@ -44,14 +45,30 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
+    "json",
     "ruby",
     "liquid"
   ],
 
-  // Prettier
-  "prettier.bracketSpacing": true,
+  // TypeScript
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.enabled": true,
+  "typescript.suggest.paths": false,
+  "typescript.suggestionActions.enabled": false,
+  "typescript.format.enabled": true,
+  "typescript.format.enabled": true,
+  "typescript.workspaceSymbols.scope": ["currentProject"],
 
-  // ES Lint
+  "list.source.symbols.excludes": ["**/node_modules/**"],
+  "list.source.files.excludePatterns": ["**/node_modules/**"],
+
+  "prettier.enable": true,
+  "prettier.bracketSpacing": true,
+  "prettier.formatterPriority": 1,
+
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
   "eslint.run": "onSave",
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
@@ -59,20 +76,18 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
+    "html",
+    "markdown",
+    "json",
     "ruby",
     "liquid"
   ],
 
-  // TypeScript
-  "typescript.suggest.autoImports": true,
-  "typescript.format.enabled": true,
+ "html.autoClosingTags": false,
+ "html.format.wrapAttributes": false,
 
-  // HTML
-  "html.autoClosingTags": false,
-  "html.format.wrapAttributes": false,
-
-  // Solar Graph for Ruby
-  "solargraph.completion": true,
-  "solargraph.formatting": true,
-  "solargraph.commandPath": "~/.gem/ruby/2.7.7/gems/solargraph-0.49.0/bin/solargraph"
+ // Solar Graph for Ruby
+ "solargraph.completion": true,
+ "solargraph.formatting": true,
+ "solargraph.commandPath": "~/.gem/ruby/2.7.7/gems/solargraph-0.49.0/bin/solargraph"
 }
