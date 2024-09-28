@@ -11,9 +11,15 @@ filetype plugin off
 filetype indent off
 filetype plugin indent on
 
+" These are ignored by neovim. Use the `colorscheme` command
+" https://github.com/projekt0n/github-nvim-theme?tab=readme-ov-file#usage
 if has("gui_macvim")
   colorscheme Black
 else
+  colorscheme grb256
+endif
+
+if has('nvim')
   colorscheme grb256
 endif
 
@@ -46,7 +52,7 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 autocmd BufRead,BufNewFile Podfile     set filetype=ruby
 
 " Enable comments in json files. See 'kevinoid/vim-jsonc' plugin below
-autocmd BufRead,BufNewFile *.json      set filetype=jsonc
+" autocmd BufRead,BufNewFile *.json      set filetype=jsonc
 
 autocmd BufWritePre *.json5 Prettier
 
@@ -102,8 +108,11 @@ set encoding=utf-8
 set statusline=%F   " Show full file name
 set title           " ???
 set mouse=a         " Enable mouse
-set ttymouse=sgr    " Enable mouse (xterm will not work)
-" set signcolumn=yes  " Keep sign column open always
+" set ttymouse=sgr    Enable mouse (xterm will not work)
+if !has('nvim')
+  set ttymouse=xterm2
+endif
+" set signcolumn=yes  Keep sign column open always
 set signcolumn=number " Combine sign column with numbers
 " Use new regular expression engine
 set re=0 " Use new regular expression engine
@@ -112,9 +121,9 @@ set re=0 " Use new regular expression engine
 " set hls             " Search highlighting
 " set cindent         " Indent curly braces
 " set wildmenu
-" set nowrap          " Don't wrap text
-" set list            " Show hidden characters
-" set smartindent     " Intelligent indentation
+" set nowrap          Don't wrap text
+" set list            Show hidden characters
+" set smartindent     Intelligent indentation
 " set fileencoding=utf-8
 
 " Unicode options
@@ -180,10 +189,12 @@ cmap <C-f> <right>
 
 let g:ctrlp_map = '<C-P>'
 
+let g:ctrlp_show_hidden=1
+
 " All file types
 " let g:ctrlp_cmd = 'CtrlPMixed'
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|.yarn|.cache|public|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
 
 " Set root directory
 let g:ctrlp_working_path_mode = 'r'
@@ -233,6 +244,9 @@ endif
 
 " COC.vim
 " https://github.com/neoclide/coc.nvim
+" let g:coc_node_path = '~/.nvm/versions/node/v16.15.1/bin/node'
+let g:coc_node_path = '~/.nvm/versions/node/v18.13.0/bin/node'
+
 let g:coc_global_extensions = ['coc-tsserver']
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
@@ -377,10 +391,17 @@ Plug 'tpope/vim-liquid'
 
 " Linting and code formatting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
+Plug 'prettier/vim-prettier', {
+ \ 'do': 'yarn install',
+ \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+
+" Syntax highlighting
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'jparise/vim-graphql'
+Plug 'prisma/vim-prisma'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
 
@@ -390,12 +411,13 @@ Plug 'jvirtanen/vim-hcl', { 'branch': 'main' }
 " Plug 'ruanyl/vim-sort-imports'
 
 " Experimental
-" Plug 'kana/vim-textobj-user'
-
-" Support for comments in JSON
-Plug 'kevinoid/vim-jsonc'
+" Plug 'kana/vim-textobj-user' Experimental
+Plug 'kevinoid/vim-jsonc' " Support for comments in JSON
 
 " Markdown support
 Plug 'plasticboy/vim-markdown'
+
+" Themes
+Plug 'projekt0n/github-nvim-theme', {'branch': 'main'}
 
 call plug#end()

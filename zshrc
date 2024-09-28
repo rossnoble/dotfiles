@@ -49,9 +49,6 @@ local Z_PATH=/opt/homebrew/etc/profile.d/z.sh
 # Git tab completion
 autoload -Uz compinit && compinit
 
-# Init rbenv automatically
-# eval "$(rbenv init - zsh)"
-
 # UTILITY ALIASES
 # -----------------
 
