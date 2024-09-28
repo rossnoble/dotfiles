@@ -3,9 +3,9 @@
   "description": "Configuration file for coc.nvim",
 
   // TS Server
-  "tsserver.log": "vebose",
   "tsserver.enable": true,
-  "tsserver.formatOnType": false,
+  "tsserver.log": "verbose",
+  "tsserver.formatOnType": true,
   "tsserver.autoFixOnSave": true,
 
   // Diagnostics
@@ -14,13 +14,14 @@
 
   // Other configs
   // "suggest.autoTrigger": "none",
-  "suggest.autoTrigger": "trigger",
+  // "suggest.autoTrigger": "trigger",
   "suggest.disableMenu": true,
-  "suggest.floatEnable": false,
+  "suggest.floatEnable": true,
   // Don't pre-select first suggestion
   "suggest.noselect": true,
+  "suggest.minTriggerInputLength": 4,
 
-  "signature.enabled": false,
+  "signature.enabled": true,
   "additionalProperties": false,
 
   // Workspaces
@@ -28,7 +29,7 @@
   "workspace.workspaceFolderCheckCwd": false,
 
   // Conquerer of Code
-  "coc.source.typescript.enable": false,
+  "coc.source.typescript.enable": true,
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "error",
   "coc.preferences.rootPatterns": ["tsconfig.json"],
@@ -63,7 +64,7 @@
   ],
 
   // TypeScript
-  "typescript.suggest.autoImports": false,
+  "typescript.suggest.autoImports": true,
   "typescript.format.enabled": true,
 
   // HTML

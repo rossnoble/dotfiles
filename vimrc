@@ -311,16 +311,19 @@ command! -nargs=0 OR :call CocAction('runCommand', 'tsserver.organizeImports')
 
 " Use <c-space> for confirming import
 " inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use TAB for trigger completion with characters ahead and navigate
 "
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+" NOTE:
+" - There's always complete item selected by default, you may want to enable
+"   no select by `"suggest.noselect": true` in your configuration file
+" - Use command ':verbose imap <tab>' to make sure tab is not mapped by
+"   other plugins before putting this into your config
+" - Change to CR for enter
+ inoremap <silent><expr> <TAB>
+       \ coc#pum#visible() ? coc#pum#next(1) :
+       \ CheckBackspace() ? "\<Tab>" :
+       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
