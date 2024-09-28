@@ -102,7 +102,9 @@ set encoding=utf-8
 set statusline=%F   " Show full file name
 set title           " ???
 set mouse=a         " Enable mouse
-set ttymouse=sgr    " Enable mouse (xterm will not work)
+if !has('nvim')
+  set ttymouse=sgr    " Enable mouse (xterm will not work)
+endif
 " set signcolumn=yes  " Keep sign column open always
 set signcolumn=number " Combine sign column with numbers
 " Use new regular expression engine
