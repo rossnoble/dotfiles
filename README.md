@@ -36,7 +36,6 @@ These are things that are useful but hard to automate.
 6. Configure Control Center
    - ...
 7. Configure SSH keys for Github:
-   - https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
    - https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## VIM
@@ -45,19 +44,28 @@ These are things that are useful but hard to automate.
 
 ## SSH
 
+Run the `./scripts/ssh.sh` script or manually below.
+
 ```
 ssh-keygen -t ed25519 -C you@example.com
 ```
 
+Start the ssh agent
 ```
 eval "$(ssh-agent -s)"
 ```
 
+Add the following to `~./ssh/config`
 ```
-touch ~/.ssh/config
-
-echo "Host github.com
+Host github.com
   AddKeysToAgent yes
   UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
+```
+
+Add key to Github:
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+
+```
+pbcopy < ~/.ssh/id_ed25519.pub
 ```
