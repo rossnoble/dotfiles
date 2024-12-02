@@ -34,8 +34,10 @@ These are things that are useful but hard to automate.
    - Update search scopes (details??)
    - Update Cmd + Spacebar to open Alfred
 6. Configure Control Center
-  - ...
-7. Configure SSH keys for Github: https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
+   - ...
+7. Configure SSH keys for Github:
+   - https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
+   - https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## Developer
 

@@ -1,4 +1,6 @@
 read -p "Remove existing config files? " -n 1 -r
+
+# TODO: Create backup file for each before deleting
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "\n\nRemoving existing files...\n"
@@ -34,5 +36,7 @@ ln -s ~/Code/dotfiles/tmux.conf ~/.tmux.conf
 echo "Linked ~/.tmux.conf"
 ln -s ~/Code/dotfiles/vim ~/.vim
 echo "Linked ~/.vim"
+ln -s ~/Code/dotfiles/nvim ~/.config/nvim
+echo "Linked ~/.config/nvim"
 echo
 echo "DONE."

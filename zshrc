@@ -22,7 +22,7 @@ function start_ssh_agent() {
 }
 
 # Allow command substitution inside the prompt
-setopt prompt_subst
+# setopt prompt_subst
 
 PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
 
@@ -43,8 +43,8 @@ export TERM="xterm-256color"
 export PATH="/usr/local/sbin:$PATH"
 
 # z browzing utility
-local Z_PATH=/opt/homebrew/etc/profile.d/z.sh
-[ -r $Z_PATH ] && source $Z_PATH
+Z_PATH=/opt/homebrew/etc/profile.d/z.sh
+[ -r $Z_PATH ] && source "$Z_PATH"
 
 # Git tab completion
 autoload -Uz compinit && compinit
@@ -131,25 +131,3 @@ export ZSHRC_LOCAL_PATH=~/.zshrc_local
 # Postgres (uncomment if using)
 # export PGHOST=localhost
 # export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
-
-# Heroku Toolbelt
-# export PATH="/usr/local/heroku/bin:$PATH"
-
-# Volta for node
-# export VOLTA_HOME="$HOME/.volta"
-# export PATH="$VOLTA_HOME/bin:$PATH"
-
-# GCloud SDK
-# export CLOUDSDK_PYTHON="$(brew --prefix)/opt/python@3.8/libexec/bin/python"
-# source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-# source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-#
-# The next line updates PATH for the Google Cloud SDK.
-# if [ -f /Users/ross/google-cloud-sdk/path.bash.inc ]; then
-#   source '/Users/ross/google-cloud-sdk/path.bash.inc'
-# fi
-
-# The next line enables shell command completion for gcloud.
-# if [ -f /Users/ross/google-cloud-sdk/completion.bash.inc ]; then
-#   source '/Users/ross/google-cloud-sdk/completion.bash.inc'
-# fi
