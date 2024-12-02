@@ -39,20 +39,25 @@ These are things that are useful but hard to automate.
    - https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html
    - https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
-## Developer
+## VIM
 
 1. Run `PlugInstall` to install vim plugins
 
-Generate a public key (this could be automated):
+## SSH
+
 ```
-mkdir .ssh
-cd .ssh
-ssh-keygen -o -t rsa -C "rnoble@fastmail.com"
-cat ~/.ssh/id_rsa.pub
+ssh-keygen -t ed25519 -C you@example.com
 ```
 
-Start the ssh-agent (manually);
 ```
-eval `ssh-agent -s`
-ssh-add ~/.ssh/id_rsa
+eval "$(ssh-agent -s)"
+```
+
+```
+touch ~/.ssh/config
+
+echo "Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
 ```
