@@ -1,35 +1,44 @@
+#!/bin/bash
+
+if ! brew -v; then
+  echo
+  echo "Homebrew must be installed to download apps. Run ./homebrew.sh to install via curl"
+  echo
+  exit
+fi
+
 echo "Installing desktop applications...\n"
 
 # Uncomment to install
 apps=(
   # 1password
   # iterm2
+  # sync
   # alfred
-  # macdown
   # brave
+  # telegram
+  # notion
   # kaleidoscope
   # imageoptim
-  # flux
-  # karabiner-elements
-  # nordvpn
-  # krisp
-  # expressvpn
   # spotify
+  # flux
+  # krisp
+  # obsidian
+  # nordvpn
+  # expressvpn
+  # karabiner-elements
   # figma
   # slack
-  # react-native-debugger
   # the-clock
-  # notion
   # vlc
   # zoom
-  # sync
   # dropbox
   # soulver
   # visual-studio-code
   # textmate
   # certbot
-  # telegram
   # bisq
+  # macdown
   # affinity-photo
   # affinity-publisher
   # affinity-designer

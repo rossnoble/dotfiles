@@ -1,13 +1,14 @@
 # Rosetta for Intel/M1 chip compatibility
 # https://blog.logrocket.com/set-up-macbook-for-web-development-in-20-minutes/
-/usr/sbin/softwareupdate --install-rosetta --agree-to-license
+# /usr/sbin/softwareupdate --install-rosetta --agree-to-license
 
 # XCode support
 xcode-select --install
 
 # Dev tools
 brew install git
-brew install vim
+# brew install vim
+brew install nvim
 brew install tmux
 brew install z
 brew install the_silver_searcher
@@ -30,9 +31,9 @@ corepack enable
 
 # Ruby stuff
 # https://github.com/rbenv/rbenv
-brew install rbenv
-brew install ruby-build
-rbenv init
+# brew install rbenv
+# brew install ruby-build
+# rbenv init
 
 # TODO: Add this to .zshrc
 # eval "$(rbenv init - zsh)"

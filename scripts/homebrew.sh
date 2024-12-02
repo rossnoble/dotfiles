@@ -1,7 +1,7 @@
 # Install home brew (see brew.sh)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# TODO: Verify where these should go
-echo '# Set PATH, MANPATH, etc., for Homebrew.' >> /Users/ross/.zprofile
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/ross/.zprofile
+PROFILE_PATH="/Users/$(whoami)/.zprofile"
+echo >> "${PROFILE_PATH}"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "${PROFILE_PATH}"
 eval "$(/opt/homebrew/bin/brew shellenv)"
