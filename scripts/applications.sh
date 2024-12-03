@@ -24,6 +24,9 @@ apps=(
   # flux
   # krisp
   # obsidian
+  # sequel-ace
+  # zed
+  # postman
   # nordvpn
   # expressvpn
   # karabiner-elements

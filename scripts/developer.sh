@@ -7,11 +7,11 @@ xcode-select --install
 
 # Dev tools
 brew install git
-# brew install vim
 brew install nvim
 brew install tmux
 brew install z
 brew install the_silver_searcher
+# brew install docker
 
 # See ./node.sh for Node environment config
 # See ./ruby.sh for Ruby environment config
