@@ -1,5 +1,7 @@
 # CORE ZSH CONFIGS
 # -----------------
+#
+set shell=/bin/bash
 
 export DOTFILES_DIR=~/Code/dotfiles
 
@@ -8,7 +10,7 @@ set LANG="en_US.UTF-8"
 # Simple git branch prompt display
 # Source: https://danishpraka.sh/2018/07/06/git-branch-zsh.html
 function git_branch() {
-  branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  local branch=$(git rev-parse --abbrev-ref HEAD 3> /dev/null)
   if [[ $branch == "" ]]; then
     :
   else
@@ -24,7 +26,7 @@ function start_ssh_agent() {
 # Allow command substitution inside the prompt
 # setopt prompt_subst
 
-PROMPT='%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f'
+PROMPT="%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f"
 
 # Color highlighting for terminal
 export CLICOLOR=1
@@ -80,6 +82,7 @@ alias cocsettings="vim ${DOTFILES_DIR}/vim/coc-settings.json"
 alias hosts='sudo vim /etc/hosts'
 alias python='python3'
 alias pip='pip3'
+alias vim='nvim'
 
 # MacOS
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'

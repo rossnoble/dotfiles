@@ -181,6 +181,7 @@ cmap <C-f> <right>
 " ------------------------
 
 let g:ctrlp_map = '<C-P>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " All file types
 " let g:ctrlp_cmd = 'CtrlPMixed'
