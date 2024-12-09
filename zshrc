@@ -7,26 +7,22 @@ export DOTFILES_DIR=~/Code/dotfiles
 
 set LANG="en_US.UTF-8"
 
-# Simple git branch prompt display
-# Source: https://danishpraka.sh/2018/07/06/git-branch-zsh.html
-function git_branch() {
-  local branch=$(git rev-parse --abbrev-ref HEAD 3> /dev/null)
-  if [[ $branch == "" ]]; then
-    :
-  else
-    echo "($branch)"
-  fi
+# Previous prompt style for reference
+# PROMPT="%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f"
+
+# https://gist.github.com/reinvanoyen/05bcfe95ca9cb5041a4eafd29309ff29
+function parse_git_branch() {
+   git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/(\1)/p'
 }
 
-function start_ssh_agent() {
-  eval "$(ssh-agent -s)"
-  ssh-add -K ~/.ssh/id_rsa
-}
+COLOR_DEF=$'%f'
+COLOR_SYM=$'%F{169}'
+COLOR_USR=$'%F{243}'
+COLOR_DIR=$'%F{197}'
+COLOR_GIT=$'%F{39}'
 
-# Allow command substitution inside the prompt
-# setopt prompt_subst
-
-PROMPT="%B%F{78}%1~%f:%F{39}$(git_branch)%F{169}$%b %f"
+setopt PROMPT_SUBST
+export PROMPT='${COLOR_DIR}%~ ${COLOR_GIT}$(parse_git_branch)${COLOR_SYM} $ ${COLOR_DEF}'
 
 # Color highlighting for terminal
 export CLICOLOR=1
@@ -114,6 +110,11 @@ function server() {
   local port="${1:-1234}"
   open "http://localhost:${port}/"
   python -m SimpleHTTPServer "${port}"
+}
+
+function start_ssh_agent() {
+  eval "$(ssh-agent -s)"
+  ssh-add -K ~/.ssh/id_rsa
 }
 
 # LOCAL ZSH CONFIGS
