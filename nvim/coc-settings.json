@@ -48,7 +48,9 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "json"
+    "json",
+    "html",
+    "handlebars"
   ],
 
   "typescript.suggest.enabled": true,
@@ -61,10 +63,14 @@
   "list.source.symbols.excludes": ["**/node_modules/**"],
   "list.source.files.excludePatterns": ["**/node_modules/**"],
 
+  // Prettier
   "prettier.enable": true,
   "prettier.bracketSpacing": true,
   "prettier.formatterPriority": 1,
+  "prettier.documentSelectors": ["**/*.hbs"],
+  "prettier.parser": { "*.hbs": "html" },
 
+  // Lint
   "eslint.enable": true,
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
