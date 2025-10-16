@@ -18,7 +18,6 @@
 
   del = br -d
   delete = br -d
-  fd = br -D
   force-delete = br -D
 
   unstage = reset HEAD
@@ -43,7 +42,7 @@
   deploy-heroku = push heroku master # for heroku apps
 
   # Logging
-  lg = log -20 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit
+  lg = log -30 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit
   lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
 [push]
   default = current

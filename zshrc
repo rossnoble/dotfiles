@@ -79,6 +79,7 @@ alias hosts='sudo vim /etc/hosts'
 alias python='python3'
 alias pip='pip3'
 alias vim='nvim'
+alias copilot='gh copilot'
 
 # MacOS
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
