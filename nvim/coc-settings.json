@@ -5,9 +5,6 @@
   "http.proxySupport": "off",
   "signature.enabled": true,
 
-  // https://github.com/neoclide/coc-tsserver
-  "eslint.packageManager": "yarn",
-  // "eslint.nodePath": ".yarn/sdks",
   // "tsserver.tsdk": ".yarn/sdks/typescript/lib",
 
   // TS Server
@@ -22,7 +19,7 @@
 
   // Other configs
   // "suggest.autoTrigger": "none",
-  "suggest.autoTrigger": "trigger",
+  // "suggest.autoTrigger": "trigger",
   "suggest.disableMenu": false,
   "suggest.floatEnable": true,
   // Don't pre-select first suggestion
@@ -48,7 +45,9 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "json"
+    "json",
+    "html",
+    "handlebars"
   ],
 
   "typescript.suggest.enabled": true,
@@ -61,15 +60,30 @@
   "list.source.symbols.excludes": ["**/node_modules/**"],
   "list.source.files.excludePatterns": ["**/node_modules/**"],
 
+  // Prettier
   "prettier.enable": true,
-  "prettier.bracketSpacing": true,
   "prettier.formatterPriority": 1,
+  "prettier.documentSelectors": ["**/*.hbs"],
+  "prettier.parser": { "*.hbs": "html" },
+  // "prettier.enableDebugLogs": true,
+  // "prettier.requireConfig": false,
+  // "prettier.useEditorConfig": true,
+  // Use prettier config per project
+  // "prettier.bracketSpacing": true,
 
+  // ESLint
   "eslint.enable": true,
   "eslint.format.enable": true,
+  // https://github.com/neoclide/coc-tsserver
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+  "eslint.enable": false,
+  // Enable eslint as a formatter. Only enable this
+  // if not running prettier.
+  "eslint.format.enable": false,
   "eslint.alwaysShowStatus": true,
   "eslint.run": "onSave",
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
