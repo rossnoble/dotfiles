@@ -157,6 +157,14 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 nmap <C-b><C-b> :NERDTreeToggle<CR>
 nmap <C-N><C-N> :set invnumber<CR>
 
+" Expand quick fix window via F10
+noremap <F10> :execute "copen \| resize 40"<cr>
+noremap <F9>  :execute "vertical botright copen \| vertical resize 60"<cr>
+
+" Quickly open quickfix menu
+noremap <F6> :execute "copen \| resize 20"<cr>
+noremap <F7> :execute "cclose"<cr>
+
 " Reload all buffers
 map <C-Y><C-Y> :bufdo e<CR>
 
