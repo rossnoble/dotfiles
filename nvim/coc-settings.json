@@ -5,36 +5,25 @@
   "http.proxySupport": "off",
   "signature.enabled": true,
 
-  // "tsserver.tsdk": ".yarn/sdks/typescript/lib",
-
-  // TS Server
-  // "tsserver.log": "verbose",
   "tsserver.enable": true,
   "tsserver.formatOnType": true,
   "tsserver.autoFixOnSave": true,
 
-  // Diagnostics
   "diagnostic.enabled": true,
   "diagnostic.refreshOnInsertMode": false,
 
-  // Other configs
-  // "suggest.autoTrigger": "none",
-  // "suggest.autoTrigger": "trigger",
   "suggest.disableMenu": false,
   "suggest.floatEnable": true,
-  // Don't pre-select first suggestion
+  "suggest.enablePreview": false,
   "suggest.noselect": true,
 
-  // Workspaces
   "workspace.bottomUpFiletypes": ["typescript"],
   "workspace.workspaceFolderCheckCwd": false,
 
-  // Conquerer of Code
   "coc.source.typescript.enable": true,
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "error",
   "coc.preferences.rootPatterns": ["tsconfig.json"],
-
   "coc.source.file.ignorePatterns": [
     "node_modules"
   ],
@@ -47,42 +36,29 @@
     "typescriptreact",
     "json",
     "html",
-    "handlebars"
+    "handlebars",
+    "markdown"
   ],
 
-  "typescript.suggest.enabled": true,
-  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.enabled": false,
   "typescript.suggest.autoImports": true,
   "typescript.suggest.paths": true,
-  "typescript.format.enabled": true,
+  "typescript.suggestionActions.enabled": true,
+  "typescript.format.enabled": false,
   "typescript.workspaceSymbols.scope": ["currentProject"],
 
   "list.source.symbols.excludes": ["**/node_modules/**"],
   "list.source.files.excludePatterns": ["**/node_modules/**"],
 
-  // Prettier
   "prettier.enable": true,
   "prettier.formatterPriority": 1,
   "prettier.documentSelectors": ["**/*.hbs"],
   "prettier.parser": { "*.hbs": "html" },
-  // "prettier.enableDebugLogs": true,
-  // "prettier.requireConfig": false,
-  // "prettier.useEditorConfig": true,
-  // Use prettier config per project
-  // "prettier.bracketSpacing": true,
 
-  // ESLint
-  "eslint.enable": true,
-  "eslint.format.enable": true,
-  // https://github.com/neoclide/coc-tsserver
-  "eslint.packageManager": "yarn",
-  "eslint.nodePath": ".yarn/sdks",
   "eslint.enable": false,
-  // Enable eslint as a formatter. Only enable this
-  // if not running prettier.
   "eslint.format.enable": false,
   "eslint.alwaysShowStatus": true,
-  "eslint.run": "onSave",
+  "eslint.run": "onType",
   "eslint.autoFixOnSave": false,
   "eslint.filetypes": [
     "javascript",
@@ -96,9 +72,4 @@
 
   "html.autoClosingTags": false,
   "html.format.wrapAttributes": false
-
-   // Solar Graph for Ruby
-  // "solargraph.completion": true,
-  // "solargraph.formatting": true,
-  // "solargraph.commandPath": "~/.gem/ruby/2.7.7/gems/solargraph-0.49.0/bin/solargraph"
 }

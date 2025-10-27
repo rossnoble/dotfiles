@@ -11,11 +11,7 @@ filetype plugin off
 filetype indent off
 filetype plugin indent on
 
-if has("gui_macvim")
-  colorscheme Black
-else
-  colorscheme grb256
-endif
+colorscheme grb256
 
 set guifont=Office\ Code\ Pro\ D:h12
 
@@ -24,7 +20,8 @@ highlight IndentGuidesOdd  ctermbg=black
 highlight IndentGuidesEven ctermbg=black
 
 " Disable background color from theme
-highlight Normal ctermbg=NONE
+" highlight Normal ctermbg=NONE
+" set background=dark
 
 " 80 character highlighting
 " highlight ColorColumn ctermbg=88
@@ -162,7 +159,7 @@ noremap <F10> :execute "copen \| resize 40"<cr>
 noremap <F9>  :execute "vertical botright copen \| vertical resize 60"<cr>
 
 " Quickly open quickfix menu
-noremap <F6> :execute "copen \| resize 20"<cr>
+noremap <F6> :execute "copen \| resize 40"<cr>
 noremap <F7> :execute "cclose"<cr>
 
 " Reload all buffers
@@ -458,15 +455,15 @@ let g:airline#extensions#coc#enabled = 1
 
 " let g:import_sort_auto = 1
 
-" cOPILOT
-let g:copilot_filetypes = { '*': v:false }
+" COPILOT
+" let g:copilot_filetypes = { '*': v:false }
 
 " PACKAGES
 " -----------
 " Vim Plug
 " https://github.com/junegunn/vim-plug
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 
 "NERDTree sidebar
 Plug 'preservim/nerdtree'
@@ -482,38 +479,39 @@ Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-projectionist'
+Plug 'jremmen/vim-ripgrep' "Exposes :Rg command
 
 " JavaScript and Typescript support
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'Quramy/vim-js-pretty-template'
-" Out of date, maybe
-" Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
 Plug 'prisma/vim-prisma'
 Plug 'tpope/vim-liquid'
 
 " Linting and code formatting
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-
+Plug 'neoclide/coc.nvim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'ap/vim-css-color'
 
 Plug 'vim-scripts/dbext.vim'
-Plug 'jvirtanen/vim-hcl', { 'branch': 'main' }
-" Prisma file format support
-" Plug 'ruanyl/vim-sort-imports'
 
-" Experimental
-" Plug 'kana/vim-textobj-user'
+" Terraform and Hashicorp lang support
+" https://github.com/jvirtanen/vim-hcl
+Plug 'jvirtanen/vim-hcl'
 
 " Support for comments in JSON
 Plug 'kevinoid/vim-jsonc'
 
 " Markdown support
 Plug 'plasticboy/vim-markdown'
+
+" THEMES
+" https://github.com/rebelot/kanagawa.nvim
+Plug 'rebelot/kanagawa.nvim'
+" https://github.com/kepano/flexoki
+Plug 'kepano/flexoki'
+" https://github.com/jacoborus/tender.vim
+Plug 'jacoborus/tender.vim'
 
 call plug#end()
