@@ -47,7 +47,8 @@
     "typescriptreact",
     "json",
     "html",
-    "handlebars"
+    "handlebars",
+    "css"
   ],
 
   "typescript.suggest.enabled": true,

@@ -45,6 +45,7 @@ apps=(
   # affinity-photo
   # affinity-publisher
   # affinity-designer
+  # notunes
 )
 
 for app in ${apps[@]}; do
