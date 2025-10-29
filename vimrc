@@ -154,6 +154,19 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " 4. KEYBOARD MAPPINGS
 " --------------------
+"
+" map          - Normal, Visual, Select, and Operator-pending modes
+" nmap         - Normal mode only
+" cmap         - Command-line mode (when typing : commands)
+" {c|n}map     - Recursive: if the mapped keys trigger another mapping, that mapping executes too
+" nore{c|n}map - Non-recursive: only the literal keys are executed, ignoring other mappings
+"
+" Expand quick fix window via F10
+noremap <F10> :execute "copen \| resize 40"<cr>
+noremap <F9>  :execute "vertical botright copen \| vertical resize 60"<cr>
+" Quickly open quickfix menu
+noremap <F6> :execute "copen \| resize 40"<cr>
+noremap <F7> :execute "cclose"<cr>
 
 " Expand quick fix window via F10
 noremap <F10> :execute "copen \| resize 40"<cr>
@@ -193,11 +206,14 @@ let g:ctrlp_cmd = 'CtrlP'
 
 " All file types
 " let g:ctrlp_cmd = 'CtrlPMixed'
-
+"
+" Ignore list
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
 
 " Set root directory
 let g:ctrlp_working_path_mode = 'r'
+
+let g:ctrlp_show_hidden = 1 " Show hidden files in list
 
 " Open files already open in new tab
 " let g:ctrlp_switch_buffer = 'et'
@@ -328,6 +344,11 @@ command! -nargs=0 OR :call CocAction('runCommand', 'tsserver.organizeImports')
 " no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
@@ -362,51 +383,43 @@ command ConvertTabsToSpaces %s/\t/  /g
 call plug#begin('~/.vim/plugged')
 
 "NERDTree sidebar
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'preservim/nerdtree'                            " https://github.com/preservim/nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin'                   " https://github.com/Xuyuanp/nerdtree-git-plugin
 
 " Status line tools
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'                       " https://github.com/vim-airline/vim-airline
+Plug 'vim-airline/vim-airline-themes'                " https://github.com/vim-airline/vim-airline-themes
+Plug 'airblade/vim-gitgutter'                        " https://github.com/airblade/vim-gitgutter
+Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
 
 " Search and navigation
-Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-projectionist'
+Plug 'mileszs/ack.vim'                               " https://github.com/mileszs/ack.vim
+Plug 'ctrlpvim/ctrlp.vim'                            " https://github.com/ctrlpvim/ctrlp.vim
+Plug 'tpope/vim-projectionist'                       " https://github.com/tpope/vim-projectionist
 
-" JavaScript and Typescript support
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'Quramy/vim-js-pretty-template'
-" Out of date, maybe
-" Plug 'styled-components/vim-styled-components'
-Plug 'jparise/vim-graphql'
-Plug 'prisma/vim-prisma'
-Plug 'tpope/vim-liquid'
+" Language support
+Plug 'leafgarland/typescript-vim'                    " https://github.com/leafgarland/typescript-vim
+Plug 'peitalin/vim-jsx-typescript'                   " https://github.com/peitalin/vim-jsx-typescript
+Plug 'Quramy/vim-js-pretty-template'                 " https://github.com/Quramy/vim-js-pretty-template
+Plug 'jparise/vim-graphql'                           " https://github.com/jparise/vim-graphql
+Plug 'prisma/vim-prisma'                             " https://github.com/prisma/vim-prisma
+Plug 'tpope/vim-liquid'                              " https://github.com/tpope/vim-liquid
+Plug 'jvirtanen/vim-hcl' , {'branch': 'main'}        " https://github.com/jvirtanen/vim-hcl
 
 " Linting and code formatting
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'neoclide/coc.nvim'                             " https://github.com/neoclide/coc.nvim
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': [
+"   \ 'javascript', 'typescript', 'css', 'less',
+"   \ 'scss', 'json', 'graphql', 'markdown', 'vue',
+"   \ 'yaml', 'html'] }
+                                                     " https://github.com/prettier/vim-prettier
 
-Plug 'cormacrelf/vim-colors-github'
-Plug 'ap/vim-css-color'
-
-Plug 'vim-scripts/dbext.vim'
-Plug 'jvirtanen/vim-hcl', { 'branch': 'main' }
-" Prisma file format support
-" Plug 'ruanyl/vim-sort-imports'
-
-" Experimental
-" Plug 'kana/vim-textobj-user'
-
-" Support for comments in JSON
-Plug 'kevinoid/vim-jsonc'
-
-" Markdown support
-Plug 'plasticboy/vim-markdown'
+Plug 'cormacrelf/vim-colors-github'                  " https://github.com/cormacrelf/vim-colors-github
+Plug 'ap/vim-css-color'                              " https://github.com/ap/vim-css-color
+Plug 'vim-scripts/dbext.vim'                         " https://github.com/vim-scripts/dbext.vim
+Plug 'kevinoid/vim-jsonc'                            " https://github.com/kevinoid/vim-jsonc
+Plug 'plasticboy/vim-markdown'                       " https://github.com/plasticboy/vim-markdown
 
 call plug#end()
