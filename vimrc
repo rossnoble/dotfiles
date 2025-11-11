@@ -238,26 +238,6 @@ let g:NERDTreeWinSize = 40
 " ---
 let g:vim_markdown_folding_disabled = 1
 
-" Syntastic
-" ---
-let g:statline_syntastic = 0
-
-" Prettier
-" ---
-" let g:prettier#config#print_width = 80
-
-" Ack.vim
-" -------
-" nmap <C-M><C-M> :Ack # Different view handling (buggy)
-nmap <C-M><C-M> :!ag
-
-" map <leader>a :ag
-
-" Use the_silver_searcher with ack.vim
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --path-to-ignore ~/.agignore'
-endif
-
 " COC.vim
 " https://github.com/neoclide/coc.nvim
 let g:coc_global_extensions = ['coc-tsserver']
@@ -372,30 +352,33 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 " Convert 4 spaces to 2 spaces
 command Convert4SpacesTo2 %s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g
 
-" Convery tabs to 2 spaces
+" Convert tabs to 2 spaces
 command ConvertTabsToSpaces %s/\t/  /g
 
 " PACKAGES
 " -----------
-" Vim Plug
-" https://github.com/junegunn/vim-plug
+" Managed by vim-plug: https://github.com/junegunn/vim-plug
 
 call plug#begin('~/.vim/plugged')
 
-"NERDTree sidebar
+" NERDTree sidebar
 Plug 'preservim/nerdtree'                            " https://github.com/preservim/nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin'                   " https://github.com/Xuyuanp/nerdtree-git-plugin
 
 " Status line tools
 Plug 'vim-airline/vim-airline'                       " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes'                " https://github.com/vim-airline/vim-airline-themes
-Plug 'airblade/vim-gitgutter'                        " https://github.com/airblade/vim-gitgutter
-Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
 
-" Search and navigation
-Plug 'mileszs/ack.vim'                               " https://github.com/mileszs/ack.vim
+" Language server
+Plug 'neoclide/coc.nvim'                             " https://github.com/neoclide/coc.nvim
+
+" File search and navigation
+Plug 'jremmen/vim-ripgrep'                           " https://github.com/jremmen/vim-ripgrep
 Plug 'ctrlpvim/ctrlp.vim'                            " https://github.com/ctrlpvim/ctrlp.vim
 Plug 'tpope/vim-projectionist'                       " https://github.com/tpope/vim-projectionist
+
+" Git tools
+Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
+Plug 'airblade/vim-gitgutter'                        " https://github.com/airblade/vim-gitgutter
 
 " Language support
 Plug 'leafgarland/typescript-vim'                    " https://github.com/leafgarland/typescript-vim
@@ -405,21 +388,11 @@ Plug 'jparise/vim-graphql'                           " https://github.com/jparis
 Plug 'prisma/vim-prisma'                             " https://github.com/prisma/vim-prisma
 Plug 'tpope/vim-liquid'                              " https://github.com/tpope/vim-liquid
 Plug 'jvirtanen/vim-hcl' , {'branch': 'main'}        " https://github.com/jvirtanen/vim-hcl
+Plug 'plasticboy/vim-markdown'                       " https://github.com/plasticboy/vim-markdown
+Plug 'kevinoid/vim-jsonc'                            " https://github.com/kevinoid/vim-jsonc
 
-" Linting and code formatting
-Plug 'neoclide/coc.nvim'                             " https://github.com/neoclide/coc.nvim
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': [
-"   \ 'javascript', 'typescript', 'css', 'less',
-"   \ 'scss', 'json', 'graphql', 'markdown', 'vue',
-"   \ 'yaml', 'html'] }
-                                                     " https://github.com/prettier/vim-prettier
-
+" Theme support
 Plug 'cormacrelf/vim-colors-github'                  " https://github.com/cormacrelf/vim-colors-github
 Plug 'ap/vim-css-color'                              " https://github.com/ap/vim-css-color
-Plug 'vim-scripts/dbext.vim'                         " https://github.com/vim-scripts/dbext.vim
-Plug 'kevinoid/vim-jsonc'                            " https://github.com/kevinoid/vim-jsonc
-Plug 'plasticboy/vim-markdown'                       " https://github.com/plasticboy/vim-markdown
 
 call plug#end()
