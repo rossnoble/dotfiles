@@ -10,8 +10,10 @@ xcode-select --install
 # brew install nvim
 # brew install tmux
 # brew install z
-# brew install the_silver_searcher
-# brew install docker
+# brew install rg
 
 # See ./node.sh for Node environment config
 # See ./ruby.sh for Ruby environment config
+
+# Install deno
+# curl -fsSL https://deno.land/install.sh | sh
