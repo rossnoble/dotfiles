@@ -40,7 +40,9 @@
     "typescriptreact",
     "json",
     "html",
+    "liquid",
     "handlebars",
+    "astro",
     "css"
   ],
 
