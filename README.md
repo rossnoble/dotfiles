@@ -40,7 +40,8 @@ These are things that are useful but hard to automate.
 
 ## VIM
 
-1. Run `PlugInstall` to install vim plugins
+1. Run the `./scripts/developer.sh` script to install vim-plug for plugin management
+2. Inside vim, run  `:PlugInstall` to install the vim plugins defined in `vimrc`
 
 ## SSH
 

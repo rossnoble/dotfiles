@@ -1,5 +1,11 @@
 .DS_Store
 *.local
+
+# Prevent plugins from being checked in
+vim/plugged/
+# Avoid accidentally checking in vim-plug
+vim/autoload/plug.vim
+nvim/plugged/
+nvim/autoload/
 vim/bundle/*
-vim/plugged/*
 vim/.netrwhist
