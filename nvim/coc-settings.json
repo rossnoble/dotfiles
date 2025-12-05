@@ -13,9 +13,9 @@
 
   "diagnostic.enabled": true,
   "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
 
-  // "suggest.autoTrigger": "none",
-  "suggest.autoTrigger": "trigger",
+  "suggest.autoTrigger": "always", // always, none, trigger
   "suggest.disableMenu": false,
   "suggest.floatEnable": true,
   // Don't pre-select first suggestion
@@ -46,12 +46,20 @@
     "css"
   ],
 
+  "typescript.validate.enable": true,
   "typescript.suggest.enabled": true,
   "typescript.suggestionActions.enabled": true,
   "typescript.suggest.autoImports": true,
   "typescript.suggest.paths": true,
   "typescript.format.enabled": true,
   "typescript.workspaceSymbols.scope": ["currentProject"],
+
+  "javascript.validate.enable": true,
+  "javascript.suggest.enabled": true,
+  "javascript.suggestionActions.enabled": true,
+  "javascript.suggest.autoImports": true,
+  "javascript.suggest.paths": true,
+  "javascript.format.enabled": true,
 
   "list.source.symbols.excludes": ["**/node_modules/**"],
   "list.source.files.excludePatterns": ["**/node_modules/**"],

@@ -11,12 +11,10 @@
 # brew install tmux
 # brew install z
 # brew install rg
+# brew install deno
 
 # See ./node.sh for Node environment config
 # See ./ruby.sh for Ruby environment config
-
-# Install deno
-# curl -fsSL https://deno.land/install.sh | sh
 #
 # Install vim-plug for Neovim plugins
 # https://github.com/junegunn/vim-plug

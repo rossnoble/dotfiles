@@ -81,3 +81,5 @@
   email = rnoble@fastmail.com
 [pull]
   rebase = true
+[init]
+  defaultBranch = main

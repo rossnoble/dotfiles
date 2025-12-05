@@ -64,13 +64,19 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 autocmd ColorScheme * highlight NonText ctermbg=NONE
 autocmd ColorScheme * highlight Normal ctermbg=NONE
 
-" highlight SignColumn guibg=NONE ctermbg=NONE
+highlight SignColumn guibg=NONE ctermbg=NONE
 highlight clear SignColumn
 highlight SignColumn ctermbg=NONE
 
+" Customize GitGutter sign colors
 highlight GitGutterAdd    guifg=#009900 ctermfg=2 ctermbg=NONE
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3 ctermbg=NONE
+highlight GitGutterChange guifg=#75755D ctermfg=3 ctermbg=NONE
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1 ctermbg=NONE
+
+" Customize GitGutter line highlighting colors
+highlight GitGutterAddLine    guibg=#161C16 ctermfg=2
+highlight GitGutterChangeLine guibg=#171713 ctermfg=3
+highlight GitGutterDeleteLine guibg=#331F1F ctermfg=1
 
 highlight CocFloating         ctermbg=black
 highlight CocHighlightText    ctermfg=231 ctermbg=60
@@ -80,24 +86,24 @@ highlight CocWarningHighlight ctermfg=231 ctermbg=99
 " SETTINGS
 " -----------
 
-set t_Co=256        " Enable 256-colors
-set tabstop=2       " Tab spacing
-set shiftwidth=2    " Indent 2 spaces
-set nocp            " Enable features incompatible with vi
-set number          " Enable line numbers by default
-set autoindent      " Automatically indent
-set expandtab       " Spaces, not tabs
-set ignorecase      " Case insensitive search
-set smartcase       " Allow sensitive search when at least one capital
-set nobackup        " No backup files
-set nowritebackup   " Remove backup file while editing
-set noswapfile      " No swap files
-set linebreak       " Break lines
-set guioptions-=L   " Remove left scroll bar
-set guioptions-=r   " Remove right scroll bar
-set laststatus=2    " Always show status line
-set backspace=indent,eol,start "Allow backspace to overwrite"
-set noshowmode      " Hide status bar
+set t_Co=256                    " Enable 256-colors
+set tabstop=2                   " Tab spacing
+set shiftwidth=2                " Indent 2 spaces
+set nocp                        " Enable features incompatible with vi
+set number                      " Enable line numbers by default
+set autoindent                  " Automatically indent
+set expandtab                   " Spaces, not tabs
+set ignorecase                  " Case insensitive search
+set smartcase                   " Allow sensitive search when at least one capital
+set nobackup                    " No backup files
+set nowritebackup               " Remove backup file while editing
+set noswapfile                  " No swap files
+set linebreak                   " Break lines
+set guioptions-=L               " Remove left scroll bar
+set guioptions-=r               " Remove right scroll bar
+set laststatus=2                " Always show status line
+set backspace=indent,eol,start  " Allow backspace to overwrite"
+set noshowmode                  " Hide status bar
 set encoding=utf-8
 set statusline=%F   " Show full file name
 set title           " ???
@@ -106,7 +112,7 @@ if !has('nvim')
   set ttymouse=sgr    " Enable mouse (xterm will not work)
 endif
 " set signcolumn=yes  " Keep sign column open always
-set signcolumn=number " Combine sign column with numbers
+" set signcolumn=number " Combine sign column with numbers
 " Use new regular expression engine
 set re=0 " Use new regular expression engine
 
@@ -186,6 +192,9 @@ nmap <C-R><C-V> :so $MYVIMRC<CR>
 
 " Restart COC
 nmap <C-I><C-I> :CocRestart<CR>
+"
+" Restart COC
+" nmap <C-R><C-R> :Rg<CR>
 
 " Disable line joining command because I do it accidentally
 " all the time and never really use it intentionally
@@ -291,6 +300,9 @@ command! -nargs=0 Format :call CocAction('format')
 
 let g:airline#extensions#coc#enabled = 1
 
+let g:projectionist_no_mappings = 1
+nnoremap <leader>a :A<CR>
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -369,16 +381,17 @@ Plug 'vim-airline/vim-airline'                       " https://github.com/vim-ai
 Plug 'vim-airline/vim-airline-themes'                " https://github.com/vim-airline/vim-airline-themes
 
 " Language server
-Plug 'neoclide/coc.nvim'                             " https://github.com/neoclide/coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}      " https://github.com/neoclide/coc.nvim
 
 " File search and navigation
 Plug 'jremmen/vim-ripgrep'                           " https://github.com/jremmen/vim-ripgrep
 Plug 'ctrlpvim/ctrlp.vim'                            " https://github.com/ctrlpvim/ctrlp.vim
 Plug 'tpope/vim-projectionist'                       " https://github.com/tpope/vim-projectionist
+Plug 'qpkorr/vim-bufkill'                            " https://github.com/qpkorr/vim-bufkill
 
 " Git tools
 Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
-Plug 'airblade/vim-gitgutter'                        " https://github.com/airblade/vim-gitgutter
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}    " https://github.com/airblade/vim-gitgutter
 
 " Language support
 Plug 'leafgarland/typescript-vim'                    " https://github.com/leafgarland/typescript-vim
