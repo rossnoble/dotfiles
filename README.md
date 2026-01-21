@@ -70,3 +70,37 @@ https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a
 ```
 pbcopy < ~/.ssh/id_ed25519.pub
 ```
+
+## Automated Application Installation
+
+A CLI tool for interactively installing macOS applications via Homebrew casks.
+
+### Quick Start
+
+```bash
+./bootstrap.sh           # Install Homebrew and jq (run first on fresh machines)
+./bin/dotfiles install   # Interactive app installation
+./bin/dotfiles list      # Show available applications
+```
+
+### How It Works
+
+1. `bootstrap.sh` installs Homebrew and jq (required for JSON parsing)
+2. `bin/dotfiles` reads app definitions from `config/apps.json`
+3. For each app, you're prompted to install or skip
+4. Already-installed apps are detected and skipped automatically
+
+### Adding Applications
+
+Edit `config/apps.json` to add new applications:
+
+```json
+{
+  "name": "App Name",
+  "cask": "homebrew-cask-name",
+  "description": "Brief description",
+  "category": "developer|productivity|utility|etc"
+}
+```
+
+Find cask names at https://formulae.brew.sh/cask/

@@ -1,0 +1,94 @@
+#!/bin/bash
+# bin/dotfiles - Main CLI interface for dotfiles management
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# source "$SCRIPT_DIR/scripts/lib/prompt.sh"
+
+prompt_yes_no() {
+  local prompt="$1"
+  local response
+
+  while true; do
+    read -p "$prompt [y/n]: " response < /dev/tty
+    case $response in
+      [Yy]* ) return 0 ;;
+      [Nn]* ) return 1 ;;
+      * ) echo "Please answer y or n." ;;
+    esac
+  done
+}
+
+# Check for required dependencies
+check_dependencies() {
+  if ! command -v brew &> /dev/null; then
+    echo "Error: Homebrew is required but not installed."
+    echo "Run ./bootstrap.sh first"
+    exit 1
+  fi
+
+  if ! command -v jq &> /dev/null; then
+    echo "Error: jq is required but not installed."
+    echo "Run ./bootstrap.sh first, or: brew install jq"
+    exit 1
+  fi
+}
+
+cmd_install() {
+  check_dependencies
+
+  local apps_file="$SCRIPT_DIR/config/apps.json"
+
+  echo "Application Installation"
+  echo ""
+
+  # Parse JSON and prompt for each app
+  jq -c '.apps[]' "$apps_file" | while read -r app; do
+    local name=$(echo "$app" | jq -r '.name')
+    local cask=$(echo "$app" | jq -r '.cask')
+    local description=$(echo "$app" | jq -r '.description')
+
+    # Check if already installed
+    if brew list --cask "$cask" &> /dev/null; then
+      echo "[$name] Already installed, skipping"
+      continue
+    fi
+
+    if prompt_yes_no "Install $name? ($description)"; then
+      echo "Installing $cask..."
+      brew install --cask "$cask"
+      echo "Installed $name"
+      echo ""
+    else
+      echo "Skipped $name"
+      echo ""
+    fi
+  done
+
+  echo "Done!"
+}
+
+cmd_list() {
+  check_dependencies
+
+  local apps_file="$SCRIPT_DIR/config/apps.json"
+
+  echo "Available applications:"
+  echo ""
+  jq -r '.apps[] | "  \(.name): \(.description) [\(.category)]"' "$apps_file"
+}
+
+# Main command router
+case "${1:-}" in
+  install) cmd_install ;;
+  list) cmd_list ;;
+  *)
+    echo "Usage: dotfiles <command>"
+    echo ""
+    echo "Commands:"
+    echo "  install    Interactive application installation"
+    echo "  list       Show available applications"
+    exit 1
+    ;;
+esac
