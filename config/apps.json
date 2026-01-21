@@ -109,6 +109,12 @@
       "category": "security"
     },
     {
+      "name": "Mullvad VPN",
+      "cask": "mullvad-vpn",
+      "description": "VPN client",
+      "category": "security"
+    },
+    {
       "name": "Karabiner Elements",
       "cask": "karabiner-elements",
       "description": "Keyboard customization",
@@ -197,6 +203,18 @@
       "cask": "notunes",
       "description": "Prevents iTunes/Music from opening",
       "category": "utility"
+    },
+    {
+      "name": "Claude",
+      "cask": "claude",
+      "description": "AI assistant",
+      "category": "productivity"
+    },
+    {
+      "name": "Fastmail",
+      "cask": "fastmail",
+      "description": "Email client",
+      "category": "communication"
     }
   ]
 }

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This has been deprecated. See the list of applications in config/apps.json and
+# the dotfiles command in bin/dotfiles for the CLI
+
 if ! brew -v; then
   echo
   echo "Homebrew must be installed to download apps. Run ./homebrew.sh to install via curl"

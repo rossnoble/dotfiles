@@ -40,7 +40,7 @@ cmd_install() {
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
 
-  echo "Application Installation"
+  echo "🚀 Application Installation"
   echo ""
 
   # Parse JSON and prompt for each app
@@ -51,22 +51,21 @@ cmd_install() {
 
     # Check if already installed
     if brew list --cask "$cask" &> /dev/null; then
-      echo "[$name] Already installed, skipping"
+      echo "✅ $name already installed"
       continue
     fi
 
     if prompt_yes_no "Install $name? ($description)"; then
-      echo "Installing $cask..."
+      echo "⬇️  Installing $cask..."
       brew install --cask "$cask"
-      echo "Installed $name"
+      echo "✨ Installed $name"
       echo ""
     else
-      echo "Skipped $name"
-      echo ""
+      echo "➡️  Skipped $name"
     fi
   done
 
-  echo "Done!"
+  echo "🎯 Done!"
 }
 
 cmd_list() {
