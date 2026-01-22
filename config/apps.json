@@ -3,222 +3,259 @@
     {
       "name": "1Password",
       "cask": "1password",
+      "app_bundle": "1Password.app",
       "description": "Password manager",
       "category": "security"
     },
     {
       "name": "Affinity Designer",
       "cask": "affinity-designer",
+      "app_bundle": "Affinity Designer 2.app",
       "description": "Vector graphics",
       "category": "design"
     },
     {
       "name": "Affinity Photo",
       "cask": "affinity-photo",
+      "app_bundle": "Affinity Photo 2.app",
       "description": "Photo editing",
       "category": "design"
     },
     {
       "name": "Affinity Publisher",
       "cask": "affinity-publisher",
+      "app_bundle": "Affinity Publisher 2.app",
       "description": "Desktop publishing",
       "category": "design"
     },
     {
       "name": "Alfred",
       "cask": "alfred",
+      "app_bundle": "Alfred 5.app",
       "description": "Productivity launcher",
       "category": "productivity"
     },
     {
       "name": "Brave",
       "cask": "brave-browser",
+      "app_bundle": "Brave Browser.app",
       "description": "Privacy-focused browser",
       "category": "browser"
     },
     {
       "name": "Claude",
       "cask": "claude",
+      "app_bundle": "Claude.app",
       "description": "AI assistant",
       "category": "productivity"
     },
     {
       "name": "Dropbox",
       "cask": "dropbox",
+      "app_bundle": "Dropbox.app",
       "description": "Cloud storage",
       "category": "utility"
     },
     {
       "name": "ExpressVPN",
       "cask": "expressvpn",
+      "app_bundle": "ExpressVPN.app",
       "description": "VPN client",
       "category": "security"
     },
     {
       "name": "Fastmail",
       "cask": "fastmail",
+      "app_bundle": "Fastmail.app",
       "description": "Email client",
       "category": "communication"
     },
     {
       "name": "Figma",
       "cask": "figma",
+      "app_bundle": "Figma.app",
       "description": "Design tool",
       "category": "design"
     },
     {
       "name": "Flux",
       "cask": "flux",
+      "app_bundle": "Flux.app",
       "description": "Screen color temperature",
       "category": "utility"
     },
     {
       "name": "ImageOptim",
       "cask": "imageoptim",
+      "app_bundle": "ImageOptim.app",
       "description": "Image compression tool",
       "category": "utility"
     },
     {
       "name": "iTerm2",
       "cask": "iterm2",
+      "app_bundle": "iTerm.app",
       "description": "Terminal emulator",
       "category": "developer"
     },
     {
       "name": "Kaleidoscope",
       "cask": "kaleidoscope",
+      "app_bundle": "Kaleidoscope.app",
       "description": "Diff and merge tool",
       "category": "developer"
     },
     {
       "name": "Karabiner Elements",
       "cask": "karabiner-elements",
+      "app_bundle": "Karabiner-Elements.app",
       "description": "Keyboard customization",
       "category": "utility"
     },
     {
       "name": "Krisp",
       "cask": "krisp",
+      "app_bundle": "Krisp.app",
       "description": "Noise cancellation for calls",
       "category": "communication"
     },
     {
       "name": "MacDown",
       "cask": "macdown",
+      "app_bundle": "MacDown.app",
       "description": "Markdown editor",
       "category": "productivity"
     },
     {
       "name": "Mullvad VPN",
       "cask": "mullvad-vpn",
+      "app_bundle": "Mullvad VPN.app",
       "description": "VPN client",
       "category": "security"
     },
     {
       "name": "NordVPN",
       "cask": "nordvpn",
+      "app_bundle": "NordVPN.app",
       "description": "VPN client",
       "category": "security"
     },
     {
       "name": "noTunes",
       "cask": "notunes",
+      "app_bundle": "noTunes.app",
       "description": "Prevents iTunes/Music from opening",
       "category": "utility"
     },
     {
       "name": "Notion",
       "cask": "notion",
+      "app_bundle": "Notion.app",
       "description": "Note-taking and organization",
       "category": "productivity"
     },
     {
       "name": "Obsidian",
       "cask": "obsidian",
+      "app_bundle": "Obsidian.app",
       "description": "Markdown note-taking",
       "category": "productivity"
     },
     {
       "name": "Postman",
       "cask": "postman",
+      "app_bundle": "Postman.app",
       "description": "API testing tool",
       "category": "developer"
     },
     {
       "name": "Raycast",
       "cask": "raycast",
+      "app_bundle": "Raycast.app",
       "description": "Productivity launcher",
       "category": "productivity"
     },
     {
       "name": "Sequel Ace",
       "cask": "sequel-ace",
+      "app_bundle": "Sequel Ace.app",
       "description": "MySQL/MariaDB database client",
       "category": "developer"
     },
     {
       "name": "Slack",
       "cask": "slack",
+      "app_bundle": "Slack.app",
       "description": "Team communication",
       "category": "communication"
     },
     {
       "name": "Soulver",
       "cask": "soulver",
+      "app_bundle": "Soulver 3.app",
       "description": "Smart calculator",
       "category": "productivity"
     },
     {
       "name": "Spotify",
       "cask": "spotify",
+      "app_bundle": "Spotify.app",
       "description": "Music streaming",
       "category": "media"
     },
     {
       "name": "Sync",
       "cask": "sync",
+      "app_bundle": "Sync.app",
       "description": "Cloud storage and file sharing",
       "category": "utility"
     },
     {
       "name": "Telegram",
       "cask": "telegram",
+      "app_bundle": "Telegram.app",
       "description": "Messaging app",
       "category": "communication"
     },
     {
       "name": "TextMate",
       "cask": "textmate",
+      "app_bundle": "TextMate.app",
       "description": "Text editor",
       "category": "developer"
     },
     {
       "name": "The Clock",
       "cask": "the-clock",
+      "app_bundle": "The Clock.app",
       "description": "World clock menu bar app",
       "category": "utility"
     },
     {
       "name": "Visual Studio Code",
       "cask": "visual-studio-code",
+      "app_bundle": "Visual Studio Code.app",
       "description": "Code editor",
       "category": "developer"
     },
     {
       "name": "VLC",
       "cask": "vlc",
+      "app_bundle": "VLC.app",
       "description": "Media player",
       "category": "media"
     },
     {
       "name": "Zed",
       "cask": "zed",
+      "app_bundle": "Zed.app",
       "description": "Code editor",
       "category": "developer"
     },
     {
       "name": "Zoom",
       "cask": "zoom",
+      "app_bundle": "zoom.us.app",
       "description": "Video conferencing",
       "category": "communication"
     }

@@ -48,10 +48,11 @@ cmd_install() {
   jq -c '.apps[]' "$apps_file" | while read -r app; do
     local name=$(echo "$app" | jq -r '.name')
     local cask=$(echo "$app" | jq -r '.cask')
+    local app_bundle=$(echo "$app" | jq -r '.app_bundle')
     local description=$(echo "$app" | jq -r '.description')
 
-    # Check if already installed
-    if echo "$installed_casks" | grep -q "^$cask$"; then
+    # Check if already installed (via Homebrew or /Applications)
+    if echo "$installed_casks" | grep -q "^$cask$" || [ -d "/Applications/$app_bundle" ]; then
       echo "✅ $name already installed"
       continue
     fi
@@ -101,9 +102,10 @@ cmd_status() {
   jq -c '.apps[]' "$apps_file" | while read -r app; do
     local name=$(echo "$app" | jq -r '.name')
     local cask=$(echo "$app" | jq -r '.cask')
+    local app_bundle=$(echo "$app" | jq -r '.app_bundle')
     local description=$(echo "$app" | jq -r '.description')
 
-    if echo "$installed_casks" | grep -q "^$cask$"; then
+    if echo "$installed_casks" | grep -q "^$cask$" || [ -d "/Applications/$app_bundle" ]; then
       echo -e "  ✅ ${BOLD}$name${NC}: $description"
     else
       echo -e "  ⚫ ${BOLD}$name${NC}: $description"
