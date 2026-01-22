@@ -278,6 +278,8 @@ install_post_setup() {
   fi
 }
 
+# Installs and configures everything. These should all be split or
+# be accessible as single commands
 cmd_install() {
   check_dependencies
 
@@ -414,6 +416,7 @@ case "${1:-}" in
   status) cmd_status ;;
   list) cmd_list ;;
   link) cmd_install_symlinks ;;
+  ssh) install_ssh_setup ;;
   *)
     echo "Usage: dev <command>"
     echo ""
@@ -422,6 +425,7 @@ case "${1:-}" in
     echo "  status     Show installation status of all tools"
     echo "  list       List available tools"
     echo "  link       Create symlinks to local dotfiles"
+    echo "  ssh        Create ssh keys"
     exit 1
     ;;
 esac

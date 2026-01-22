@@ -132,7 +132,8 @@ if has("multi_byte")
   if &termencoding == ""
       " we're probably not using the GUI
       " note: :set won't allow &-replacement
-      let &termencoding = &encoding
+      " FIXME: This is generating an error on boot
+      " let &termencoding = &encoding
   endif
   " set the internal encoding
   set encoding=utf-8
