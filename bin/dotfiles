@@ -58,15 +58,16 @@ cmd_install() {
     fi
 
     if prompt_yes_no "Install $name? ($description)"; then
-      echo "⬇️  Installing $cask..."
+      echo "⬇️ Installing $cask..."
       brew install --cask "$cask"
       echo "✨ Installed $name"
       echo ""
     else
-      echo "➡️  Skipped $name"
+      echo "➡️ Skipped $name"
     fi
   done
 
+  echo ""
   echo "🎯 Done!"
 }
 
