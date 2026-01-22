@@ -110,22 +110,27 @@ install_system_prerequisites() {
 install_cli_tools() {
   local config_file="$SCRIPT_DIR/config/dev-tools.json"
   local installed_packages=$(brew list 2>/dev/null)
+  local tool_count=$(jq '.tools | length' "$config_file")
 
   echo ""
   echo "CLI Tools"
   echo "---------"
 
-  jq -c '.tools[]' "$config_file" | while read -r tool; do
-    local name=$(echo "$tool" | jq -r '.name')
-    local package=$(echo "$tool" | jq -r '.package')
-    local description=$(echo "$tool" | jq -r '.description')
+  # Iterate over all tools and access by index
+  for ((i=0; i<tool_count; i++)); do
+    local name=$(jq -r ".tools[$i].name" "$config_file")
+    local package=$(jq -r ".tools[$i].package" "$config_file")
+    local description=$(jq -r ".tools[$i].description" "$config_file")
 
     if echo "$installed_packages" | grep -q "^$package$"; then
       echo "$name already installed"
     else
       if prompt_yes_no "Install $name? ($description)"; then
         echo "Installing $package..."
-        brew install "$package"
+        brew install "$package" || {
+          echo "❌ Failed to install $name"
+          continue
+        }
         echo "Installed $name"
       else
         echo "Skipped $name"
@@ -283,11 +288,11 @@ cmd_install() {
   install_cli_tools
   install_node_environment
   install_ssh_setup
-  # install_symlinks
   install_post_setup
 
   echo ""
-  echo "Done!"
+  echo "✅ Done!"
+  echo ""
 }
 
 cmd_status() {
