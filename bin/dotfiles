@@ -75,19 +75,44 @@ cmd_list() {
 
   echo "Available applications:"
   echo ""
+
   jq -r '.apps[] | "  \(.name): \(.description) [\(.category)]"' "$apps_file"
+}
+
+cmd_status() {
+  check_dependencies
+
+  local apps_file="$SCRIPT_DIR/config/apps.json"
+
+  echo "Available applications:"
+  echo ""
+
+  jq -c '.apps[]' "$apps_file" | while read -r app; do
+    local name=$(echo "$app" | jq -r '.name')
+    local cask=$(echo "$app" | jq -r '.cask')
+    local description=$(echo "$app" | jq -r '.description')
+    local category=$(echo "$app" | jq -r '.category')
+
+    if brew list --cask "$cask" &> /dev/null; then
+      echo "  ✅ $name: $description [$category]"
+    else
+      echo "     $name: $description [$category]"
+    fi
+  done
 }
 
 # Main command router
 case "${1:-}" in
   install) cmd_install ;;
   list) cmd_list ;;
+  status) cmd_status ;;
   *)
     echo "Usage: dotfiles <command>"
     echo ""
     echo "Commands:"
     echo "  install    Interactive application installation"
     echo "  list       Show available applications"
+    echo "  status     Show install status of applications"
     exit 1
     ;;
 esac
