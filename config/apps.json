@@ -7,178 +7,10 @@
       "category": "security"
     },
     {
-      "name": "iTerm2",
-      "cask": "iterm2",
-      "description": "Terminal emulator",
-      "category": "developer"
-    },
-    {
-      "name": "Alfred",
-      "cask": "alfred",
-      "description": "Productivity launcher",
-      "category": "productivity"
-    },
-    {
-      "name": "Raycast",
-      "cask": "raycast",
-      "description": "Productivity launcher",
-      "category": "productivity"
-    },
-    {
-      "name": "Brave",
-      "cask": "brave-browser",
-      "description": "Privacy-focused browser",
-      "category": "browser"
-    },
-    {
-      "name": "Telegram",
-      "cask": "telegram",
-      "description": "Messaging app",
-      "category": "communication"
-    },
-    {
-      "name": "Notion",
-      "cask": "notion",
-      "description": "Note-taking and organization",
-      "category": "productivity"
-    },
-    {
-      "name": "Kaleidoscope",
-      "cask": "kaleidoscope",
-      "description": "Diff and merge tool",
-      "category": "developer"
-    },
-    {
-      "name": "ImageOptim",
-      "cask": "imageoptim",
-      "description": "Image compression tool",
-      "category": "utility"
-    },
-    {
-      "name": "Spotify",
-      "cask": "spotify",
-      "description": "Music streaming",
-      "category": "media"
-    },
-    {
-      "name": "Flux",
-      "cask": "flux",
-      "description": "Screen color temperature",
-      "category": "utility"
-    },
-    {
-      "name": "Krisp",
-      "cask": "krisp",
-      "description": "Noise cancellation for calls",
-      "category": "communication"
-    },
-    {
-      "name": "Obsidian",
-      "cask": "obsidian",
-      "description": "Markdown note-taking",
-      "category": "productivity"
-    },
-    {
-      "name": "Sequel Ace",
-      "cask": "sequel-ace",
-      "description": "MySQL/MariaDB database client",
-      "category": "developer"
-    },
-    {
-      "name": "Zed",
-      "cask": "zed",
-      "description": "Code editor",
-      "category": "developer"
-    },
-    {
-      "name": "Postman",
-      "cask": "postman",
-      "description": "API testing tool",
-      "category": "developer"
-    },
-    {
-      "name": "NordVPN",
-      "cask": "nordvpn",
-      "description": "VPN client",
-      "category": "security"
-    },
-    {
-      "name": "ExpressVPN",
-      "cask": "expressvpn",
-      "description": "VPN client",
-      "category": "security"
-    },
-    {
-      "name": "Mullvad VPN",
-      "cask": "mullvad-vpn",
-      "description": "VPN client",
-      "category": "security"
-    },
-    {
-      "name": "Karabiner Elements",
-      "cask": "karabiner-elements",
-      "description": "Keyboard customization",
-      "category": "utility"
-    },
-    {
-      "name": "Figma",
-      "cask": "figma",
-      "description": "Design tool",
+      "name": "Affinity Designer",
+      "cask": "affinity-designer",
+      "description": "Vector graphics",
       "category": "design"
-    },
-    {
-      "name": "Slack",
-      "cask": "slack",
-      "description": "Team communication",
-      "category": "communication"
-    },
-    {
-      "name": "The Clock",
-      "cask": "the-clock",
-      "description": "World clock menu bar app",
-      "category": "utility"
-    },
-    {
-      "name": "VLC",
-      "cask": "vlc",
-      "description": "Media player",
-      "category": "media"
-    },
-    {
-      "name": "Zoom",
-      "cask": "zoom",
-      "description": "Video conferencing",
-      "category": "communication"
-    },
-    {
-      "name": "Dropbox",
-      "cask": "dropbox",
-      "description": "Cloud storage",
-      "category": "utility"
-    },
-    {
-      "name": "Soulver",
-      "cask": "soulver",
-      "description": "Smart calculator",
-      "category": "productivity"
-    },
-    {
-      "name": "Visual Studio Code",
-      "cask": "visual-studio-code",
-      "description": "Code editor",
-      "category": "developer"
-    },
-    {
-      "name": "TextMate",
-      "cask": "textmate",
-      "description": "Text editor",
-      "category": "developer"
-    },
-    {
-      "name": "MacDown",
-      "cask": "macdown",
-      "description": "Markdown editor",
-      "category": "productivity"
     },
     {
       "name": "Affinity Photo",
@@ -193,16 +25,16 @@
       "category": "design"
     },
     {
-      "name": "Affinity Designer",
-      "cask": "affinity-designer",
-      "description": "Vector graphics",
-      "category": "design"
+      "name": "Alfred",
+      "cask": "alfred",
+      "description": "Productivity launcher",
+      "category": "productivity"
     },
     {
-      "name": "noTunes",
-      "cask": "notunes",
-      "description": "Prevents iTunes/Music from opening",
-      "category": "utility"
+      "name": "Brave",
+      "cask": "brave-browser",
+      "description": "Privacy-focused browser",
+      "category": "browser"
     },
     {
       "name": "Claude",
@@ -211,9 +43,183 @@
       "category": "productivity"
     },
     {
+      "name": "Dropbox",
+      "cask": "dropbox",
+      "description": "Cloud storage",
+      "category": "utility"
+    },
+    {
+      "name": "ExpressVPN",
+      "cask": "expressvpn",
+      "description": "VPN client",
+      "category": "security"
+    },
+    {
       "name": "Fastmail",
       "cask": "fastmail",
       "description": "Email client",
+      "category": "communication"
+    },
+    {
+      "name": "Figma",
+      "cask": "figma",
+      "description": "Design tool",
+      "category": "design"
+    },
+    {
+      "name": "Flux",
+      "cask": "flux",
+      "description": "Screen color temperature",
+      "category": "utility"
+    },
+    {
+      "name": "ImageOptim",
+      "cask": "imageoptim",
+      "description": "Image compression tool",
+      "category": "utility"
+    },
+    {
+      "name": "iTerm2",
+      "cask": "iterm2",
+      "description": "Terminal emulator",
+      "category": "developer"
+    },
+    {
+      "name": "Kaleidoscope",
+      "cask": "kaleidoscope",
+      "description": "Diff and merge tool",
+      "category": "developer"
+    },
+    {
+      "name": "Karabiner Elements",
+      "cask": "karabiner-elements",
+      "description": "Keyboard customization",
+      "category": "utility"
+    },
+    {
+      "name": "Krisp",
+      "cask": "krisp",
+      "description": "Noise cancellation for calls",
+      "category": "communication"
+    },
+    {
+      "name": "MacDown",
+      "cask": "macdown",
+      "description": "Markdown editor",
+      "category": "productivity"
+    },
+    {
+      "name": "Mullvad VPN",
+      "cask": "mullvad-vpn",
+      "description": "VPN client",
+      "category": "security"
+    },
+    {
+      "name": "NordVPN",
+      "cask": "nordvpn",
+      "description": "VPN client",
+      "category": "security"
+    },
+    {
+      "name": "noTunes",
+      "cask": "notunes",
+      "description": "Prevents iTunes/Music from opening",
+      "category": "utility"
+    },
+    {
+      "name": "Notion",
+      "cask": "notion",
+      "description": "Note-taking and organization",
+      "category": "productivity"
+    },
+    {
+      "name": "Obsidian",
+      "cask": "obsidian",
+      "description": "Markdown note-taking",
+      "category": "productivity"
+    },
+    {
+      "name": "Postman",
+      "cask": "postman",
+      "description": "API testing tool",
+      "category": "developer"
+    },
+    {
+      "name": "Raycast",
+      "cask": "raycast",
+      "description": "Productivity launcher",
+      "category": "productivity"
+    },
+    {
+      "name": "Sequel Ace",
+      "cask": "sequel-ace",
+      "description": "MySQL/MariaDB database client",
+      "category": "developer"
+    },
+    {
+      "name": "Slack",
+      "cask": "slack",
+      "description": "Team communication",
+      "category": "communication"
+    },
+    {
+      "name": "Soulver",
+      "cask": "soulver",
+      "description": "Smart calculator",
+      "category": "productivity"
+    },
+    {
+      "name": "Spotify",
+      "cask": "spotify",
+      "description": "Music streaming",
+      "category": "media"
+    },
+    {
+      "name": "Sync",
+      "cask": "sync",
+      "description": "Cloud storage and file sharing",
+      "category": "utility"
+    },
+    {
+      "name": "Telegram",
+      "cask": "telegram",
+      "description": "Messaging app",
+      "category": "communication"
+    },
+    {
+      "name": "TextMate",
+      "cask": "textmate",
+      "description": "Text editor",
+      "category": "developer"
+    },
+    {
+      "name": "The Clock",
+      "cask": "the-clock",
+      "description": "World clock menu bar app",
+      "category": "utility"
+    },
+    {
+      "name": "Visual Studio Code",
+      "cask": "visual-studio-code",
+      "description": "Code editor",
+      "category": "developer"
+    },
+    {
+      "name": "VLC",
+      "cask": "vlc",
+      "description": "Media player",
+      "category": "media"
+    },
+    {
+      "name": "Zed",
+      "cask": "zed",
+      "description": "Code editor",
+      "category": "developer"
+    },
+    {
+      "name": "Zoom",
+      "cask": "zoom",
+      "description": "Video conferencing",
       "category": "communication"
     }
   ]

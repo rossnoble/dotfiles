@@ -39,6 +39,7 @@ cmd_install() {
   check_dependencies
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
+  local installed_casks=$(brew list --cask 2>/dev/null)
 
   echo "🚀 Application Installation"
   echo ""
@@ -50,7 +51,7 @@ cmd_install() {
     local description=$(echo "$app" | jq -r '.description')
 
     # Check if already installed
-    if brew list --cask "$cask" &> /dev/null; then
+    if echo "$installed_casks" | grep -q "^$cask$"; then
       echo "✅ $name already installed"
       continue
     fi
@@ -72,33 +73,43 @@ cmd_list() {
   check_dependencies
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
-
-  echo "Available applications:"
-  echo ""
-
-  jq -r '.apps[] | "  \(.name): \(.description) [\(.category)]"' "$apps_file"
-}
-
-cmd_status() {
-  check_dependencies
-
-  local apps_file="$SCRIPT_DIR/config/apps.json"
+  local BOLD='\033[1m'
+  local NC='\033[0m'
 
   echo "Available applications:"
   echo ""
 
   jq -c '.apps[]' "$apps_file" | while read -r app; do
     local name=$(echo "$app" | jq -r '.name')
+    local description=$(echo "$app" | jq -r '.description')
+    echo -e "  ${BOLD}$name${NC}: $description"
+  done
+  echo ""
+}
+
+cmd_status() {
+  check_dependencies
+
+  local apps_file="$SCRIPT_DIR/config/apps.json"
+  local installed_casks=$(brew list --cask 2>/dev/null)
+  local BOLD='\033[1m'
+  local NC='\033[0m'
+
+  echo "Applications installed:"
+  echo ""
+
+  jq -c '.apps[]' "$apps_file" | while read -r app; do
+    local name=$(echo "$app" | jq -r '.name')
     local cask=$(echo "$app" | jq -r '.cask')
     local description=$(echo "$app" | jq -r '.description')
-    local category=$(echo "$app" | jq -r '.category')
 
-    if brew list --cask "$cask" &> /dev/null; then
-      echo "  ✅ $name: $description [$category]"
+    if echo "$installed_casks" | grep -q "^$cask$"; then
+      echo -e "  ✅ ${BOLD}$name${NC}: $description"
     else
-      echo "     $name: $description [$category]"
+      echo -e "  ⚫ ${BOLD}$name${NC}: $description"
     fi
   done
+  echo ""
 }
 
 # Main command router
@@ -111,8 +122,7 @@ case "${1:-}" in
     echo ""
     echo "Commands:"
     echo "  install    Interactive application installation"
-    echo "  list       Show available applications"
-    echo "  status     Show install status of applications"
+    echo "  list       Print available applications and their install status"
     exit 1
     ;;
 esac
