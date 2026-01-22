@@ -210,7 +210,7 @@ install_ssh_setup() {
   fi
 }
 
-install_symlinks() {
+cmd_install_symlinks() {
   local config_file="$SCRIPT_DIR/config/dev-tools.json"
 
   echo ""
@@ -227,25 +227,25 @@ install_symlinks() {
     local source_path="$SCRIPT_DIR/$source"
 
     if is_symlink "$expanded_target"; then
-      echo "$target already linked"
+      echo "✅ $target already linked"
     elif [ -e "$expanded_target" ]; then
       if prompt_yes_no "$target exists. Replace with symlink to $source?"; then
         # Create parent directory if needed
         mkdir -p "$(dirname "$expanded_target")"
         rm -rf "$expanded_target"
         ln -s "$source_path" "$expanded_target"
-        echo "Linked $target"
+        echo "✨ Linked $target"
       else
-        echo "Skipped $target"
+        echo "⏩ Skipped $target"
       fi
     else
       if prompt_yes_no "Create symlink $target -> $source?"; then
         # Create parent directory if needed
         mkdir -p "$(dirname "$expanded_target")"
         ln -s "$source_path" "$expanded_target"
-        echo "Linked $target"
+        echo "✨ Linked $target"
       else
-        echo "Skipped $target"
+        echo "⏩ Skipped $target"
       fi
     fi
   done
@@ -283,7 +283,7 @@ cmd_install() {
   install_cli_tools
   install_node_environment
   install_ssh_setup
-  install_symlinks
+  # install_symlinks
   install_post_setup
 
   echo ""
@@ -358,11 +358,11 @@ cmd_status() {
     local expanded_target="${target/#\~/$HOME}"
 
     if is_symlink "$expanded_target"; then
-      echo -e "  ${BOLD}$target${NC}: linked"
+      echo -e "  ✅ ${BOLD}$target${NC}: linked"
     elif [ -e "$expanded_target" ]; then
-      echo -e "  ${BOLD}$target${NC}: exists (not symlink)"
+      echo -e "  🚫 ${BOLD}$target${NC}: exists (not symlink)"
     else
-      echo -e "  ${BOLD}$target${NC}: missing"
+      echo -e "  👀 ${BOLD}$target${NC}: missing"
     fi
   done
 
@@ -408,6 +408,7 @@ case "${1:-}" in
   install) cmd_install ;;
   status) cmd_status ;;
   list) cmd_list ;;
+  link) cmd_install_symlinks ;;
   *)
     echo "Usage: dev <command>"
     echo ""
@@ -415,6 +416,7 @@ case "${1:-}" in
     echo "  install    Interactive developer environment setup"
     echo "  status     Show installation status of all tools"
     echo "  list       List available tools"
+    echo "  link       Create symlinks to local dotfiles"
     exit 1
     ;;
 esac
