@@ -47,7 +47,6 @@
     { "source": "gitconfig", "target": "~/.gitconfig" },
     { "source": "gitignore_global", "target": "~/.gitignore_global" },
     { "source": "tmux.conf", "target": "~/.tmux.conf" },
-    { "source": "nvim", "target": "~/.config/nvim", "is_directory": true },
-    { "source": "agignore", "target": "~/.agignore" }
+    { "source": "nvim", "target": "~/.config/nvim", "is_directory": true }
   ]
 }

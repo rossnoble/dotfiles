@@ -4,20 +4,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
-prompt_yes_no() {
-  local prompt="$1"
-  local response
-
-  while true; do
-    read -p "$prompt [y/n]: " response < /dev/tty
-    case $response in
-      [Yy]* ) return 0 ;;
-      [Nn]* ) return 1 ;;
-      * ) echo "Please answer y or n." ;;
-    esac
-  done
-}
+source "$SCRIPT_DIR/lib/utils.sh"
 
 prompt_input() {
   local prompt="$1"
@@ -25,21 +12,6 @@ prompt_input() {
 
   read -p "$prompt: " response < /dev/tty
   echo "$response"
-}
-
-# Check for required dependencies
-check_dependencies() {
-  if ! command -v brew &> /dev/null; then
-    echo "Error: Homebrew is required but not installed."
-    echo "Run ./bootstrap.sh first"
-    exit 1
-  fi
-
-  if ! command -v jq &> /dev/null; then
-    echo "Error: jq is required but not installed."
-    echo "Run ./bootstrap.sh first, or: brew install jq"
-    exit 1
-  fi
 }
 
 # Detection functions
@@ -256,6 +228,7 @@ cmd_install_symlinks() {
   done
 }
 
+# TODO: Move this as a post-install set for neovim only
 install_post_setup() {
   echo ""
   echo "Post-install"
