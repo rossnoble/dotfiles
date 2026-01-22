@@ -1,0 +1,43 @@
+{
+  "tools": [
+    {
+      "name": "git",
+      "package": "git",
+      "description": "Version control"
+    },
+    {
+      "name": "neovim",
+      "package": "neovim",
+      "description": "Text editor"
+    },
+    {
+      "name": "tmux",
+      "package": "tmux",
+      "description": "Terminal multiplexer"
+    },
+    {
+      "name": "z",
+      "package": "z",
+      "description": "Directory jumping"
+    },
+    {
+      "name": "ripgrep",
+      "package": "ripgrep",
+      "description": "Fast search"
+    },
+    {
+      "name": "deno",
+      "package": "deno",
+      "description": "JS/TS runtime"
+    }
+  ],
+  "symlinks": [
+    { "source": "zshrc", "target": "~/.zshrc" },
+    { "source": "vimrc", "target": "~/.vimrc" },
+    { "source": "gitconfig", "target": "~/.gitconfig" },
+    { "source": "gitignore_global", "target": "~/.gitignore_global" },
+    { "source": "tmux.conf", "target": "~/.tmux.conf" },
+    { "source": "nvim", "target": "~/.config/nvim", "is_directory": true },
+    { "source": "agignore", "target": "~/.agignore" }
+  ]
+}
