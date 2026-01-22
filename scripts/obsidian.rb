@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 # Sync obsidian configs through symlinks
+# TODO: Rewrite using bash and add CLI prompts
 
 DOTFILES = File.expand_path("~/Code/dotfiles/obsidian")
 CONFIGS_TO_LINK = %w[appearance.json hotkeys.json core-plugins.json]

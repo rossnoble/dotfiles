@@ -121,21 +121,18 @@ install_node_environment() {
     echo "nvm already installed"
   else
     if prompt_yes_no "Install nvm? (Node Version Manager)"; then
-      echo "Installing nvm..."
-      brew install nvm
-
-      # Create .nvm directory
-      mkdir -p "$HOME/.nvm"
-
-      # Add nvm config to .zshrc_local
+      # Create .zshrc_local file if not created
       if ! grep -q "NVM_DIR" "$HOME/.zshrc_local" 2>/dev/null; then
+        echo "Creating zshrc_local file..."
         echo "" >> "$HOME/.zshrc_local"
-        echo "# nvm configuration" >> "$HOME/.zshrc_local"
-        echo "export NVM_DIR=\"\$HOME/.nvm\"" >> "$HOME/.zshrc_local"
-        echo "[ -s \"\$HOMEBREW_PREFIX/opt/nvm/nvm.sh\" ] && \. \"\$HOMEBREW_PREFIX/opt/nvm/nvm.sh\"" >> "$HOME/.zshrc_local"
-        echo "[ -s \"\$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm\" ] && \. \"\$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm\"" >> "$HOME/.zshrc_local"
-        echo "Added nvm configuration to ~/.zshrc_local"
       fi
+
+      echo "Installing nvm..."
+
+      # Download and install nvm
+      # PROFILE specifies where the source script is added
+      # See https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
+      PROFILE=~/.zshrc_local bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 
       echo "Installed nvm"
       echo ""
