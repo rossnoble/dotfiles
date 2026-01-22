@@ -90,9 +90,9 @@ alias disable_sleep='sudo pmset disablesleep 1'
 alias ag='ag --path-to-ignore ~/.agignore'
 
 # Postgres
-alias pgstart="brew services start postgresql"
-alias pgstop="brew services stop postgresql"
-alias pgrestart="brew services restart postgresql"
+alias pgstart="brew services start postgresql@17"
+alias pgstop="brew services stop postgresql@17"
+alias pgrestart="brew services restart postgresql@17"
 
 # Tmux
 alias tmux="tmux -2"
