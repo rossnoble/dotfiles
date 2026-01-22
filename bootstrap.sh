@@ -18,7 +18,7 @@ else
   echo "Homebrew already installed"
 fi
 
-# Install jq for JSON parsing (required by bin/dotfiles)
+# Install jq for JSON parsing (required by bin/apps and bin/dev)
 if ! command -v jq &> /dev/null; then
   echo "Installing jq..."
   brew install jq
@@ -30,5 +30,5 @@ echo ""
 echo "Bootstrap complete!"
 echo ""
 echo "Next steps:"
-echo "  ./bin/dotfiles install    # Interactive app installation"
-echo "  ./install.sh              # Configure dotfiles"
+echo "  ./bin/dev install     # Set up developer environment"
+echo "  ./bin/apps install    # Install GUI applications"
