@@ -5,6 +5,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$SCRIPT_DIR/lib/utils.sh"
+source "$SCRIPT_DIR/lib/macos.sh"
 
 prompt_input() {
   local prompt="$1"
@@ -380,13 +381,18 @@ cmd_list() {
   echo ""
 }
 
+cmd_macos_prefs() {
+  set_hot_corners
+}
+
 # Main command router
 case "${1:-}" in
   install) cmd_install ;;
-  status) cmd_status ;;
-  list) cmd_list ;;
-  link) cmd_install_symlinks ;;
-  ssh) install_ssh_setup ;;
+  status)  cmd_status ;;
+  list)    cmd_list ;;
+  link)    cmd_install_symlinks ;;
+  ssh)     install_ssh_setup ;;
+  macos)   cmd_macos_prefs ;;
   *)
     echo "Usage: dev <command>"
     echo ""
@@ -396,6 +402,7 @@ case "${1:-}" in
     echo "  list       List available tools"
     echo "  link       Create symlinks to local dotfiles"
     echo "  ssh        Create ssh keys"
+    echo "  macos      Configure macos preferences"
     exit 1
     ;;
 esac
