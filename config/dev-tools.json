@@ -29,6 +29,16 @@
       "name": "deno",
       "package": "deno",
       "description": "JS/TS runtime"
+    },
+    {
+      "name": "claude-code",
+      "package": "claude-code",
+      "description": "AI coding assistant"
+    },
+    {
+      "name": "opencode",
+      "package": "opencode",
+      "description": "AI coding agent for terminal"
     }
   ],
   "symlinks": [
