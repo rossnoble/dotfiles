@@ -40,67 +40,55 @@ These are things that are useful but hard to automate.
 
 ## VIM
 
-1. Run the `./scripts/developer.sh` script to install vim-plug for plugin management
-2. Inside vim, run  `:PlugInstall` to install the vim plugins defined in `vimrc`
+Run `./bin/dev install` to set up vim-plug, then inside Neovim run `:PlugInstall` to install plugins.
 
 ## SSH
 
-Run the `./scripts/ssh.sh` script or manually below.
+Run `./bin/dev install` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
 
-```
-ssh-keygen -t ed25519 -C you@example.com
-```
+Add key to GitHub: https://github.com/settings/keys
 
-Start the ssh agent
-```
-eval "$(ssh-agent -s)"
-```
+## CLI Tools
 
-Add the following to `~./ssh/config`
-```
-Host github.com
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
-```
-
-Add key to Github:
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-
-```
-pbcopy < ~/.ssh/id_ed25519.pub
-```
-
-## Automated Application Installation
-
-A CLI tool for interactively installing macOS applications via Homebrew casks.
+Two CLI tools for setting up a fresh Mac:
 
 ### Quick Start
 
 ```bash
-./bootstrap.sh           # Install Homebrew and jq (run first on fresh machines)
-./bin/dotfiles install   # Interactive app installation
-./bin/dotfiles list      # Show available applications
+./bootstrap.sh        # Install Homebrew and jq (run first)
+./bin/apps install    # Interactive GUI app installation
+./bin/dev install     # Interactive developer environment setup
 ```
 
-### How It Works
+## Application Installation (`bin/apps`)
 
-1. `bootstrap.sh` installs Homebrew and jq (required for JSON parsing)
-2. `bin/dotfiles` reads app definitions from `config/apps.json`
-3. For each app, you're prompted to install or skip
-4. Already-installed apps are detected and skipped automatically
+Interactively install macOS GUI applications via Homebrew casks.
 
-### Adding Applications
-
-Edit `config/apps.json` to add new applications:
-
-```json
-{
-  "name": "App Name",
-  "cask": "homebrew-cask-name",
-  "description": "Brief description",
-  "category": "developer|productivity|utility|etc"
-}
+```bash
+./bin/apps install    # Interactive app installation
+./bin/apps list       # Show available applications
+./bin/apps status     # Show installation status
 ```
 
-Find cask names at https://formulae.brew.sh/cask/
+Edit `config/apps.json` to add applications. Find cask names at https://formulae.brew.sh/cask/
+
+## Developer Environment (`bin/dev`)
+
+Interactively set up developer tools, environments, and dotfiles.
+
+```bash
+./bin/dev install     # Interactive developer setup
+./bin/dev list        # Show available tools
+./bin/dev status      # Show installation status
+```
+
+### What it sets up
+
+1. **System Prerequisites**: XCode CLI Tools, Rosetta 2
+2. **CLI Tools**: git, nvim, tmux, z, rg, deno (via Homebrew)
+3. **Node Environment**: nvm, Node, corepack/yarn
+4. **SSH**: Generate key and configure for GitHub
+5. **Symlinks**: Link dotfiles to home directory
+6. **Post-install**: vim-plug for Neovim
+
+Edit `config/dev-tools.json` to customize tools and symlinks.
