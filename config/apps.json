@@ -50,6 +50,13 @@
       "category": "productivity"
     },
     {
+      "name": "Discord",
+      "cask": "discord",
+      "app_bundle": "Discord.app",
+      "description": "Voice and text chat software",
+      "category": "communication"
+    },
+    {
       "name": "Dropbox",
       "cask": "dropbox",
       "app_bundle": "Dropbox.app",
@@ -83,6 +90,13 @@
       "app_bundle": "Flux.app",
       "description": "Screen color temperature",
       "category": "utility"
+    },
+    {
+      "name": "Ghostty",
+      "cask": "ghostty",
+      "app_bundle": "Ghostty.app",
+      "description": "Terminal emulator",
+      "category": "developer"
     },
     {
       "name": "ImageOptim",
