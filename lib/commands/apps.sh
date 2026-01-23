@@ -1,18 +1,12 @@
-#!/bin/bash
-# bin/dotfiles - Main CLI interface for dotfiles management
+# lib/commands/apps.sh - Application management commands
 
-set -e
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "$SCRIPT_DIR/lib/utils.sh"
-
-cmd_install() {
+apps_install() {
   check_dependencies
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
   local installed_casks=$(brew list --cask 2>/dev/null)
 
-  echo "🚀 Application Installation"
+  echo "Application Installation"
   echo ""
 
   # Parse JSON and prompt for each app
@@ -24,25 +18,25 @@ cmd_install() {
 
     # Check if already installed (via Homebrew or /Applications)
     if echo "$installed_casks" | grep -q "^$cask$" || [ -d "/Applications/$app_bundle" ]; then
-      echo "✅ $name already installed"
+      echo "[installed] $name"
       continue
     fi
 
     if prompt_yes_no "Install $name? ($description)"; then
-      echo "⬇️ Installing $cask..."
+      echo "Installing $cask..."
       brew install --cask "$cask"
-      echo "✨ Installed $name"
+      echo "Installed $name"
       echo ""
     else
-      echo "➡️ Skipped $name"
+      echo "Skipped $name"
     fi
   done
 
   echo ""
-  echo "🎯 Done!"
+  echo "Done!"
 }
 
-cmd_list() {
+apps_list() {
   check_dependencies
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
@@ -60,7 +54,7 @@ cmd_list() {
   echo ""
 }
 
-cmd_status() {
+apps_status() {
   check_dependencies
 
   local apps_file="$SCRIPT_DIR/config/apps.json"
@@ -78,25 +72,37 @@ cmd_status() {
     local description=$(echo "$app" | jq -r '.description')
 
     if echo "$installed_casks" | grep -q "^$cask$" || [ -d "/Applications/$app_bundle" ]; then
-      echo -e "  ✅ ${BOLD}$name${NC}: $description"
+      echo -e "  [x] ${BOLD}$name${NC}: $description"
     else
-      echo -e "  ⚫ ${BOLD}$name${NC}: $description"
+      echo -e "  [ ] ${BOLD}$name${NC}: $description"
     fi
   done
   echo ""
 }
 
-# Main command router
-case "${1:-}" in
-  install) cmd_install ;;
-  list) cmd_list ;;
-  status) cmd_status ;;
-  *)
-    echo "Usage: dotfiles <command>"
-    echo ""
-    echo "Commands:"
-    echo "  install    Interactive application installation"
-    echo "  list       Print available applications and their install status"
-    exit 1
-    ;;
-esac
+apps_help() {
+  echo "Usage: dotfiles apps <command>"
+  echo ""
+  echo "Commands:"
+  echo "  install    Interactive application installation"
+  echo "  list       Print available applications"
+  echo "  status     Show installation status of all applications"
+  echo "  help       Show this help message"
+}
+
+apps_run() {
+  local cmd="${1:-}"
+
+  case "$cmd" in
+    install) apps_install ;;
+    list)    apps_list ;;
+    status)  apps_status ;;
+    help|"") apps_help ;;
+    *)
+      echo "Unknown command: $cmd"
+      echo ""
+      apps_help
+      exit 1
+      ;;
+  esac
+}

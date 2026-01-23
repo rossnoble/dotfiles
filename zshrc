@@ -62,7 +62,9 @@ alias ls='ls -lAh'
 # alias find='gfind'
 
 # Shortcuts to dotfiles
-alias dotfiles="cd ${DOTFILES_DIR}"
+# This alias used to be called `dotfiles` but that would
+# conflict with the dotfiles CLI tool of the same name
+alias dots="cd ${DOTFILES_DIR}"
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
 alias zshrc_local='vim ~/.zshrc_local'

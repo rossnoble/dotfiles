@@ -1,0 +1,46 @@
+#!/bin/bash
+# bin/dotfiles - Main CLI interface for dotfiles management
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+source "$SCRIPT_DIR/lib/utils.sh"
+
+show_help() {
+  echo "Usage: dotfiles <domain> <command>"
+  echo ""
+  echo "Domains:"
+  echo "  apps       Manage application installations"
+  echo "  dev        Developer environment setup"
+  echo ""
+  echo "Examples:"
+  echo "  dotfiles apps install    # Interactive app installation"
+  echo "  dotfiles apps list       # List available applications"
+  echo "  dotfiles dev install     # Full dev environment setup"
+  echo "  dotfiles dev link        # Create dotfile symlinks"
+  echo ""
+  echo "Run 'dotfiles <domain> help' for domain-specific commands."
+}
+
+domain="${1:-}"
+shift 2>/dev/null || true
+
+case "$domain" in
+  apps)
+    source "$SCRIPT_DIR/lib/commands/apps.sh"
+    apps_run "$@"
+    ;;
+  dev)
+    source "$SCRIPT_DIR/lib/commands/dev.sh"
+    dev_run "$@"
+    ;;
+  help|"")
+    show_help
+    ;;
+  *)
+    echo "Unknown domain: $domain"
+    echo ""
+    show_help
+    exit 1
+    ;;
+esac

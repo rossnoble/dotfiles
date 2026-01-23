@@ -1,10 +1,5 @@
-#!/bin/bash
-# bin/dev - Developer environment setup CLI
+# lib/commands/dev.sh - Developer environment setup commands
 
-set -e
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "$SCRIPT_DIR/lib/utils.sh"
 source "$SCRIPT_DIR/lib/macos.sh"
 
 prompt_input() {
@@ -101,7 +96,7 @@ install_cli_tools() {
       if prompt_yes_no "Install $name? ($description)"; then
         echo "Installing $package..."
         brew install "$package" || {
-          echo "❌ Failed to install $name"
+          echo "Failed to install $name"
           continue
         }
         echo "Installed $name"
@@ -185,7 +180,7 @@ install_ssh_setup() {
   fi
 }
 
-cmd_install_symlinks() {
+dev_link() {
   local config_file="$SCRIPT_DIR/config/dev-tools.json"
 
   echo ""
@@ -202,25 +197,25 @@ cmd_install_symlinks() {
     local source_path="$SCRIPT_DIR/$source"
 
     if is_symlink "$expanded_target"; then
-      echo "✅ $target already linked"
+      echo "[linked] $target"
     elif [ -e "$expanded_target" ]; then
       if prompt_yes_no "$target exists. Replace with symlink to $source?"; then
         # Create parent directory if needed
         mkdir -p "$(dirname "$expanded_target")"
         rm -rf "$expanded_target"
         ln -s "$source_path" "$expanded_target"
-        echo "✨ Linked $target"
+        echo "Linked $target"
       else
-        echo "⏩ Skipped $target"
+        echo "Skipped $target"
       fi
     else
       if prompt_yes_no "Create symlink $target -> $source?"; then
         # Create parent directory if needed
         mkdir -p "$(dirname "$expanded_target")"
         ln -s "$source_path" "$expanded_target"
-        echo "✨ Linked $target"
+        echo "Linked $target"
       else
-        echo "⏩ Skipped $target"
+        echo "Skipped $target"
       fi
     fi
   done
@@ -249,9 +244,8 @@ install_post_setup() {
   fi
 }
 
-# Installs and configures everything. These should all be split or
-# be accessible as single commands
-cmd_install() {
+# Installs and configures everything
+dev_install() {
   check_dependencies
 
   echo "Developer Environment Setup"
@@ -264,11 +258,11 @@ cmd_install() {
   install_post_setup
 
   echo ""
-  echo "✅ Done!"
+  echo "Done!"
   echo ""
 }
 
-cmd_status() {
+dev_status() {
   check_dependencies
 
   local config_file="$SCRIPT_DIR/config/dev-tools.json"
@@ -336,11 +330,11 @@ cmd_status() {
     local expanded_target="${target/#\~/$HOME}"
 
     if is_symlink "$expanded_target"; then
-      echo -e "  ✅ ${BOLD}$target${NC}: linked"
+      echo -e "  [x] ${BOLD}$target${NC}: linked"
     elif [ -e "$expanded_target" ]; then
-      echo -e "  🚫 ${BOLD}$target${NC}: exists (not symlink)"
+      echo -e "  [!] ${BOLD}$target${NC}: exists (not symlink)"
     else
-      echo -e "  👀 ${BOLD}$target${NC}: missing"
+      echo -e "  [ ] ${BOLD}$target${NC}: missing"
     fi
   done
 
@@ -356,7 +350,7 @@ cmd_status() {
   echo ""
 }
 
-cmd_list() {
+dev_list() {
   check_dependencies
 
   local config_file="$SCRIPT_DIR/config/dev-tools.json"
@@ -381,28 +375,43 @@ cmd_list() {
   echo ""
 }
 
-cmd_macos_prefs() {
+dev_ssh() {
+  install_ssh_setup
+}
+
+dev_macos() {
   configure_dock_settings
 }
 
-# Main command router
-case "${1:-}" in
-  install) cmd_install ;;
-  status)  cmd_status ;;
-  list)    cmd_list ;;
-  link)    cmd_install_symlinks ;;
-  ssh)     install_ssh_setup ;;
-  macos)   cmd_macos_prefs ;;
-  *)
-    echo "Usage: dev <command>"
-    echo ""
-    echo "Commands:"
-    echo "  install    Interactive developer environment setup"
-    echo "  status     Show installation status of all tools"
-    echo "  list       List available tools"
-    echo "  link       Create symlinks to local dotfiles"
-    echo "  ssh        Create ssh keys"
-    echo "  macos      Configure macos preferences"
-    exit 1
-    ;;
-esac
+dev_help() {
+  echo "Usage: dotfiles dev <command>"
+  echo ""
+  echo "Commands:"
+  echo "  install    Interactive developer environment setup"
+  echo "  status     Show installation status of all tools"
+  echo "  list       List available tools"
+  echo "  link       Create symlinks to local dotfiles"
+  echo "  ssh        Create SSH keys"
+  echo "  macos      Configure macOS preferences"
+  echo "  help       Show this help message"
+}
+
+dev_run() {
+  local cmd="${1:-}"
+
+  case "$cmd" in
+    install) dev_install ;;
+    status)  dev_status ;;
+    list)    dev_list ;;
+    link)    dev_link ;;
+    ssh)     dev_ssh ;;
+    macos)   dev_macos ;;
+    help|"") dev_help ;;
+    *)
+      echo "Unknown command: $cmd"
+      echo ""
+      dev_help
+      exit 1
+      ;;
+  esac
+}
