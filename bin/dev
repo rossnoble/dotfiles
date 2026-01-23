@@ -382,7 +382,7 @@ cmd_list() {
 }
 
 cmd_macos_prefs() {
-  set_hot_corners
+  configure_dock_settings
 }
 
 # Main command router

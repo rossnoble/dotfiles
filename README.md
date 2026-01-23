@@ -4,15 +4,20 @@
 
 This is an install script for configuring fresh machines.
 
-1. Create a `~/Code/` directory.
-2. Clone or download the repo into that directory. 
-3. Run the installation script.
+1. Clone or download the repo.
+2. Run the init script at `./bootstrap.sh`
+3. Run ./bin/apps to install GUI apps
+4. Run ./bin/dev to install CLI tools and apply system preferences
 
 ```
-$ git clone git@github.com:rossnoble/dotfiles.git
+$ git clone https://github.com/rossnoble/dotfiles.git
 $ cd dotfiles
-$ ./install.sh
+$ ./bootstrap.sh
 ```
+
+NOTE: You'll need to update the dotfiles git url in `.git/config` to
+`git@github.com:rossnoble/dotfiles.git` if want to push to this repo
+from the new machine.
 
 ## Manual settings
 
@@ -22,21 +27,6 @@ These are things that are useful but hard to automate.
    - Set "Key repeat rate" to max Fast
    - Set "Delay until repeat" to max Short
    - Change Caps Lock key to "Control": Keyboard > Keyboard Shortcuts > Modifier Keys
-2. Configure display settings
-   - Hide the dock: Desktop & Dock > Automatically show and hide the Dock
-3. Set hot corners in MacOS
-   - Bottom left: all windows
-   - Bottom right: desktop
-4. Update iTerm defaults
-   - Full screen mode: General > Window > Deselect "Native full screen windows"
-   - Increase font size: Profiles > Text > Bump to 14/15
-5. Configure Alfred: search scopes
-   - Update search scopes (details??)
-   - Update Cmd + Spacebar to open Alfred
-6. Configure Control Center
-   - ...
-7. Configure SSH keys for Github:
-   - https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## VIM
 
@@ -44,7 +34,7 @@ Run `./bin/dev install` to set up vim-plug, then inside Neovim run `:PlugInstall
 
 ## SSH
 
-Run `./bin/dev install` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
+Run `./bin/dev ssh` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
 
 Add key to GitHub: https://github.com/settings/keys
 
