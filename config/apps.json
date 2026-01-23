@@ -190,6 +190,13 @@
       "category": "productivity"
     },
     {
+      "name": "qlmarkdown",
+      "cask": "qlmarkdown",
+      "app_bundle": "QLMarkdown.app",
+      "description": "Quick Look generator for Markdown files",
+      "category": "developer"
+    },
+    {
       "name": "Sequel Ace",
       "cask": "sequel-ace",
       "app_bundle": "Sequel Ace.app",
