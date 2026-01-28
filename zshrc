@@ -72,6 +72,7 @@ alias sozshrc='source ~/.zshrc'
 alias sozshrc_local='source ~/.zshrc_local'
 alias tconf='vim ~/.tmux.conf'
 alias sotconf='tmux source ~/.tmux.conf'
+alias ghostconf='vim ~/.config/ghostty/config'
 
 alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'

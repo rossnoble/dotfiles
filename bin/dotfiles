@@ -18,6 +18,7 @@ show_help() {
   echo "  dotfiles apps list       # List available applications"
   echo "  dotfiles dev install     # Full dev environment setup"
   echo "  dotfiles dev link        # Create dotfile symlinks"
+  echo "  dotfiles dev status      # View installed dev tools"
   echo ""
   echo "Run 'dotfiles <domain> help' for domain-specific commands."
 }
