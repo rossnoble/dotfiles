@@ -1,5 +1,5 @@
 [include]
-  path = ./gitconfig.local
+  path = ~/.gitconfig.local
 
 [alias]
   # Every day shortcuts
@@ -91,10 +91,6 @@
   smudge = git-lfs smudge -- %f
   required = true
   process = git-lfs filter-process
-
-[user]
-  name = Ross Noble
-  email = rnoble@fastmail.com
 
 [pull]
   rebase = true
