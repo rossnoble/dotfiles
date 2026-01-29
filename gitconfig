@@ -1,5 +1,6 @@
 [include]
   path = ./gitconfig.local
+
 [alias]
   # Every day shortcuts
   st = status
@@ -44,42 +45,59 @@
   # Logging
   lg = log -30 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit
   lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
 [push]
   default = current
+
 [merge]
   tool = Kaleidoscope
+
 [mergetool "diffmerge"]
   cmd = diffmerge --merge\n--result=$MERGED $LOCAL $BASE $REMOTE
   trustExitCode = true
+
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
   trustExitCode = true
+
 [mergetool]
   prompt = false
+
 [diff]
   tool = Kaleidoscope
+
 [color]
   ui = true
+
 [color "diff"]
   meta = blue black bold
+
 [color "status"]
   meta = blue black bold
+
 [core]
+  editor = nvim
   excludesfile = /Users/ross/.gitignore_global
   autocrlf = input
+
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
 [difftool]
   prompt = false
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   required = true
   process = git-lfs filter-process
+
 [user]
   name = Ross Noble
   email = rnoble@fastmail.com
+
 [pull]
   rebase = true
+
 [init]
   defaultBranch = main
