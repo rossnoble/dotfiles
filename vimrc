@@ -208,6 +208,11 @@ nmap <C-L><C-L> :set list!<CR>
 cmap <C-b> <left>
 cmap <C-f> <right>
 
+" Copy file name to clipboard
+nnoremap <Leader>cf :let @+ = expand("%:t")<CR>
+" Copy relative path to clipboard
+nnoremap <Leader>cp :let @+ = expand("%")<CR>
+
 " PLUGIN CONFIGURATIONS
 " ------------------------
 
