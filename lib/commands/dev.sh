@@ -381,6 +381,7 @@ dev_ssh() {
 
 dev_macos() {
   configure_dock_settings
+  configure_keyboard_settings
 }
 
 dev_help() {
