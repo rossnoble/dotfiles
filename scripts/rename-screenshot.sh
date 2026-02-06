@@ -13,11 +13,28 @@
 # ```
 
 for f in "$@"; do
+  # Skip if not a file
+  [ -f "$f" ] || continue
+
 	dir=$(dirname "$f")
 	ext="${f##*.}"
 
-	# Custom format: $YYYY-MM-DD-screenshot-$unixtime.png
-	newname="$(date +%Y-%m-%d)-screenshot-at-$(date +%s).${ext}"
+  # Only rename files matching macOS default screenshot pattern
+  # e.g., "Screenshot 2026-02-06 at 2.30.22 PM.png"
+  SCREENSHOT_PATTERN='^Screenshot [0-9]{4}-[0-9]{2}-[0-9]{2}'
+
+  basename=$(basename "$f")
+  if [[ ! "$basename" =~ $SCREENSHOT_PATTERN ]]; then
+     continue
+  fi
+
+  datestamp=$(date +%Y-%m-%d)
+  epoch=$(date +%s)
+
+	# Custom format: $YYYY-MM-DD-screenshot_$unixtime.png
+  # This naming scheme is designed to be easy to rename/edit while
+  # retaining the datestamp prefix.
+	newname="${datestamp}-screenshot_${epoch}.${ext}"
 
 	mv "$f" "$dir/$newname"
 done
