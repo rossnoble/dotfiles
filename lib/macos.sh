@@ -66,3 +66,30 @@ configure_keyboard_settings() {
   echo ""
   echo "⚠️ You will need to log out/in again for keyboard settings to take effect"
 }
+
+configure_screenshot_settings() {
+  echo "━━━ Screenshot settings ━━━"
+
+  # Create screenshots directory if it doesn't exist
+  local screenshot_dir="$HOME/Screenshots"
+  if [ ! -d "$screenshot_dir" ]; then
+    mkdir -p "$screenshot_dir"
+    echo "✓ Created $screenshot_dir"
+  else
+    echo "✓ Screenshot directory already exists at $screenshot_dir"
+  fi
+
+  # Set screenshot save location
+  defaults write com.apple.screencapture location "$screenshot_dir"
+  echo "✓ Set screenshot save location to $screenshot_dir"
+
+  # Disable screenshot preview thumbnail for faster saves
+  defaults write com.apple.screencapture show-thumbnail -bool false
+  echo "✓ Disabled screenshot preview thumbnail"
+
+  # Restart SystemUIServer to apply changes
+  killall SystemUIServer
+  echo ""
+  echo "Restarted SystemUIServer to apply changes"
+  echo ""
+}
