@@ -382,6 +382,7 @@ dev_ssh() {
 dev_macos() {
   configure_dock_settings
   configure_keyboard_settings
+  configure_screenshot_settings
 }
 
 dev_help() {

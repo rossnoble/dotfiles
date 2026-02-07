@@ -65,6 +65,7 @@ configure_keyboard_settings() {
 
   echo ""
   echo "⚠️ You will need to log out/in again for keyboard settings to take effect"
+  echo ""
 }
 
 configure_screenshot_settings() {
