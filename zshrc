@@ -120,6 +120,11 @@ function start_ssh_agent() {
   ssh-add -K ~/.ssh/id_rsa
 }
 
+function flush_dns_cache() {
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
+
 # LOCAL ZSH CONFIGS
 # -----------------
 
