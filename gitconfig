@@ -16,6 +16,7 @@
   df = diff
   dt = difftool
   mt = mergetool
+  fdiff = diff --name-status
 
   del = br -d
   delete = br -d
