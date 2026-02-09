@@ -225,15 +225,23 @@ let g:ctrlp_cmd = 'CtrlP'
 " Ignore list
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
 
-" Set root directory
-let g:ctrlp_working_path_mode = 'r'
+" Set root directory based on current
+" let g:ctrlp_working_path_mode = 'cra'
+"
+" Working path options
+" r = Detect root of project (e.g. might search for .git)
+" c = Use current file's directory instead of root
+" w = Keep root detection but always start from cwd
+let g:ctrlp_working_path_mode = 'w'
 
-let g:ctrlp_show_hidden = 1 " Show hidden files in list
+" Disable root detection entirely (use Vim's cwd)
+" let g:ctrlp_working_path_mode = 0
+
+" Show hidden files in list
+let g:ctrlp_show_hidden = 1
 
 " Open files already open in new tab
 " let g:ctrlp_switch_buffer = 'et'
-"
-" let g:ctrlp_working_path_mode = 'cra'
 
 " Custom search method
 " let g:ctrlp_user_command = 'find %s -type f'
@@ -268,8 +276,9 @@ endif
 " Vim Projectionist
 " https://github.com/tpope/vim-projectionist
 
-" Jump to test file
-nnoremap <Leader>gt :A<CR>
+let g:projectionist_no_mappings = 1
+" Jump to alternate file
+nnoremap <leader>a :A<CR>
 
 " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
 " function! ShowDocIfNoDiagnostic(timer_id)
@@ -305,9 +314,6 @@ set shortmess+=c
 command! -nargs=0 Format :call CocAction('format')
 
 let g:airline#extensions#coc#enabled = 1
-
-let g:projectionist_no_mappings = 1
-nnoremap <leader>a :A<CR>
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
