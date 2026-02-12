@@ -1,22 +1,38 @@
 # Dotfiles
 
-## Install script
+## Installation
 
 This is an install script for configuring fresh machines.
 
 1. Clone or download the repo.
 2. Run the init script at `./bootstrap.sh`
-3. Run `./bin/dotfiles apps install` to install GUI apps
-4. Run `./bin/dotfiles dev install` to install CLI tools and apply system preferences
 
 ```
-git clone https://github.com/rossnoble/dotfiles.git
-cd dotfiles
+git clone https://github.com/rossnoble/dotfiles.git \
+cd dotfiles \
+./bootstrap.sh
 ```
 
-NOTE: You'll need to update the dotfiles git url in `.git/config` to
-`git@github.com:rossnoble/dotfiles.git` if want to push to this repo
-from the new machine.
+> [!NOTE]: You'll need to update the dotfiles git url in `.git/config` to
+> `git@github.com:rossnoble/dotfiles.git` if want to push to this repo
+> from the new machine.
+
+The bootstrap script adds `~/Code/dotfiles/bin` to the PATH via `~/.zshrc.local`.
+The path will need to be changed if this repository is in a different location or
+to a different profile file if not using zshrc.
+
+```bash
+# In ~/.zshrc.local
+export PATH="$HOME/your/custom/path/dotfiles/bin:$PATH"
+```
+
+Once in PATH, you can run the `dotfiles` command entry point without the `./bin/` prefix:
+
+```bash
+dotfiles apps install
+dotfiles dev install
+dotfiles macos run-all
+```
 
 ### Quick Start
 
@@ -24,51 +40,36 @@ from the new machine.
 ./bootstrap.sh                  # Install Homebrew and jq (run first)
 ./bin/dotfiles apps install     # Interactive GUI app installation
 ./bin/dotfiles dev install      # Interactive developer environment setup
+./bin/dotfiles macos run-all    # Configure macOS system preferences
 ```
 
-## VIM
+## CLI Tool
 
-Run `./bin/dotfiles dev install` to set up vim-plug, then inside Neovim run `:PlugInstall` to install plugins.
+### Domains
 
-## SSH
+There are three domains available under the `dotfiles` namespace:
+- `dotfiles apps`  -> install macOS GUI applications via Homebrew casks. 
+- `dotfiles dev`   -> install developer tools and link dotfiles
+- `dotfiles macos` -> configure MacOS system settings
 
-Run `./bin/dotfiles dev ssh` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
+### Config files
+
+These tools read the configs and prompt for installation.
+
+- Edit `config/apps.json` to add applications. Find cask names at https://formulae.brew.sh/cask/
+- Edit `config/dev-tools.json` to customize tools and symlinks.
+
+### Special notes
+
+#### Vim
+
+The `dotfiles dev install` command installs vim-plug which then needs to be
+called inside Neovim with `:PlugInstall` to install the plugins in `nvim/init.vim`.
+
+#### SSH and Githu
+
+Run `dotfiles dev ssh` to generate an SSH key and configure it for GitHub.
+The public key is automatically copied to your clipboard. You will need to
+manually enter this on Github or other repository hosts.
 
 Add key to GitHub: https://github.com/settings/keys
-
-## CLI Tools
-
-A unified CLI tool for setting up a fresh Mac:
-
-## Application Installation (`dotfiles apps`)
-
-Interactively install macOS GUI applications via Homebrew casks.
-
-```bash
-./bin/dotfiles apps install    # Interactive app installation
-./bin/dotfiles apps list       # Show available applications
-./bin/dotfiles apps status     # Show installation status
-```
-
-Edit `config/apps.json` to add applications. Find cask names at https://formulae.brew.sh/cask/
-
-## Developer Environment (`dotfiles dev`)
-
-Interactively set up developer tools, environments, and dotfiles.
-
-```bash
-./bin/dotfiles dev install     # Interactive developer setup
-./bin/dotfiles dev list        # Show available tools
-./bin/dotfiles dev status      # Show installation status
-```
-
-### What it sets up
-
-1. **System Prerequisites**: XCode CLI Tools, Rosetta 2
-2. **CLI Tools**: git, nvim, tmux, z, rg, deno (via Homebrew)
-3. **Node Environment**: nvm, Node, corepack/yarn
-4. **SSH**: Generate key and configure for GitHub
-5. **Symlinks**: Link dotfiles to home directory
-6. **Post-install**: vim-plug for Neovim
-
-Edit `config/dev-tools.json` to customize tools and symlinks.
