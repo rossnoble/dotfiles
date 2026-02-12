@@ -126,7 +126,7 @@ install_node_environment() {
       # Download and install nvm
       # PROFILE specifies where the source script is added
       # See https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
-      PROFILE=~/.zshrc_local bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
+      PROFILE=~/.zshrc.local bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 
       echo "Installed nvm"
       echo ""
@@ -195,7 +195,18 @@ dev_link() {
     local source_path="$SCRIPT_DIR/$source"
 
     if is_symlink "$expanded_target"; then
-      echo "[linked] $target"
+      local current_target=$(readlink "$expanded_target")
+      if [ "$current_target" = "$source_path" ]; then
+        echo "[linked] $target"
+      else
+        if prompt_yes_no "$target points to wrong location. Update symlink?"; then
+          rm "$expanded_target"
+          ln -s "$source_path" "$expanded_target"
+          echo "Updated $target"
+        else
+          echo "[stale] $target -> $current_target"
+        fi
+      fi
     elif [ -e "$expanded_target" ]; then
       if prompt_yes_no "$target exists. Replace with symlink to $source?"; then
         # Create parent directory if needed
