@@ -117,8 +117,8 @@ install_node_environment() {
     if prompt_yes_no "Install nvm? (Node Version Manager)"; then
       # Create .zshrc_local file if not created
       if ! grep -q "NVM_DIR" "$HOME/.zshrc_local" 2>/dev/null; then
-        echo "Creating zshrc_local file..."
-        echo "" >> "$HOME/.zshrc_local"
+        echo "Creating zshrc.local file..."
+        echo "" >> "$HOME/.zshrc.local"
       fi
 
       echo "Installing nvm..."
