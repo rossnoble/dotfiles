@@ -6,70 +6,60 @@ This is an install script for configuring fresh machines.
 
 1. Clone or download the repo.
 2. Run the init script at `./bootstrap.sh`
-3. Run ./bin/apps to install GUI apps
-4. Run ./bin/dev to install CLI tools and apply system preferences
+3. Run `./bin/dotfiles apps install` to install GUI apps
+4. Run `./bin/dotfiles dev install` to install CLI tools and apply system preferences
 
 ```
-$ git clone https://github.com/rossnoble/dotfiles.git
-$ cd dotfiles
-$ ./bootstrap.sh
+git clone https://github.com/rossnoble/dotfiles.git
+cd dotfiles
 ```
 
 NOTE: You'll need to update the dotfiles git url in `.git/config` to
 `git@github.com:rossnoble/dotfiles.git` if want to push to this repo
 from the new machine.
 
-## Manual settings
+### Quick Start
 
-These are things that are useful but hard to automate.
-
-1. Configure keyboard settings
-   - Set "Key repeat rate" to max Fast
-   - Set "Delay until repeat" to max Short
-   - Change Caps Lock key to "Control": Keyboard > Keyboard Shortcuts > Modifier Keys
+```bash
+./bootstrap.sh                  # Install Homebrew and jq (run first)
+./bin/dotfiles apps install     # Interactive GUI app installation
+./bin/dotfiles dev install      # Interactive developer environment setup
+```
 
 ## VIM
 
-Run `./bin/dev install` to set up vim-plug, then inside Neovim run `:PlugInstall` to install plugins.
+Run `./bin/dotfiles dev install` to set up vim-plug, then inside Neovim run `:PlugInstall` to install plugins.
 
 ## SSH
 
-Run `./bin/dev ssh` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
+Run `./bin/dotfiles dev ssh` to generate an SSH key and configure it for GitHub. The public key is automatically copied to your clipboard.
 
 Add key to GitHub: https://github.com/settings/keys
 
 ## CLI Tools
 
-Two CLI tools for setting up a fresh Mac:
+A unified CLI tool for setting up a fresh Mac:
 
-### Quick Start
-
-```bash
-./bootstrap.sh        # Install Homebrew and jq (run first)
-./bin/apps install    # Interactive GUI app installation
-./bin/dev install     # Interactive developer environment setup
-```
-
-## Application Installation (`bin/apps`)
+## Application Installation (`dotfiles apps`)
 
 Interactively install macOS GUI applications via Homebrew casks.
 
 ```bash
-./bin/apps install    # Interactive app installation
-./bin/apps list       # Show available applications
-./bin/apps status     # Show installation status
+./bin/dotfiles apps install    # Interactive app installation
+./bin/dotfiles apps list       # Show available applications
+./bin/dotfiles apps status     # Show installation status
 ```
 
 Edit `config/apps.json` to add applications. Find cask names at https://formulae.brew.sh/cask/
 
-## Developer Environment (`bin/dev`)
+## Developer Environment (`dotfiles dev`)
 
 Interactively set up developer tools, environments, and dotfiles.
 
 ```bash
-./bin/dev install     # Interactive developer setup
-./bin/dev list        # Show available tools
-./bin/dev status      # Show installation status
+./bin/dotfiles dev install     # Interactive developer setup
+./bin/dotfiles dev list        # Show available tools
+./bin/dotfiles dev status      # Show installation status
 ```
 
 ### What it sets up
