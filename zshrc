@@ -134,7 +134,7 @@ function flush_dns_cache() {
 
 # Load local zshrc configurations that should not be checked
 # into shared .zshrc defaults
-export ZSHRC_LOCAL_PATH=~/.zshrc_local
+export ZSHRC_LOCAL_PATH=~/.zshrc.local
 [ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
 
 # MySQL socket location
