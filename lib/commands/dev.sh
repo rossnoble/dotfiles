@@ -1,7 +1,5 @@
 # lib/commands/dev.sh - Developer environment setup commands
 
-source "$SCRIPT_DIR/lib/macos.sh"
-
 prompt_input() {
   local prompt="$1"
   local response
@@ -379,12 +377,6 @@ dev_ssh() {
   install_ssh_setup
 }
 
-dev_macos() {
-  configure_dock_settings
-  configure_keyboard_settings
-  configure_screenshot_settings
-}
-
 dev_help() {
   echo "Usage: dotfiles dev <command>"
   echo ""
@@ -394,7 +386,6 @@ dev_help() {
   echo "  list       List available tools"
   echo "  link       Create symlinks to local dotfiles"
   echo "  ssh        Create SSH keys"
-  echo "  macos      Configure macOS preferences"
   echo "  help       Show this help message"
 }
 
@@ -407,7 +398,6 @@ dev_run() {
     list)    dev_list ;;
     link)    dev_link ;;
     ssh)     dev_ssh ;;
-    macos)   dev_macos ;;
     help|"") dev_help ;;
     *)
       echo "Unknown command: $cmd"

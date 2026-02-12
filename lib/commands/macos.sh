@@ -1,3 +1,5 @@
+# lib/commands/macos.sh - macOS system configuration commands
+
 # Common hot corner values:
 # 1 = Disabled
 # 2 = Mission Control
@@ -14,7 +16,8 @@
 # tr = top-right
 # bl = bottom-left
 # br = bottom-right
-configure_dock_settings() {
+
+macos_dock() {
   # HOT CORNERS
   echo "━━━ Hot corners ━━━"
 
@@ -52,7 +55,7 @@ configure_dock_settings() {
   echo ""
 }
 
-configure_keyboard_settings() {
+macos_keyboard() {
   echo "━━━ Keyboard settings ━━━"
 
   # Key repeat rate (1 = fastest, 2 = fast GUI limit, default is 6)
@@ -68,7 +71,7 @@ configure_keyboard_settings() {
   echo ""
 }
 
-configure_screenshot_settings() {
+macos_screenshot() {
   echo "━━━ Screenshot settings ━━━"
 
   # Create screenshots directory if it doesn't exist
@@ -93,4 +96,43 @@ configure_screenshot_settings() {
   echo ""
   echo "Restarted SystemUIServer to apply changes"
   echo ""
+}
+
+macos_run_all() {
+  echo "macOS Configuration"
+  echo "==================="
+  echo ""
+  macos_dock
+  macos_keyboard
+  macos_screenshot
+  echo "Done!"
+}
+
+macos_help() {
+  echo "Usage: dotfiles macos <command>"
+  echo ""
+  echo "Commands:"
+  echo "  run-all      Run all macOS configuration"
+  echo "  dock         Configure dock and hot corners"
+  echo "  keyboard     Configure keyboard settings"
+  echo "  screenshot   Configure screenshot settings"
+  echo "  help         Show this help message"
+}
+
+macos_run() {
+  local cmd="${1:-}"
+
+  case "$cmd" in
+    run-all)    macos_run_all ;;
+    dock)       macos_dock ;;
+    keyboard)   macos_keyboard ;;
+    screenshot) macos_screenshot ;;
+    help|"")    macos_help ;;
+    *)
+      echo "Unknown command: $cmd"
+      echo ""
+      macos_help
+      exit 1
+      ;;
+  esac
 }
