@@ -5,7 +5,8 @@
       "cask": "1password",
       "app_bundle": "1Password.app",
       "description": "Password manager",
-      "category": "security"
+      "category": "security",
+      "show_in_dock": true
     },
     {
       "name": "Affinity Designer",
@@ -47,7 +48,8 @@
       "cask": "claude",
       "app_bundle": "Claude.app",
       "description": "AI assistant",
-      "category": "productivity"
+      "category": "productivity",
+      "show_in_dock": true
     },
     {
       "name": "Discord",
@@ -64,13 +66,6 @@
       "category": "utility"
     },
     {
-      "name": "ExpressVPN",
-      "cask": "expressvpn",
-      "app_bundle": "ExpressVPN.app",
-      "description": "VPN client",
-      "category": "security"
-    },
-    {
       "name": "Fastmail",
       "cask": "fastmail",
       "app_bundle": "Fastmail.app",
@@ -82,7 +77,8 @@
       "cask": "figma",
       "app_bundle": "Figma.app",
       "description": "Design tool",
-      "category": "design"
+      "category": "design",
+      "show_in_dock": true
     },
     {
       "name": "Flux",
@@ -96,7 +92,8 @@
       "cask": "ghostty",
       "app_bundle": "Ghostty.app",
       "description": "Terminal emulator",
-      "category": "developer"
+      "category": "developer",
+      "show_in_dock": true
     },
     {
       "name": "ImageOptim",
@@ -166,14 +163,16 @@
       "cask": "notion",
       "app_bundle": "Notion.app",
       "description": "Note-taking and organization",
-      "category": "productivity"
+      "category": "productivity",
+      "show_in_dock": true
     },
     {
       "name": "Obsidian",
       "cask": "obsidian",
       "app_bundle": "Obsidian.app",
       "description": "Markdown note-taking",
-      "category": "productivity"
+      "category": "productivity",
+      "show_in_dock": true
     },
     {
       "name": "Postman",
@@ -208,7 +207,8 @@
       "cask": "slack",
       "app_bundle": "Slack.app",
       "description": "Team communication",
-      "category": "communication"
+      "category": "communication",
+      "show_in_dock": true
     },
     {
       "name": "Soulver",
@@ -222,7 +222,8 @@
       "cask": "spotify",
       "app_bundle": "Spotify.app",
       "description": "Music streaming",
-      "category": "media"
+      "category": "media",
+      "show_in_dock": true
     },
     {
       "name": "Sync",
@@ -236,7 +237,8 @@
       "cask": "telegram",
       "app_bundle": "Telegram.app",
       "description": "Messaging app",
-      "category": "communication"
+      "category": "communication",
+      "show_in_dock": true
     },
     {
       "name": "TextMate",

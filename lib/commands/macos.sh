@@ -98,6 +98,79 @@ macos_screenshot() {
   echo ""
 }
 
+macos_dock_apps() {
+  echo "━━━ Dock applications ━━━"
+  echo
+
+  # Check if dockutil is installed
+  if ! command -v dockutil &> /dev/null; then
+    echo "Error: dockutil is not installed"
+    echo "Install it with: brew install dockutil"
+    exit 1
+  fi
+
+  # Check if jq is installed
+  if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed"
+    echo "Install it with: brew install jq"
+    exit 1
+  fi
+
+  # System apps to add first (not installable via brew)
+  local system_apps=(
+    "/System/Applications/System Settings.app"
+    "/System/Applications/App Store.app"
+    "/System/Applications/Utilities/Activity Monitor.app"
+  )
+
+  # Get the dotfiles directory (parent of lib/)
+  local dotfiles_dir
+  dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+  local config_file="$dotfiles_dir/config/apps.json"
+
+  if [ ! -f "$config_file" ]; then
+    echo "Error: Config file not found at $config_file"
+    exit 1
+  fi
+
+  # Read apps with show_in_dock=true from config
+  local app_bundles
+  app_bundles=$(jq -r '.apps[] | select(.show_in_dock == true) | .app_bundle' "$config_file")
+
+  # Remove all current dock items
+  echo "Removing all current dock items..."
+  dockutil --remove all --no-restart
+
+  # Add system apps first
+  for app in "${system_apps[@]}"; do
+    if [ -d "$app" ]; then
+      dockutil --add "$app" --no-restart
+      echo "✓ Added $(basename "$app" .app)"
+    else
+      echo "⚠ Skipped $(basename "$app" .app) (not found)"
+    fi
+  done
+
+  # Add apps from config
+  if [ -n "$app_bundles" ]; then
+    while IFS= read -r app_bundle; do
+      local app_path="/Applications/$app_bundle"
+      if [ -d "$app_path" ]; then
+        dockutil --add "$app_path" --no-restart
+        echo "✓ Added ${app_bundle%.app}"
+      else
+        echo "⚠ Skipped ${app_bundle%.app} (not installed)"
+      fi
+    done <<< "$app_bundles"
+  fi
+
+  # Restart Dock to apply changes
+  killall Dock
+  echo ""
+  echo "Restarted dock to apply changes"
+  echo ""
+}
+
 macos_run_all() {
   echo "macOS Configuration"
   echo "==================="
@@ -114,6 +187,7 @@ macos_help() {
   echo "Commands:"
   echo "  run-all      Run all macOS configuration"
   echo "  dock         Configure dock and hot corners"
+  echo "  dock-apps    Set persistent dock applications"
   echo "  keyboard     Configure keyboard settings"
   echo "  screenshot   Configure screenshot settings"
   echo "  help         Show this help message"
@@ -125,6 +199,7 @@ macos_run() {
   case "$cmd" in
     run-all)    macos_run_all ;;
     dock)       macos_dock ;;
+    dock-apps)  macos_dock_apps ;;
     keyboard)   macos_keyboard ;;
     screenshot) macos_screenshot ;;
     help|"")    macos_help ;;
