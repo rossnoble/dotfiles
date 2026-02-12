@@ -7,15 +7,12 @@ This is an install script for configuring fresh machines.
 1. Clone or download the repo.
 2. Run the init script at `./bootstrap.sh`
 
-```
-git clone https://github.com/rossnoble/dotfiles.git \
-cd dotfiles \
-./bootstrap.sh
-```
-
-> [!NOTE]: You'll need to update the dotfiles git url in `.git/config` to
+> [!NOTE]
+> You'll need to update the dotfiles git url in `.git/config` to
 > `git@github.com:rossnoble/dotfiles.git` if want to push to this repo
 > from the new machine.
+
+### CLI PATH
 
 The bootstrap script adds `~/Code/dotfiles/bin` to the PATH via `~/.zshrc.local`.
 The path will need to be changed if this repository is in a different location or
@@ -36,8 +33,20 @@ dotfiles macos run-all
 
 ### Quick Start
 
+Clone and run the bootstrap script.
+
+> [!IMPORTANT]
+> MacOS will prompt you to install xcode when you try to use git. So you will
+> actually have to run this twice.
+
+```
+git clone https://github.com/rossnoble/dotfiles.git && \
+cd dotfiles && \
+./bootstrap.sh
+```
+
+Install applications, dev tools and configure OS
 ```bash
-./bootstrap.sh                  # Install Homebrew and jq (run first)
 ./bin/dotfiles apps install     # Interactive GUI app installation
 ./bin/dotfiles dev install      # Interactive developer environment setup
 ./bin/dotfiles macos run-all    # Configure macOS system preferences
@@ -48,7 +57,7 @@ dotfiles macos run-all
 ### Domains
 
 There are three domains available under the `dotfiles` namespace:
-- `dotfiles apps`  -> install macOS GUI applications via Homebrew casks. 
+- `dotfiles apps`  -> install macOS GUI applications via Homebrew casks.
 - `dotfiles dev`   -> install developer tools and link dotfiles
 - `dotfiles macos` -> configure MacOS system settings
 
