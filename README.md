@@ -2,17 +2,33 @@
 
 ## Installation
 
-This is an install script for configuring fresh machines.
+This is an install script for configuring fresh machines. The basic steps are
+as follows:
 
 1. Clone or download the repo.
 2. Run the init script at `./bootstrap.sh`
+3. Run the `dotfiles` CLI toolkit to config the machine
 
 > [!NOTE]
-> You'll need to update the dotfiles git url in `.git/config` to
-> `git@github.com:rossnoble/dotfiles.git` if want to push to this repo
-> from the new machine.
+> On a fresh machine, it is easier to use HTTPS over SSH to clone. If you
+> want to push to this repo from the new machine, you'll need to update the
+> dotfiles git url in `.git/config` to `git@github.com:rossnoble/dotfiles.git`
 
-### CLI PATH
+### Quick Start
+
+Clone and run the bootstrap script.
+
+> [!IMPORTANT]
+> MacOS will prompt you to install xcode when you try to use git. So you will
+> actually have to run this twice.
+
+```
+git clone https://github.com/rossnoble/dotfiles.git && \
+cd dotfiles && \
+./bootstrap.sh
+```
+
+### CLI Path
 
 The bootstrap script adds `~/Code/dotfiles/bin` to the PATH via `~/.zshrc.local`.
 The path will need to be changed if this repository is in a different location or
@@ -31,26 +47,6 @@ dotfiles dev install
 dotfiles macos run-all
 ```
 
-### Quick Start
-
-Clone and run the bootstrap script.
-
-> [!IMPORTANT]
-> MacOS will prompt you to install xcode when you try to use git. So you will
-> actually have to run this twice.
-
-```
-git clone https://github.com/rossnoble/dotfiles.git && \
-cd dotfiles && \
-./bootstrap.sh
-```
-
-Install applications, dev tools and configure OS
-```bash
-./bin/dotfiles apps install     # Interactive GUI app installation
-./bin/dotfiles dev install      # Interactive developer environment setup
-./bin/dotfiles macos run-all    # Configure macOS system preferences
-```
 
 ## CLI Tool
 

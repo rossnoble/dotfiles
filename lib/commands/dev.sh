@@ -179,7 +179,7 @@ install_ssh_setup() {
 }
 
 dev_link() {
-  local config_file="$SCRIPT_DIR/config/dev-tools.json"
+  local config_file="$SCRIPT_DIR/config/symlinks.json"
 
   echo ""
   echo "Dotfile Symlinks"
@@ -323,7 +323,8 @@ dev_status() {
   echo ""
   echo "Symlinks"
   echo "--------"
-  jq -c '.symlinks[]' "$config_file" | while read -r link; do
+  local symlinks_file="$SCRIPT_DIR/config/symlinks.json"
+  jq -c '.symlinks[]' "$symlinks_file" | while read -r link; do
     local target=$(echo "$link" | jq -r '.target')
     local expanded_target="${target/#\~/$HOME}"
 
