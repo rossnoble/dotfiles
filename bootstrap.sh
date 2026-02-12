@@ -30,8 +30,9 @@ fi
 # Add dotfiles CLI to PATH via ~/.zprofile
 # Using .zprofile because it's loaded by login shells (Terminal.app)
 # before .zshrc, so the PATH is available even before dotfiles are symlinked
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZPROFILE="$HOME/.zprofile"
-PATH_EXPORT='export PATH="$HOME/Code/dotfiles/bin:$PATH"'
+PATH_EXPORT="export PATH=\"$SCRIPT_DIR/bin:\$PATH\""
 
 if [ -f "$ZPROFILE" ] && grep -q 'dotfiles/bin' "$ZPROFILE"; then
   echo "✓ dotfiles CLI already in PATH"
