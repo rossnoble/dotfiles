@@ -17,7 +17,7 @@
 # bl = bottom-left
 # br = bottom-right
 
-macos_dock() {
+macos_hot_corners() {
   # HOT CORNERS
   echo "━━━ Hot corners ━━━"
 
@@ -175,9 +175,11 @@ macos_run_all() {
   echo "macOS Configuration"
   echo "==================="
   echo ""
-  macos_dock
+  macos_hot_corners
   macos_keyboard
   macos_screenshot
+  macos_dock_apps
+
   echo "Done!"
 }
 
@@ -197,12 +199,12 @@ macos_run() {
   local cmd="${1:-}"
 
   case "$cmd" in
-    run-all)    macos_run_all ;;
-    dock)       macos_dock ;;
-    dock-apps)  macos_dock_apps ;;
-    keyboard)   macos_keyboard ;;
-    screenshot) macos_screenshot ;;
-    help|"")    macos_help ;;
+    run-all)     macos_run_all ;;
+    hotcorners)  macos_hot_corners ;;
+    dock-apps)   macos_dock_apps ;;
+    keyboard)    macos_keyboard ;;
+    screenshot)  macos_screenshot ;;
+    help|"")     macos_help ;;
     *)
       echo "Unknown command: $cmd"
       echo ""
