@@ -188,8 +188,8 @@ macos_help() {
   echo ""
   echo "Commands:"
   echo "  run-all      Run all macOS configuration"
-  echo "  dock         Configure dock and hot corners"
-  echo "  dock-apps    Set persistent dock applications"
+  echo "  hotcorners   Configure hot corners"
+  echo "  dock         Set persistent dock applications"
   echo "  keyboard     Configure keyboard settings"
   echo "  screenshot   Configure screenshot settings"
   echo "  help         Show this help message"
@@ -201,7 +201,7 @@ macos_run() {
   case "$cmd" in
     run-all)     macos_run_all ;;
     hotcorners)  macos_hot_corners ;;
-    dock-apps)   macos_dock_apps ;;
+    dock)        macos_dock_apps ;;
     keyboard)    macos_keyboard ;;
     screenshot)  macos_screenshot ;;
     help|"")     macos_help ;;
