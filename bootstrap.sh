@@ -27,25 +27,27 @@ else
   echo "✓ jq already installed"
 fi
 
-# Add dotfiles CLI to PATH via ~/.zshrc.local
-ZSHRC_LOCAL="$HOME/.zshrc.local"
+# Add dotfiles CLI to PATH via ~/.zprofile
+# Using .zprofile because it's loaded by login shells (Terminal.app)
+# before .zshrc, so the PATH is available even before dotfiles are symlinked
+ZPROFILE="$HOME/.zprofile"
 PATH_EXPORT='export PATH="$HOME/Code/dotfiles/bin:$PATH"'
 
-if [ -f "$ZSHRC_LOCAL" ] && grep -q 'dotfiles/bin' "$ZSHRC_LOCAL"; then
+if [ -f "$ZPROFILE" ] && grep -q 'dotfiles/bin' "$ZPROFILE"; then
   echo "✓ dotfiles CLI already in PATH"
 else
   echo "Adding dotfiles CLI to PATH..."
-  touch "$ZSHRC_LOCAL"
-  echo "" >> "$ZSHRC_LOCAL"
-  echo "# Add dotfiles CLI to PATH" >> "$ZSHRC_LOCAL"
-  echo "$PATH_EXPORT" >> "$ZSHRC_LOCAL"
-  echo "Added to $ZSHRC_LOCAL"
+  touch "$ZPROFILE"
+  echo "" >> "$ZPROFILE"
+  echo "# Add dotfiles CLI to PATH" >> "$ZPROFILE"
+  echo "$PATH_EXPORT" >> "$ZPROFILE"
+  echo "Added to $ZPROFILE"
 fi
 
 echo ""
 echo "✓ Bootstrap complete"
 echo ""
 echo "Next steps:"
-echo "  source ~/.zshrc.local         # Reload shell config (or restart terminal)"
+echo "  source ~/.zprofile            # Reload shell config (or restart terminal)"
 echo "  dotfiles dev install          # Set up developer environment"
 echo "  dotfiles apps install         # Install GUI applications"

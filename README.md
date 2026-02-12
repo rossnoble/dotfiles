@@ -30,12 +30,11 @@ cd dotfiles && \
 
 ### CLI Path
 
-The bootstrap script adds `~/Code/dotfiles/bin` to the PATH via `~/.zshrc.local`.
-The path will need to be changed if this repository is in a different location or
-to a different profile file if not using zshrc.
+The bootstrap script adds `~/Code/dotfiles/bin` to the PATH via `~/.zprofile`.
+The path will need to be changed if this repository is in a different location.
 
 ```bash
-# In ~/.zshrc.local
+# In ~/.zprofile
 export PATH="$HOME/your/custom/path/dotfiles/bin:$PATH"
 ```
 
