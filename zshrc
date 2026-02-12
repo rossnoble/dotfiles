@@ -67,9 +67,9 @@ alias ls='ls -lAh'
 alias dots="cd ${DOTFILES_DIR}"
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
-alias zshrc_local='vim ~/.zshrc_local'
+alias zshrc_local='vim ~/.zshrc.local'
 alias sozshrc='source ~/.zshrc'
-alias sozshrc_local='source ~/.zshrc_local'
+alias sozshrc_local='source ~/.zshrc.local'
 alias tconf='vim ~/.tmux.conf'
 alias sotconf='tmux source ~/.tmux.conf'
 alias ghostconf='vim ~/.config/ghostty/config'
@@ -128,18 +128,12 @@ function flush_dns_cache() {
 # LOCAL ZSH CONFIGS
 # -----------------
 
-# Uncomment any as needed. Add custom configurations to .zshrc_local
-# that are unlikely to be shared between machines (see below) or contain
-# private/sensitive data.
-
-# Load local zshrc configurations that should not be checked
-# into shared .zshrc defaults
+# Load local zshrc configurationt file.
+#
+# Configs and variable unique to the current machine should be added
+# there instead of here to keep the repository state clear.
+#
+# .zshrc.local is in the .gitignore
+#
 export ZSHRC_LOCAL_PATH=~/.zshrc.local
 [ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
-
-# MySQL socket location
-# export MYSQL_SOCKET='/tmp/mysql.sock'
-
-# Postgres (uncomment if using)
-# export PGHOST=localhost
-# export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
