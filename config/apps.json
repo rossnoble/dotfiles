@@ -37,6 +37,13 @@
       "category": "productivity"
     },
     {
+      "name": "BetterDisplay",
+      "cask": "betterdisplay",
+      "app_bundle": "BetterDisplay.app",
+      "description": "System monitor control",
+      "category": "productivity"
+    },
+    {
       "name": "Brave",
       "cask": "brave-browser",
       "app_bundle": "Brave Browser.app",
