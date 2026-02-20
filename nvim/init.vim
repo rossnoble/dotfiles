@@ -273,6 +273,10 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
+if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
+  let g:coc_global_extensions += ['coc-stylelintplus']
+endif
+
 " Vim Projectionist
 " https://github.com/tpope/vim-projectionist
 
