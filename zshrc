@@ -152,21 +152,26 @@ function new_worktree() {
   local full_path="../${project}-${tree_name}"
 
   if git show-ref --verify --quiet "refs/heads/$branch"; then
-    echo "Branch exists. Creating worktree $full_path on $branch."
     # Usage: git worktree add <path> <branch>
-    git worktree add $full_path $branch
+    if git worktree add "$full_path" "$branch"; then
+      echo "Worktree ready at $full_path (using existing branch $branch)"
+    else
+      echo "Error: Failed to create worktree"
+      return 1
+    fi
   else
-    # Create new branch if not found
-    echo "Branch not found. Creating new branch and worktree for $branch at $full_path."
-    # Usage: git worktree add <path> <branch> <base>
-    git worktree add -b $full_path $branch $base_branch
+    # Usage: git worktree add -b <new-branch> <path> <base>
+    if git worktree add -b "$branch" "$full_path" "$base_branch"; then
+      echo "Worktree ready at $full_path (created new branch $branch from $base_branch)"
+    else
+      echo "Error: Failed to create worktree"
+      return 1
+    fi
   fi
 
   # Any other setup steps
-  # cd "../$full_path"
+  # cd "$full_path"
   # e.g. yarn install
-
-  echo "Worktree ready at $full_path"
 }
 
 # LOCAL ZSH CONFIGS
