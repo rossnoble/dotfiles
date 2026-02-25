@@ -419,7 +419,7 @@ Plug 'jparise/vim-graphql'                           " https://github.com/jparis
 Plug 'prisma/vim-prisma'                             " https://github.com/prisma/vim-prisma
 Plug 'tpope/vim-liquid'                              " https://github.com/tpope/vim-liquid
 Plug 'jvirtanen/vim-hcl' , {'branch': 'main'}        " https://github.com/jvirtanen/vim-hcl
-Plug 'plasticboy/vim-markdown'                       " https://github.com/plasticboy/vim-markdown
+Plug 'preservim/vim-markdown'                        " https://github.com/preservim/vim-markdown
 Plug 'kevinoid/vim-jsonc'                            " https://github.com/kevinoid/vim-jsonc
 
 " Theme support
