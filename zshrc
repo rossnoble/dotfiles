@@ -133,34 +133,80 @@ function tp() {
   SESSION_NAME=$(basename "$PWD") tmuxp load "$@"
 }
 
-# Add to your .zshrc or .bashrc
+# Creates a new git worktree alongside the current directory.
+#
+# Usage:
+#   On main/master: new_worktree <branch-name>
+#   On feature branch: new_worktree [new-branch-name]
+#
+# Examples:
+#   If inside `~/Code/project-a` on main:
+#     new_worktree claude/my-feature
+#     -> Creates ~/Code/project-a-my-feature with branch claude/my-feature
+#
+#   If inside `~/Code/project-a` on branch `feature-x`:
+#     new_worktree
+#     -> Creates ~/Code/project-a-feature-x using existing branch
+#
+#   If inside `~/Code/project-a` on branch `feature-x`:
+#     new_worktree new-branch
+#     -> Creates ~/Code/project-a-new-branch with new branch based on feature-x
+#
 function new_worktree() {
-  local branch=$1
-  local tree_name=$2
-
-  # local project
-  # project=$(basename "$PWD")
   local project="${PWD##*/}"
+  local branch
+  local base_branch
+  local current_branch
+  local tree_name
+  local full_path
+  local on_main_branch=false
 
-  local base_branch="main"
-
-  if [[ -z "$branch" ]] || [[ -z "$tree_name" ]]; then
-    echo "Error: Both branch and path are required"
-    echo "Usage: new-worktree <branch-name> <path>"
+  # Detect main or master branch
+  if git show-ref --verify --quiet "refs/heads/main"; then
+    base_branch="main"
+  elif git show-ref --verify --quiet "refs/heads/master"; then
+    base_branch="master"
+  else
+    echo "Error: Could not find main or master branch"
     return 1
   fi
 
-  # Creates new worktree alongside current directory
-  #
-  # Example:
-  # If you are inside `~/Code/project-a` and call `new-worktree feature-b`, you will get:
-  #   ~/Code/project-a
-  #   ~/Code/project-a-feature-b
-  #
-  local full_path="../${project}-${tree_name}"
+  # Get current branch
+  current_branch=$(git branch --show-current)
+
+  # Check if on main/master
+  if [[ "$current_branch" == "main" ]] || [[ "$current_branch" == "master" ]]; then
+    on_main_branch=true
+  fi
+
+  # Determine branch name based on context
+  if [[ "$on_main_branch" == true ]]; then
+    # On main/master: branch argument is required
+    if [[ -z "$1" ]]; then
+      echo "Error: Branch name is required when on $current_branch"
+      echo "Usage: new_worktree <branch-name>"
+      return 1
+    fi
+    branch="$1"
+  else
+    # On feature branch: use current branch or provided argument
+    if [[ -z "$1" ]]; then
+      branch="$current_branch"
+    else
+      branch="$1"
+      # When creating a new branch from a feature branch, use current branch as base
+      base_branch="$current_branch"
+    fi
+  fi
+
+  # Generate tree name by stripping first prefix level (e.g., claude/my-feature -> my-feature)
+  tree_name="${branch#*/}"
+
+  # Build full path
+  full_path="../${project}-${tree_name}"
 
   if git show-ref --verify --quiet "refs/heads/$branch"; then
-    # Usage: git worktree add <path> <branch>
+    # Branch exists: create worktree using existing branch
     if git worktree add "$full_path" "$branch"; then
       echo "Worktree ready at $full_path (using existing branch $branch)"
     else
@@ -168,7 +214,7 @@ function new_worktree() {
       return 1
     fi
   else
-    # Usage: git worktree add -b <new-branch> <path> <base>
+    # Branch doesn't exist: create new branch from base
     if git worktree add -b "$branch" "$full_path" "$base_branch"; then
       echo "Worktree ready at $full_path (created new branch $branch from $base_branch)"
     else
