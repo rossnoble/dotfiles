@@ -1,0 +1,23 @@
+# Generic development template
+#
+# Three windows: shell / vim / opencode
+#
+# This requires using the tp() zshrc function which parses the current
+# directory name to populate the SESSION_NAME
+session_name: ${SESSION_NAME}
+start_directory: ${PWD}
+windows:
+  - window_name: shell
+    layout: main-horizontal
+    panes:
+      - focus: true
+  - window_name: editor
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - vim
+  - window_name: ai-chat
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - opencode

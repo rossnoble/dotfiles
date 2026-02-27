@@ -125,6 +125,14 @@ function flush_dns_cache() {
   sudo killall -HUP mDNSResponder
 }
 
+# Parse pwd name and pass to tmuxp config to support dynamic session names:
+#
+#   session_name: ${SESSION_NAME}
+#
+function tp() {
+  SESSION_NAME=$(basename "$PWD") tmuxp load "$@"
+}
+
 # Add to your .zshrc or .bashrc
 function new_worktree() {
   local branch=$1
