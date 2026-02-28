@@ -12,6 +12,7 @@ show_help() {
   echo "Domains:"
   echo "  apps       Manage application installations"
   echo "  dev        Developer environment setup"
+  echo "  macos      macOS system configuration"
   echo ""
   echo "Examples:"
   echo "  dotfiles apps install    # Interactive app installation"
@@ -19,6 +20,7 @@ show_help() {
   echo "  dotfiles dev install     # Full dev environment setup"
   echo "  dotfiles dev link        # Create dotfile symlinks"
   echo "  dotfiles dev status      # View installed dev tools"
+  echo "  dotfiles macos run-all   # Configure macOS preferences"
   echo ""
   echo "Run 'dotfiles <domain> help' for domain-specific commands."
 }
@@ -34,6 +36,10 @@ case "$domain" in
   dev)
     source "$SCRIPT_DIR/lib/commands/dev.sh"
     dev_run "$@"
+    ;;
+  macos)
+    source "$SCRIPT_DIR/lib/commands/macos.sh"
+    macos_run "$@"
     ;;
   help|"")
     show_help

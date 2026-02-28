@@ -67,9 +67,9 @@ alias ls='ls -lAh'
 alias dots="cd ${DOTFILES_DIR}"
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
-alias zshrc_local='vim ~/.zshrc_local'
+alias zshrc_local='vim ~/.zshrc.local'
 alias sozshrc='source ~/.zshrc'
-alias sozshrc_local='source ~/.zshrc_local'
+alias sozshrc_local='source ~/.zshrc.local'
 alias tconf='vim ~/.tmux.conf'
 alias sotconf='tmux source ~/.tmux.conf'
 alias ghostconf='vim ~/.config/ghostty/config'
@@ -120,21 +120,77 @@ function start_ssh_agent() {
   ssh-add -K ~/.ssh/id_rsa
 }
 
+function flush_dns_cache() {
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
+
+# Parse pwd name and pass to tmuxp config to support dynamic session names:
+#
+#   session_name: ${SESSION_NAME}
+#
+function tp() {
+  SESSION_NAME=$(basename "$PWD") tmuxp load "$@"
+}
+
+# Add to your .zshrc or .bashrc
+function new_worktree() {
+  local branch=$1
+  local tree_name=$2
+
+  # local project
+  # project=$(basename "$PWD")
+  local project="${PWD##*/}"
+
+  local base_branch="main"
+
+  if [[ -z "$branch" ]] || [[ -z "$tree_name" ]]; then
+    echo "Error: Both branch and path are required"
+    echo "Usage: new-worktree <branch-name> <path>"
+    return 1
+  fi
+
+  # Creates new worktree alongside current directory
+  #
+  # Example:
+  # If you are inside `~/Code/project-a` and call `new-worktree feature-b`, you will get:
+  #   ~/Code/project-a
+  #   ~/Code/project-a-feature-b
+  #
+  local full_path="../${project}-${tree_name}"
+
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    # Usage: git worktree add <path> <branch>
+    if git worktree add "$full_path" "$branch"; then
+      echo "Worktree ready at $full_path (using existing branch $branch)"
+    else
+      echo "Error: Failed to create worktree"
+      return 1
+    fi
+  else
+    # Usage: git worktree add -b <new-branch> <path> <base>
+    if git worktree add -b "$branch" "$full_path" "$base_branch"; then
+      echo "Worktree ready at $full_path (created new branch $branch from $base_branch)"
+    else
+      echo "Error: Failed to create worktree"
+      return 1
+    fi
+  fi
+
+  # Any other setup steps
+  # cd "$full_path"
+  # e.g. yarn install
+}
+
 # LOCAL ZSH CONFIGS
 # -----------------
 
-# Uncomment any as needed. Add custom configurations to .zshrc_local
-# that are unlikely to be shared between machines (see below) or contain
-# private/sensitive data.
-
-# Load local zshrc configurations that should not be checked
-# into shared .zshrc defaults
-export ZSHRC_LOCAL_PATH=~/.zshrc_local
+# Load local zshrc configurationt file.
+#
+# Configs and variable unique to the current machine should be added
+# there instead of here to keep the repository state clear.
+#
+# .zshrc.local is in the .gitignore
+#
+export ZSHRC_LOCAL_PATH=~/.zshrc.local
 [ -r $ZSHRC_LOCAL_PATH ] && source $ZSHRC_LOCAL_PATH
-
-# MySQL socket location
-# export MYSQL_SOCKET='/tmp/mysql.sock'
-
-# Postgres (uncomment if using)
-# export PGHOST=localhost
-# export PATH="/usr/local/opt/postgresql@10/bin:$PATH"

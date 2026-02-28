@@ -40,14 +40,5 @@
       "package": "opencode",
       "description": "AI coding agent for terminal"
     }
-  ],
-  "symlinks": [
-    { "source": "zshrc", "target": "~/.zshrc" },
-    { "source": "vimrc", "target": "~/.vimrc" },
-    { "source": "gitconfig", "target": "~/.gitconfig" },
-    { "source": "gitignore_global", "target": "~/.gitignore_global" },
-    { "source": "tmux.conf", "target": "~/.tmux.conf" },
-    { "source": "nvim", "target": "~/.config/nvim", "is_directory": true },
-    { "source": "ghostty.config", "target": "~/.config/ghostty/config" }
   ]
 }

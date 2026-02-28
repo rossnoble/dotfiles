@@ -1,7 +1,5 @@
 # lib/commands/dev.sh - Developer environment setup commands
 
-source "$SCRIPT_DIR/lib/macos.sh"
-
 prompt_input() {
   local prompt="$1"
   local response
@@ -118,9 +116,9 @@ install_node_environment() {
   else
     if prompt_yes_no "Install nvm? (Node Version Manager)"; then
       # Create .zshrc_local file if not created
-      if ! grep -q "NVM_DIR" "$HOME/.zshrc_local" 2>/dev/null; then
-        echo "Creating zshrc_local file..."
-        echo "" >> "$HOME/.zshrc_local"
+      if ! grep -q "NVM_DIR" "$HOME/.zshrc.local" 2>/dev/null; then
+        echo "Creating zshrc.local file..."
+        echo "" >> "$HOME/.zshrc.local"
       fi
 
       echo "Installing nvm..."
@@ -128,7 +126,7 @@ install_node_environment() {
       # Download and install nvm
       # PROFILE specifies where the source script is added
       # See https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
-      PROFILE=~/.zshrc_local bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
+      PROFILE=~/.zshrc.local bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 
       echo "Installed nvm"
       echo ""
@@ -181,7 +179,7 @@ install_ssh_setup() {
 }
 
 dev_link() {
-  local config_file="$SCRIPT_DIR/config/dev-tools.json"
+  local config_file="$SCRIPT_DIR/config/symlinks.json"
 
   echo ""
   echo "Dotfile Symlinks"
@@ -197,7 +195,18 @@ dev_link() {
     local source_path="$SCRIPT_DIR/$source"
 
     if is_symlink "$expanded_target"; then
-      echo "[linked] $target"
+      local current_target=$(readlink "$expanded_target")
+      if [ "$current_target" = "$source_path" ]; then
+        echo "[linked] $target"
+      else
+        if prompt_yes_no "$target points to wrong location. Update symlink?"; then
+          rm "$expanded_target"
+          ln -s "$source_path" "$expanded_target"
+          echo "Updated $target"
+        else
+          echo "[stale] $target -> $current_target"
+        fi
+      fi
     elif [ -e "$expanded_target" ]; then
       if prompt_yes_no "$target exists. Replace with symlink to $source?"; then
         # Create parent directory if needed
@@ -325,7 +334,8 @@ dev_status() {
   echo ""
   echo "Symlinks"
   echo "--------"
-  jq -c '.symlinks[]' "$config_file" | while read -r link; do
+  local symlinks_file="$SCRIPT_DIR/config/symlinks.json"
+  jq -c '.symlinks[]' "$symlinks_file" | while read -r link; do
     local target=$(echo "$link" | jq -r '.target')
     local expanded_target="${target/#\~/$HOME}"
 
@@ -379,12 +389,6 @@ dev_ssh() {
   install_ssh_setup
 }
 
-dev_macos() {
-  configure_dock_settings
-  configure_keyboard_settings
-  configure_screenshot_settings
-}
-
 dev_help() {
   echo "Usage: dotfiles dev <command>"
   echo ""
@@ -394,7 +398,6 @@ dev_help() {
   echo "  list       List available tools"
   echo "  link       Create symlinks to local dotfiles"
   echo "  ssh        Create SSH keys"
-  echo "  macos      Configure macOS preferences"
   echo "  help       Show this help message"
 }
 
@@ -407,7 +410,6 @@ dev_run() {
     list)    dev_list ;;
     link)    dev_link ;;
     ssh)     dev_ssh ;;
-    macos)   dev_macos ;;
     help|"") dev_help ;;
     *)
       echo "Unknown command: $cmd"

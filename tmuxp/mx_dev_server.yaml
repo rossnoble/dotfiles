@@ -1,0 +1,28 @@
+# Generic development template
+#
+# Three windows: shell / vim / opencode
+#
+# This requires using the tp() zshrc function which parses the current
+# directory name to populate the SESSION_NAME
+session_name: mx-dev-server
+start_directory: ~/Code/maintainx
+windows:
+  - window_name: pods
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - yarn start_docker
+        - pods_watch
+  - window_name: backend-api
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - cd backend
+        - aws sso login
+        - yarn start
+  - window_name: frontend-web
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - cd frontend
+        - yarn start

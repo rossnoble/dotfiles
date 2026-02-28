@@ -16,6 +16,7 @@
   df = diff
   dt = difftool
   mt = mergetool
+  fdiff = diff --name-status
 
   del = br -d
   delete = br -d
@@ -24,8 +25,11 @@
   unstage = reset HEAD
   us = unstage
 
+  # Fetching
   pull-current = "!git pull origin $(git branch-name)"
   pc = pull-current
+  sync-master = fetch origin master:master
+  syncm = sync-master
 
   new-branch = checkout -b
   new = new-branch
