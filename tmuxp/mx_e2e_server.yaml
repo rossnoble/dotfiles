@@ -1,0 +1,16 @@
+# MX E2E Testing
+session_name: mx-e2e-server
+start_directory: ~/Code/maintainx
+windows:
+  - window_name: cypress-e2e-server
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - cd frontend/e2e
+        - yarn start-backend
+      - shell_command:
+        - cd frontend/e2e
+        - yarn start-frontend
+      - shell_command:
+        - cd frontend/e2e
+        - yarn cypress:open
