@@ -136,21 +136,20 @@ function tp() {
 # Creates a new git worktree alongside the current directory.
 #
 # Usage:
-#   On main/master: new_worktree <branch-name>
-#   On feature branch: new_worktree [new-branch-name]
+#   new_worktree <branch-name>
 #
 # Examples:
 #   If inside `~/Code/project-a` on main:
 #     new_worktree claude/my-feature
-#     -> Creates ~/Code/project-a-my-feature with branch claude/my-feature
-#
-#   If inside `~/Code/project-a` on branch `feature-x`:
-#     new_worktree
-#     -> Creates ~/Code/project-a-feature-x using existing branch
+#     -> Creates ~/Code/project-a-my-feature with new branch from main
 #
 #   If inside `~/Code/project-a` on branch `feature-x`:
 #     new_worktree new-branch
-#     -> Creates ~/Code/project-a-new-branch with new branch based on feature-x
+#     -> Creates ~/Code/project-a-new-branch with new branch from feature-x
+#
+#   If inside `~/Code/project-a` (any branch):
+#     new_worktree existing-branch
+#     -> Creates ~/Code/project-a-existing-branch using existing branch
 #
 function new_worktree() {
   local project="${PWD##*/}"
@@ -159,7 +158,14 @@ function new_worktree() {
   local current_branch
   local tree_name
   local full_path
-  local on_main_branch=false
+
+  # Branch argument is always required
+  if [[ -z "$1" ]]; then
+    echo "Error: Branch name is required"
+    echo "Usage: new_worktree <branch-name>"
+    return 1
+  fi
+  branch="$1"
 
   # Detect main or master branch
   if git show-ref --verify --quiet "refs/heads/main"; then
@@ -174,36 +180,16 @@ function new_worktree() {
   # Get current branch
   current_branch=$(git branch --show-current)
 
-  # Check if on main/master
-  if [[ "$current_branch" == "main" ]] || [[ "$current_branch" == "master" ]]; then
-    on_main_branch=true
-  fi
-
-  # Determine branch name based on context
-  if [[ "$on_main_branch" == true ]]; then
-    # On main/master: branch argument is required
-    if [[ -z "$1" ]]; then
-      echo "Error: Branch name is required when on $current_branch"
-      echo "Usage: new_worktree <branch-name>"
-      return 1
-    fi
-    branch="$1"
-  else
-    # On feature branch: use current branch or provided argument
-    if [[ -z "$1" ]]; then
-      branch="$current_branch"
-    else
-      branch="$1"
-      # When creating a new branch from a feature branch, use current branch as base
-      base_branch="$current_branch"
-    fi
+  # If on a feature branch, use it as base for new branches
+  if [[ "$current_branch" != "main" ]] && [[ "$current_branch" != "master" ]]; then
+    base_branch="$current_branch"
   fi
 
   # Generate tree name by stripping first prefix level (e.g., claude/my-feature -> my-feature)
   tree_name="${branch#*/}"
 
   # Build full path
-  full_path="../${project}-${tree_name}"
+  full_path="../${project}__${tree_name}"
 
   if git show-ref --verify --quiet "refs/heads/$branch"; then
     # Branch exists: create worktree using existing branch
@@ -224,9 +210,12 @@ function new_worktree() {
   fi
 
   # Any other setup steps
-  # cd "$full_path"
+  cd "$full_path"
   # e.g. yarn install
 }
+
+# Enable git branch completion for new_worktree
+compdef _git new_worktree=git-branch
 
 # LOCAL ZSH CONFIGS
 # -----------------
