@@ -39,6 +39,16 @@
       "name": "opencode",
       "package": "opencode",
       "description": "AI coding agent for terminal"
+    },
+    {
+      "name": "tmuxp",
+      "package": "tmuxp",
+      "description": "Tmux session manager"
+    },
+    {
+      "name": "gh",
+      "package": "gh",
+      "description": "GitHub CLI"
     }
   ]
 }

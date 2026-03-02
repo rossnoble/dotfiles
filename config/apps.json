@@ -288,6 +288,13 @@
       "app_bundle": "zoom.us.app",
       "description": "Video conferencing",
       "category": "communication"
+    },
+    {
+      "name": "OpenCode Desktop",
+      "cask": "opencode-desktop",
+      "app_bundle": "OpenCode Desktop.app",
+      "description": "AI coding agent",
+      "category": "developer"
     }
   ]
 }
