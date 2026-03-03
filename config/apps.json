@@ -159,13 +159,6 @@
       "category": "security"
     },
     {
-      "name": "noTunes",
-      "cask": "notunes",
-      "app_bundle": "noTunes.app",
-      "description": "Prevents iTunes/Music from opening",
-      "category": "utility"
-    },
-    {
       "name": "Notion",
       "cask": "notion",
       "app_bundle": "Notion.app",
@@ -182,6 +175,13 @@
       "show_in_dock": true
     },
     {
+      "name": "OpenCode Desktop",
+      "cask": "opencode-desktop",
+      "app_bundle": "OpenCode Desktop.app",
+      "description": "AI coding agent",
+      "category": "developer"
+    },
+    {
       "name": "Postman",
       "cask": "postman",
       "app_bundle": "Postman.app",
@@ -194,13 +194,6 @@
       "app_bundle": "Raycast.app",
       "description": "Productivity launcher",
       "category": "productivity"
-    },
-    {
-      "name": "qlmarkdown",
-      "cask": "qlmarkdown",
-      "app_bundle": "QLMarkdown.app",
-      "description": "Quick Look generator for Markdown files",
-      "category": "developer"
     },
     {
       "name": "Sequel Ace",
@@ -262,18 +255,18 @@
       "category": "utility"
     },
     {
-      "name": "Visual Studio Code",
-      "cask": "visual-studio-code",
-      "app_bundle": "Visual Studio Code.app",
-      "description": "Code editor",
-      "category": "developer"
-    },
-    {
       "name": "VLC",
       "cask": "vlc",
       "app_bundle": "VLC.app",
       "description": "Media player",
       "category": "media"
+    },
+    {
+      "name": "Visual Studio Code",
+      "cask": "visual-studio-code",
+      "app_bundle": "Visual Studio Code.app",
+      "description": "Code editor",
+      "category": "developer"
     },
     {
       "name": "Zed",
@@ -290,10 +283,17 @@
       "category": "communication"
     },
     {
-      "name": "OpenCode Desktop",
-      "cask": "opencode-desktop",
-      "app_bundle": "OpenCode Desktop.app",
-      "description": "AI coding agent",
+      "name": "noTunes",
+      "cask": "notunes",
+      "app_bundle": "noTunes.app",
+      "description": "Prevents iTunes/Music from opening",
+      "category": "utility"
+    },
+    {
+      "name": "qlmarkdown",
+      "cask": "qlmarkdown",
+      "app_bundle": "QLMarkdown.app",
+      "description": "Quick Look generator for Markdown files",
       "category": "developer"
     }
   ]

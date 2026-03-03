@@ -1,6 +1,21 @@
 {
   "tools": [
     {
+      "name": "claude-code",
+      "package": "claude-code",
+      "description": "AI coding assistant"
+    },
+    {
+      "name": "deno",
+      "package": "deno",
+      "description": "JS/TS runtime"
+    },
+    {
+      "name": "gh",
+      "package": "gh",
+      "description": "GitHub CLI"
+    },
+    {
       "name": "git",
       "package": "git",
       "description": "Version control"
@@ -11,14 +26,9 @@
       "description": "Text editor"
     },
     {
-      "name": "tmux",
-      "package": "tmux",
-      "description": "Terminal multiplexer"
-    },
-    {
-      "name": "z",
-      "package": "z",
-      "description": "Directory jumping"
+      "name": "opencode",
+      "package": "opencode",
+      "description": "AI coding agent for terminal"
     },
     {
       "name": "ripgrep",
@@ -26,19 +36,9 @@
       "description": "Fast search"
     },
     {
-      "name": "deno",
-      "package": "deno",
-      "description": "JS/TS runtime"
-    },
-    {
-      "name": "claude-code",
-      "package": "claude-code",
-      "description": "AI coding assistant"
-    },
-    {
-      "name": "opencode",
-      "package": "opencode",
-      "description": "AI coding agent for terminal"
+      "name": "tmux",
+      "package": "tmux",
+      "description": "Terminal multiplexer"
     },
     {
       "name": "tmuxp",
@@ -46,9 +46,9 @@
       "description": "Tmux session manager"
     },
     {
-      "name": "gh",
-      "package": "gh",
-      "description": "GitHub CLI"
+      "name": "z",
+      "package": "z",
+      "description": "Directory jumping"
     }
   ]
 }
