@@ -31,7 +31,8 @@ export LSCOLORS=GxFxCxDxBxegedabagacad
 # Set the default editor to vim
 export EDITOR=vim
 
-export TERM="xterm-256color"
+# TERM should be set by the terminal emulator, not the shell config
+# export TERM="xterm-256color"
 
 # Add homebrew to path. Will not work on M1 which requires /usr/local instead.
 # https://nhancv.medium.com/macbook-pro-m1-homebrew-install-error-7170e4816894

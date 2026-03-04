@@ -29,7 +29,7 @@
   pull-current = "!git pull origin $(git branch-name)"
   pc = pull-current
   sync-master = fetch origin master:master
-  syncm = sync-master
+  sync-main = fetch origin main:main
 
   new-branch = checkout -b
   new = new-branch
