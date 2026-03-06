@@ -1,5 +1,5 @@
 ---
-name: summarize
+name: save-summary
 description: Summarize key points of the current session and save to the nearest .agent-docs directory
 ---
 
@@ -39,6 +39,7 @@ The summary file should include:
 ## When to use me
 
 Use this skill when:
+
 - The user asks to summarize or document the session
 - A significant task or feature has been completed
 - The user wants to preserve context for future reference
