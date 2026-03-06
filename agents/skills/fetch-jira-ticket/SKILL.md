@@ -8,7 +8,7 @@ description: Fetch Jira ticket information from current branch and save to .agen
 - Extract the Jira ticket ID from the current git branch name
 - Fetch ticket details and recent comments using the `jira` CLI
 - Save the information to the nearest `.agent-docs` directory
-- Name the file with format: `{TICKET-ID}-{kebab-case-summary}.md`
+- Name the file with format: `YYYY-MM-DD-{TICKET-ID}-{kebab-case-summary}.md`
 
 ## How to extract the ticket ID
 
@@ -78,7 +78,7 @@ The saved markdown file should include:
 - Date format is populated with current date
 - Convert the ticket summary to kebab-case (lowercase, spaces to hyphens, remove special characters)
 - Truncate the summary portion to keep filenames reasonable (max ~50 chars for summary part)
-- Example: `2026-01-01-EAM-1234-add-user-authentication-flow.md`
+- Example: `EAM-1234-add-user-authentication-flow.md`
 
 ## Where to save
 

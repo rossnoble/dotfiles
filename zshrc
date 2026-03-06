@@ -230,7 +230,10 @@ function worktree-sync() {
     return 1
   fi
 
-  local config_file="${main_worktree}/.worktree-sync"
+  # Using .local/* because it's already gitignored in maintainx
+  #
+  # local config_file="${main_worktree}/.worktree-sync"
+  local config_file="${main_worktree}/.local/worktree-sync"
 
   if [[ ! -f "$config_file" ]]; then
     echo "No .worktree-sync found in main worktree: $main_worktree"
