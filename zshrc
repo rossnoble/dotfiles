@@ -218,6 +218,58 @@ function new_worktree() {
 # Enable git branch completion for new_worktree
 compdef _git new_worktree=git-branch
 
+# Sync gitignored files from main worktree to current worktree via symlinks
+# Config file: .worktree-sync in the main worktree root
+function worktree-sync() {
+  # Get the main worktree (first line of git worktree list)
+  local main_worktree
+  main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //')
+
+  if [[ -z "$main_worktree" ]]; then
+    echo "Error: Not in a git repository"
+    return 1
+  fi
+
+  local config_file="${main_worktree}/.worktree-sync"
+
+  if [[ ! -f "$config_file" ]]; then
+    echo "No .worktree-sync found in main worktree: $main_worktree"
+    return 1
+  fi
+
+  # Don't run in main worktree itself
+  if [[ "$PWD" == "$main_worktree" ]]; then
+    echo "Already in main worktree, nothing to sync"
+    return 0
+  fi
+
+  echo "Syncing from: $main_worktree"
+  echo ""
+
+  while IFS= read -r item || [[ -n "$item" ]]; do
+    # Skip comments and empty lines
+    [[ -z "$item" || "$item" =~ ^[[:space:]]*# ]] && continue
+    # Trim whitespace
+    item=$(echo "$item" | xargs)
+
+    local src="${main_worktree}/${item}"
+    local dest="${PWD}/${item}"
+
+    if [[ ! -e "$src" ]]; then
+      echo "  [!] Not found in source: $item"
+      continue
+    fi
+
+    if [[ -e "$dest" || -L "$dest" ]]; then
+      echo "  [-] Skipping (exists): $item"
+      continue
+    fi
+
+    ln -s "$src" "$dest" && echo "  [+] Linked: $item"
+  done < "$config_file"
+}
+
+
 # LOCAL ZSH CONFIGS
 # -----------------
 
