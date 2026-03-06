@@ -1,26 +1,31 @@
-# MX Dev Server
-session_name: mx-dev-server
-start_directory: ~/Code/maintainx
+# MX development template
+#
+# Five windows: shell / vim / opencode / tests / e2e
+#
+# This requires using the tp() zshrc function which parses the current
+# directory name to populate the SESSION_NAME
+session_name: ${SESSION_NAME}
+start_directory: ${PWD}
 windows:
-  - window_name: pods
+  # Shell window for git commands etc
+  - window_name: shell
+    layout: main-horizontal
+
+  # Neovim
+  - window_name: editor
+    layout: main-horizontal
+    panes:
+      - focus: true
+        shell_command:
+        - vim
+
+  # Opencode / Claude
+  - window_name: ai-chat
     layout: main-horizontal
     panes:
       - shell_command:
-        - yarn start_docker
-        - pods_watch
-  - window_name: backend-api
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - cd backend
-        - aws sso login
-        - yarn start
-  - window_name: frontend-web
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - cd frontend
-        - yarn start
+        - opencode
+
   # Navigates to the frontend directory and starts the
   # tests in watch mode (default)
   - window_name: frontend-web
@@ -28,6 +33,7 @@ windows:
       - shell_command:
         - cd frontend
         - yarn test
+
   # Navigates to the e2e directory but does not run
   # the start commands
   - window_name: frontend-e2e-tests

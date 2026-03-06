@@ -1,6 +1,9 @@
 # MX E2E Testing
-session_name: mx-e2e-server
-start_directory: ~/Code/maintainx
+#
+# This requires using the tp() zshrc function which parses the current
+# directory name to populate the SESSION_NAME
+session_name: ${SESSION_NAME}
+start_directory: ${PWD}
 windows:
   - window_name: cypress-e2e-server
     layout: main-horizontal
