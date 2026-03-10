@@ -217,43 +217,49 @@ nnoremap <Leader>cp :let @+ = expand("%")<CR>
 " PLUGIN CONFIGURATIONS
 " ================================================
 
-let g:ctrlp_map = '<C-P>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" All file types
-" let g:ctrlp_cmd = 'CtrlPMixed'
+" -----------------------------
+" Telescope fuzzy search
 "
-" Ignore list
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|build|vendor|coverage|_site|artifacts|ios\/Pods)|(\.(swp|ico|git|svn|DS_Store))$'
+" https://github.com/nvim-telescope/telescope.nvim
+" -----------------------------
+nnoremap <C-P> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" Set root directory based on current
-" let g:ctrlp_working_path_mode = 'cra'
-"
-" Working path options
-" r = Detect root of project (e.g. might search for .git)
-" c = Use current file's directory instead of root
-" w = Keep root detection but always start from cwd
-let g:ctrlp_working_path_mode = 'w'
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    path_display = { "truncate" },
+    file_ignore_patterns = {
+      "node_modules", "%.git/", "dist", "build",
+      "coverage", "vendor", "%.DS_Store", "target",
+      "tmp", "artifacts", "ios/Pods", "_site"
+    },
+  },
+  pickers = {
+    find_files = {
+      hidden = true,  -- Show hidden files (matches your ctrlp_show_hidden = 1)
+    },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    }
+  }
+}
+pcall(require('telescope').load_extension, 'fzf')
+EOF
 
-" Disable root detection entirely (use Vim's cwd)
-" let g:ctrlp_working_path_mode = 0
-
-" Show hidden files in list
-let g:ctrlp_show_hidden = 1
-
-" Open files already open in new tab
-" let g:ctrlp_switch_buffer = 'et'
-
-" Custom search method
-" let g:ctrlp_user_command = 'find %s -type f'
-
-" Ignore files in gitignore
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-" Store plugins and colorschemes in .vim
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
+" -----------------------------
 " NERDTree
+"
+" https://github.com/preservim/nerdtree
+" -----------------------------
 let NERDTreeShowHidden = 1
 let NERDTreeIgnore=['\.DS_Store$']
 let g:NERDTreeWinSize = 40
@@ -277,8 +283,11 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
   let g:coc_global_extensions += ['coc-stylelintplus']
 endif
 
+" -----------------------------
 " Vim Projectionist
+"
 " https://github.com/tpope/vim-projectionist
+" -----------------------------
 
 let g:projectionist_no_mappings = 1
 " Jump to alternate file
@@ -385,7 +394,7 @@ command ConvertTabsToSpaces %s/\t/  /g
 
 " ================================================
 " PLUGIN CONFIGURATIONS
-" ------------------------------------------------
+"
 " Managed by vim-plug: https://github.com/junegunn/vim-plug
 " ================================================
 
@@ -403,9 +412,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}      " https://github.com/neocli
 
 " File search and navigation
 Plug 'jremmen/vim-ripgrep'                           " https://github.com/jremmen/vim-ripgrep
-Plug 'ctrlpvim/ctrlp.vim'                            " https://github.com/ctrlpvim/ctrlp.vim
 Plug 'tpope/vim-projectionist'                       " https://github.com/tpope/vim-projectionist
 Plug 'qpkorr/vim-bufkill'                            " https://github.com/qpkorr/vim-bufkill
+
+" Telescope fuzzy search and dependencies
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Git tools
 Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
