@@ -152,7 +152,7 @@ function tp() {
 #     new_worktree existing-branch
 #     -> Creates ~/Code/project-a-existing-branch using existing branch
 #
-function new_worktree() {
+function worktree_new() {
   local project="${PWD##*/}"
   local branch
   local base_branch
@@ -220,7 +220,7 @@ compdef _git new_worktree=git-branch
 
 # Sync gitignored files from main worktree to current worktree via symlinks
 # Config file: .worktree-sync in the main worktree root
-function worktree-sync() {
+function worktree_sync() {
   # Get the main worktree (first line of git worktree list)
   local main_worktree
   main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //')

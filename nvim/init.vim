@@ -85,7 +85,7 @@ highlight CocWarningHighlight ctermfg=231 ctermbg=99
 
 " ===============================================
 " SETTINGS
-" -----------------------------------------------
+"
 " Core vim features
 " ===============================================
 
@@ -218,44 +218,6 @@ nnoremap <Leader>cp :let @+ = expand("%")<CR>
 " ================================================
 
 " -----------------------------
-" Telescope fuzzy search
-"
-" https://github.com/nvim-telescope/telescope.nvim
-" -----------------------------
-nnoremap <C-P> <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-lua << EOF
-require('telescope').setup{
-  defaults = {
-    path_display = { "truncate" },
-    file_ignore_patterns = {
-      "node_modules", "%.git/", "dist", "build",
-      "coverage", "vendor", "%.DS_Store", "target",
-      "tmp", "artifacts", "ios/Pods", "_site"
-    },
-  },
-  pickers = {
-    find_files = {
-      hidden = true,  -- Show hidden files (matches your ctrlp_show_hidden = 1)
-    },
-  },
-  extensions = {
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = "smart_case",
-    }
-  }
-}
-pcall(require('telescope').load_extension, 'fzf')
-EOF
-
-" -----------------------------
 " NERDTree
 "
 " https://github.com/preservim/nerdtree
@@ -283,17 +245,24 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
   let g:coc_global_extensions += ['coc-stylelintplus']
 endif
 
-" -----------------------------
+" ------------------------------------------------
 " Vim Projectionist
 "
 " https://github.com/tpope/vim-projectionist
-" -----------------------------
+" ------------------------------------------------
 
 let g:projectionist_no_mappings = 1
 " Jump to alternate file
 nnoremap <leader>a :A<CR>
 
+
+" ------------------------------------------------
+" COC
+"
+" https://github.com/neoclide/coc.nvim
 " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+" ------------------------------------------------
+
 " function! ShowDocIfNoDiagnostic(timer_id)
 "   if (coc#util#has_float() == 0)
 "     silent call CocActionAsync('doHover')
@@ -386,12 +355,6 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-" Convert 4 spaces to 2 spaces
-command Convert4SpacesTo2 %s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g
-
-" Convert tabs to 2 spaces
-command ConvertTabsToSpaces %s/\t/  /g
-
 " ================================================
 " PLUGIN CONFIGURATIONS
 "
@@ -440,3 +403,48 @@ Plug 'cormacrelf/vim-colors-github'                  " https://github.com/cormac
 Plug 'ap/vim-css-color'                              " https://github.com/ap/vim-css-color
 
 call plug#end()
+
+" ------------------------------------------------
+" TELESCOPE CONFIGURATION
+"
+" https://github.com/nvim-telescope/telescope.nvim
+"
+" This needs to be placed AFTER plug#begin
+" ------------------------------------------------
+
+lua << EOF
+local ok, telescope = pcall(require, 'telescope')
+if ok then
+  telescope.setup{
+    defaults = {
+      path_display = { "truncate" },
+      file_ignore_patterns = {
+        "node_modules", "%.git/", "%.yarn/", "dist", "build",
+        "coverage", "vendor", "%.DS_Store", "target",
+        "tmp", "artifacts", "ios/Pods", "_site"
+      },
+    },
+    pickers = {
+      find_files = {
+        hidden = true,
+      },
+    },
+    extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      }
+    }
+  }
+  pcall(telescope.load_extension, 'fzf')
+end
+EOF
+
+" Telescope keybindings (replaces CtrlP)
+nnoremap <C-P> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
