@@ -230,6 +230,15 @@ function worktree_sync() {
     return 1
   fi
 
+  # Get current worktree root (handles being in subdirectory)
+  local current_worktree
+  current_worktree=$(git rev-parse --show-toplevel 2>/dev/null)
+
+  if [[ -z "$current_worktree" ]]; then
+    echo "Error: Could not determine worktree root"
+    return 1
+  fi
+
   # Using .local/* because it's already gitignored in maintainx
   #
   # local config_file="${main_worktree}/.worktree-sync"
@@ -241,7 +250,7 @@ function worktree_sync() {
   fi
 
   # Don't run in main worktree itself
-  if [[ "$PWD" == "$main_worktree" ]]; then
+  if [[ "$current_worktree" == "$main_worktree" ]]; then
     echo "Already in main worktree, nothing to sync"
     return 0
   fi
@@ -256,7 +265,7 @@ function worktree_sync() {
     item=$(echo "$item" | xargs)
 
     local src="${main_worktree}/${item}"
-    local dest="${PWD}/${item}"
+    local dest="${current_worktree}/${item}"
 
     if [[ ! -e "$src" ]]; then
       echo "  [!] Not found in source: $item"
