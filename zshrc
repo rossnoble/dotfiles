@@ -277,6 +277,12 @@ function worktree_sync() {
       continue
     fi
 
+    # Ensure parent directory exists for nested paths
+    local dest_dir="${dest:h}"
+    if [[ ! -d "$dest_dir" ]]; then
+      mkdir -p "$dest_dir" && echo "  [+] Created directory: ${dest_dir#$current_worktree/}"
+    fi
+
     ln -s "$src" "$dest" && echo "  [+] Linked: $item"
   done < "$config_file"
 }
