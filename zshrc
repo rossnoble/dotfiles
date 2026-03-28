@@ -109,6 +109,16 @@ function tkill() {
   echo "Killed session ${1}"
 }
 
+# Kill the process running on the given port
+function killport() {
+  local port="${1}"
+  if [[ -z "$port" ]]; then
+    echo "Usage: killport <port>"
+    return 1
+  fi
+  lsof -ti ":${port}" | xargs kill -9 2>/dev/null && echo "Killed process on port ${port}" || echo "No process on port ${port}"
+}
+
 # Python static files server on the given port
 function server() {
   local port="${1:-1234}"
