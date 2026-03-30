@@ -9,12 +9,14 @@ start_directory: ${PWD}
 windows:
   - window_name: shell
     layout: main-horizontal
+
   - window_name: editor
     layout: main-horizontal
     panes:
       - focus: true
         shell_command:
         - vim
+
   - window_name: ai-chat
     layout: main-horizontal
     panes:

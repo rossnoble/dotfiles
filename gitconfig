@@ -46,6 +46,9 @@
   cleanup = !git remote prune origin && git gc && git stash clear
   deploy-heroku = push heroku master # for heroku apps
 
+  # Worktrees
+  wt = worktree
+
   # Logging
   lg = log -30 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit
   lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
