@@ -397,6 +397,7 @@ Plug 'tpope/vim-liquid'                              " https://github.com/tpope/
 Plug 'jvirtanen/vim-hcl' , {'branch': 'main'}        " https://github.com/jvirtanen/vim-hcl
 Plug 'preservim/vim-markdown'                        " https://github.com/preservim/vim-markdown
 Plug 'kevinoid/vim-jsonc'                            " https://github.com/kevinoid/vim-jsonc
+Plug 'NoahTheDuke/vim-just'
 
 " Theme support
 Plug 'cormacrelf/vim-colors-github'                  " https://github.com/cormacrelf/vim-colors-github
