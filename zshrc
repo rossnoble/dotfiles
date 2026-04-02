@@ -199,6 +199,9 @@ function worktree_new() {
   # Generate tree name by stripping first prefix level (e.g., claude/my-feature -> my-feature)
   tree_name="${branch#*/}"
 
+  # Replace any remaining slashes with underscores
+  tree_name="${tree_name//\//_}"
+
   # Build full path
   full_path="../${project}__${tree_name}"
 
