@@ -4,20 +4,22 @@
 #   worktree_new <branch-name>
 #
 # Examples:
-#   If inside `~/Code/project-a` on main:
-#     worktree_new claude/my-feature
-#     -> Creates ~/Code/project-a-my-feature with new branch from main
+#   If inside `~/Code/project-x` on main:
+#     worktree_new claude/ABC-123/feature-z
+#     -> Creates ~/Code/project-x__claude_ABC-123_feature-z
 #
-#   If inside `~/Code/project-a` on branch `feature-x`:
-#     worktree_new new-branch
-#     -> Creates ~/Code/project-a-new-branch with new branch from feature-x
+#   If inside `~/Code/project-x` on branch `feature-x`:
+#     worktree_new feature-z
+#     -> Creates ~/Code/project-xa__feature-z
 #
-#   If inside `~/Code/project-a` (any branch):
-#     worktree_new existing-branch
-#     -> Creates ~/Code/project-a-existing-branch using existing branch
+#   If inside `~/Code/project-x__feature-y` on worktree/branch `feature-x`:
+#     worktree_new feature-z
+#     -> Creates ~/Code/project-a__feature-z
 #
 function worktree_new() {
-  local project="${PWD##*/}"
+  # Always use the main worktree's directory name for consistent naming
+  local project
+  project="$(basename "$(git worktree list | head -1 | awk '{print $1}')")"
   local branch
   local base_branch
   local current_branch
