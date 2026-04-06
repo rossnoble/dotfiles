@@ -255,6 +255,17 @@ let g:projectionist_no_mappings = 1
 " Jump to alternate file
 nnoremap <leader>a :A<CR>
 
+" ------------------------------------------------
+" Vim Test
+"
+" https://github.com/vim-test/vim-test
+" ------------------------------------------------
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
 
 " ------------------------------------------------
 " COC
@@ -382,6 +393,9 @@ Plug 'qpkorr/vim-bufkill'                            " https://github.com/qpkorr
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Testing
+Plug 'vim-test/vim-test'                             " https://github.com/vim-test/vim-test
 
 " Git tools
 Plug 'tpope/vim-fugitive'                            " https://github.com/tpope/vim-fugitive
