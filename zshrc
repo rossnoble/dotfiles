@@ -40,6 +40,7 @@ export EDITOR=vim
 
 # Local binaries
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # z browzing utility
 Z_PATH=/opt/homebrew/etc/profile.d/z.sh
