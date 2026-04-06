@@ -3,7 +3,14 @@
 #
 set shell=/bin/bash
 
-export DOTFILES_DIR=~/Code/dotfiles
+# Set DOTFILES_DIR to whichever path exists
+#
+# FIXME: This is a temporary workaround
+if [[ -d ~/Code/dotfiles ]]; then
+  export DOTFILES_DIR=~/Code/dotfiles
+elif [[ -d ~/dotfiles ]]; then
+  export DOTFILES_DIR=~/dotfiles
+fi
 
 set LANG="en_US.UTF-8"
 
@@ -145,161 +152,9 @@ function tp() {
   SESSION_NAME=$(basename "$PWD") tmuxp load "$@"
 }
 
-# Creates a new git worktree alongside the current directory.
-#
-# Usage:
-#   new_worktree <branch-name>
-#
-# Examples:
-#   If inside `~/Code/project-a` on main:
-#     new_worktree claude/my-feature
-#     -> Creates ~/Code/project-a-my-feature with new branch from main
-#
-#   If inside `~/Code/project-a` on branch `feature-x`:
-#     new_worktree new-branch
-#     -> Creates ~/Code/project-a-new-branch with new branch from feature-x
-#
-#   If inside `~/Code/project-a` (any branch):
-#     new_worktree existing-branch
-#     -> Creates ~/Code/project-a-existing-branch using existing branch
-#
-function worktree_new() {
-  local project="${PWD##*/}"
-  local branch
-  local base_branch
-  local current_branch
-  local tree_name
-  local full_path
-
-  # Branch argument is always required
-  if [[ -z "$1" ]]; then
-    echo "Error: Branch name is required"
-    echo "Usage: new_worktree <branch-name>"
-    return 1
-  fi
-  branch="$1"
-
-  # Detect main or master branch
-  if git show-ref --verify --quiet "refs/heads/main"; then
-    base_branch="main"
-  elif git show-ref --verify --quiet "refs/heads/master"; then
-    base_branch="master"
-  else
-    echo "Error: Could not find main or master branch"
-    return 1
-  fi
-
-  # Get current branch
-  current_branch=$(git branch --show-current)
-
-  # If on a feature branch, use it as base for new branches
-  if [[ "$current_branch" != "main" ]] && [[ "$current_branch" != "master" ]]; then
-    base_branch="$current_branch"
-  fi
-
-  # Generate tree name by stripping first prefix level (e.g., claude/my-feature -> my-feature)
-  tree_name="${branch#*/}"
-
-  # Replace any remaining slashes with underscores
-  tree_name="${tree_name//\//_}"
-
-  # Build full path
-  full_path="../${project}__${tree_name}"
-
-  if git show-ref --verify --quiet "refs/heads/$branch"; then
-    # Branch exists: create worktree using existing branch
-    if git worktree add "$full_path" "$branch"; then
-      echo "Worktree ready at $full_path (using existing branch $branch)"
-    else
-      echo "Error: Failed to create worktree"
-      return 1
-    fi
-  else
-    # Branch doesn't exist: create new branch from base
-    if git worktree add -b "$branch" "$full_path" "$base_branch"; then
-      echo "Worktree ready at $full_path (created new branch $branch from $base_branch)"
-    else
-      echo "Error: Failed to create worktree"
-      return 1
-    fi
-  fi
-
-  # Any other setup steps
-  cd "$full_path"
-  # e.g. yarn install
-}
-
-# Enable git branch completion for new_worktree
-compdef _git new_worktree=git-branch
-
-# Sync gitignored files from main worktree to current worktree via symlinks
-# Config file: .worktree-sync in the main worktree root
-function worktree_sync() {
-  # Get the main worktree (first line of git worktree list)
-  local main_worktree
-  main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //')
-
-  if [[ -z "$main_worktree" ]]; then
-    echo "Error: Not in a git repository"
-    return 1
-  fi
-
-  # Get current worktree root (handles being in subdirectory)
-  local current_worktree
-  current_worktree=$(git rev-parse --show-toplevel 2>/dev/null)
-
-  if [[ -z "$current_worktree" ]]; then
-    echo "Error: Could not determine worktree root"
-    return 1
-  fi
-
-  # Using .local/* because it's already gitignored in maintainx
-  #
-  # local config_file="${main_worktree}/.worktree-sync"
-  local config_file="${main_worktree}/.local/worktree-sync"
-
-  if [[ ! -f "$config_file" ]]; then
-    echo "No .worktree-sync found in main worktree: $main_worktree"
-    return 1
-  fi
-
-  # Don't run in main worktree itself
-  if [[ "$current_worktree" == "$main_worktree" ]]; then
-    echo "Already in main worktree, nothing to sync"
-    return 0
-  fi
-
-  echo "Syncing from: $main_worktree"
-  echo ""
-
-  while IFS= read -r item || [[ -n "$item" ]]; do
-    # Skip comments and empty lines
-    [[ -z "$item" || "$item" =~ ^[[:space:]]*# ]] && continue
-    # Trim whitespace
-    item=$(echo "$item" | xargs)
-
-    local src="${main_worktree}/${item}"
-    local dest="${current_worktree}/${item}"
-
-    if [[ ! -e "$src" ]]; then
-      echo "  [!] Not found in source: $item"
-      continue
-    fi
-
-    if [[ -e "$dest" || -L "$dest" ]]; then
-      echo "  [-] Skipping (exists): $item"
-      continue
-    fi
-
-    # Ensure parent directory exists for nested paths
-    local dest_dir="${dest:h}"
-    if [[ ! -d "$dest_dir" ]]; then
-      mkdir -p "$dest_dir" && echo "  [+] Created directory: ${dest_dir#$current_worktree/}"
-    fi
-
-    ln -s "$src" "$dest" && echo "  [+] Linked: $item"
-  done < "$config_file"
-}
+# Worktree utilities
+source "${DOTFILES_DIR}/zsh/worktree_new.zsh"
+source "${DOTFILES_DIR}/zsh/worktree_sync.zsh"
 
 
 # LOCAL ZSH CONFIGS
