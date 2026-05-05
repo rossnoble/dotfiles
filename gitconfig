@@ -48,6 +48,7 @@
 
   # Worktrees
   wt = worktree
+  wts = worktree list
 
   # Logging
   lg = log -30 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit

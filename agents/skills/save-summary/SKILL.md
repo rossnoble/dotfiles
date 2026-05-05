@@ -34,7 +34,12 @@ The summary file should include:
 1. Look for an existing `.agent-docs` directory starting from the current working directory
 2. Walk up the directory tree until you find one or reach the git root
 3. If no `.agent-docs` directory exists, create one at the project root
-4. Save the summary file there
+
+## Create ticket directories
+
+1. Check the git branch for a ticket ID that matches `AAA-111` (e.g. `rossnoble/ABC-123/some-feature`
+2. Check if a directory in `.agent-docs` exists for this (e.g. `.agent-docs/ABC-123/`)
+3. Save the summary file there, otherwise just use `.agent-docs`
 
 ## When to use me
 

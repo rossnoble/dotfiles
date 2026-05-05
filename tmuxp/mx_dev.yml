@@ -20,38 +20,35 @@ windows:
         - vim
 
   # Opencode / Claude
-  - window_name: ai-chat
+  - window_name: opencode
     layout: main-horizontal
     panes:
       - shell_command:
         # Not run automatically to prevent excess RAM usage 
         # - opencode
 
-  # Navigates to the frontend directory and starts the
-  # tests in watch mode (default)
-  - window_name: tests-and-dev-server
+  # Dev servers
+  - window_name: servers
     panes:
       - shell_command:
-        - cd frontend
-        # Not run automatically to prevent excess RAM usage 
-        # - yarn test 
+        - just backend
+      - shell_command:
+        - just backend-auth
+      - shell_command:
+        - just agents-gql
+      - shell_command:
+        - just agents-worker
+      - shell_command:
+        - # just frontend
+      - shell_command:
+        - just storybook
 
-  # Navigates to the e2e directory but does not run
-  # the start commands
-  - window_name: frontend-e2e-tests
-    layout: tiled
+  # Docker
+  - window_name: servers
     panes:
       - shell_command:
-        - cd frontend/e2e
-        # Not run automatically
-        # - yarn start-backend
+        - yarn start-docker
       - shell_command:
-        - cd frontend/e2e
-        # - yarn start-frontend:preview
+        - yarn start-docker-llmx
       - shell_command:
-        - cd frontend/e2e
-        # - yarn start-frontend:nodemon
-      # Open cypress
-      - shell_command:
-        - cd frontend/e2e
-        # - yarn cypress:open
+        - pods_watch
