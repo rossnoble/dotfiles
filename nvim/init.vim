@@ -83,6 +83,9 @@ highlight CocHighlightText    ctermfg=231 ctermbg=60
 highlight CocErrorHighlight   ctermfg=231 ctermbg=124
 highlight CocWarningHighlight ctermfg=231 ctermbg=99
 
+" Split border color
+highlight WinSeparator guifg=#444444 guibg=NONE
+
 " ===============================================
 " SETTINGS
 "
@@ -186,7 +189,8 @@ noremap <F7> :execute "cclose"<cr>
 map <C-B><C-B> :NERDTreeToggle<CR>
 
 " Reload all buffers
-map <C-Y><C-Y> :bufdo e<CR>
+" DISABLED: This was loading all buffers including hidden ones, causing 100+ buffer issues
+" map <C-Y><C-Y> :bufdo e<CR>
 
 " Reimport vimrc
 nmap <C-R><C-V> :so $MYVIMRC<CR>
@@ -288,6 +292,7 @@ nmap <silent> <leader>g :TestVisit<CR>
 " autocmd CursorHold * :call <SID>show_hover_doc()
 
 " TextEdit might fail if hidden is not set.
+" Also important for Coc performance
 set hidden
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to
