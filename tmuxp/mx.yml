@@ -1,0 +1,71 @@
+# Generic MX development template
+#
+# Five windows: shell / vim / opencode / tests / e2e
+#
+# This requires using the tp() zshrc function which parses the current
+# directory name to populate the SESSION_NAME
+session_name: ${SESSION_NAME}
+start_directory: ${PWD}
+windows:
+  # Shell window for git commands etc
+  - window_name: shell
+    layout: main-horizontal
+    panes:
+       - echo main pane
+
+  # Neovim
+  - window_name: editor
+    layout: main-horizontal
+    panes:
+      - shell_command: vim
+
+  # Opencode / Claude
+  - window_name: opencode
+    layout: main-horizontal
+    panes:
+      - echo run opencode
+      # Not run automatically to prevent excess RAM usage when not in use
+      # - shell_command: opencode
+
+  # Backend servers
+  - window_name: backends
+    layout: tiled
+    panes:
+      - shell_command:
+        - just backend
+      - shell_command:
+        - just agents-gql
+      - shell_command:
+        - just agents-worker
+
+  # Frontend apps
+  - window_name: frontends
+    layout: tiled
+    panes:
+      - shell_command:
+        - sleep 5
+        - just frontend
+      - shell_command:
+        - just storybook
+      - shell_command:
+        - just dashboard
+
+  # Docker containers
+  - window_name: docker
+    layout: tiled
+    panes:
+      - shell_command:
+        - mise run stack:docker
+      - shell_command:
+        - mise run stack:docker llmx
+      - shell_command:
+        - pods_watch
+
+  # Dev servers
+  # @deprecated
+  # mx-server-grid will split into 6 windows
+  # - window_name: servers
+  #   panes:
+  #     - shell_command: mx-server-grid
+  #       focus: true
+  #       4-pane-split

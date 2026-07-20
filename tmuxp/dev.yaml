@@ -22,3 +22,5 @@ windows:
     panes:
       - shell_command:
         - opencode
+
+  - window_name: servers
