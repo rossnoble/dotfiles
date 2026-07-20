@@ -13,21 +13,38 @@
 
   "diagnostic.enabled": true,
   "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.refreshAfterSave": true,
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.enableMessage": "jump",
 
   "suggest.autoTrigger": "always", // always, none, trigger
   "suggest.disableMenu": false,
   "suggest.floatEnable": true,
+  "suggest.timeout": 500,
+  "suggest.minTriggerInputLength": 2,
   // Don't pre-select first suggestion
   "suggest.noselect": true,
 
   "workspace.bottomUpFiletypes": ["typescript"],
-  "workspace.workspaceFolderCheckCwd": false,
+  "workspace.workspaceFolderCheckCwd": true,
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "/node_modules",
+    "**/node_modules/**",
+    "**/.git",
+    "**/dist",
+    "**/build",
+    "**/coverage",
+    "**/.yarn/cache",
+    "**/target",
+    "**/tmp"
+  ],
 
   "coc.source.typescript.enable": true,
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "error",
   "coc.preferences.rootPatterns": ["tsconfig.json"],
+  "coc.preferences.maxFileSize": "1MB",
   "coc.source.file.ignorePatterns": [
     "node_modules"
   ],
@@ -57,6 +74,9 @@
   "typescript.suggest.paths": true,
   "typescript.format.enabled": true,
   "typescript.workspaceSymbols.scope": ["currentProject"],
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.disableAutomaticTypeAcquisition": true,
 
   "javascript.validate.enable": true,
   "javascript.suggest.enabled": true,
@@ -73,14 +93,23 @@
   "prettier.formatterPriority": 1,
   "prettier.documentSelectors": ["**/*.hbs"],
   "prettier.parser": { "*.hbs": "html" },
+  "prettier.ignorePath": ".prettierignore",
 
   "eslint.packageManager": "yarn",
   // "eslint.nodePath": ".yarn/sdks",
   "eslint.enable": true,
   "eslint.format.enable": false,
   "eslint.alwaysShowStatus": true,
-  "eslint.run": "onSave",
-  "eslint.autoFixOnSave": true,
+  "eslint.run": "onType",
+  "eslint.autoFixOnSave": false,
+  "eslint.options": {
+    "cache": true,
+    "cacheLocation": ".eslintcache"
+  },
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
+  "eslint.ignoreUntitled": true,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
