@@ -53,6 +53,7 @@
   # Logging
   lg = log -30 --pretty=format:'%C(brightred)%h%C(reset) %x2D %s %C(brightgreen)(%cd)%Creset %C(brightblue)<%an>%Creset' --date=relative --reverse --abbrev-commit
   lg-graph = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  lg-local = lg master..HEAD
 
 [push]
   default = current
