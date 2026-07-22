@@ -61,9 +61,8 @@ autocmd BufNewFile,BufRead *.ftl       set filetype=html
 " Causing an error. Will try to re-enable
 " autocmd BufNewFile,BufRead *.svg       set filetype=html
 autocmd BufNewFile,BufRead Guardfile   set filetype=ruby
-autocmd BufNewFile,BufRead *.tsx       set filetype=typescript
 autocmd BufNewFile,BufRead *.ts        set filetype=typescript
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 autocmd BufRead,BufNewFile Podfile     set filetype=ruby
 
 " Enable comments in json files. See 'kevinoid/vim-jsonc' plugin below
@@ -258,16 +257,15 @@ let g:vim_markdown_folding_disabled = 1
 
 " COC.vim
 " https://github.com/neoclide/coc.nvim
-let g:coc_global_extensions = ['coc-tsserver']
+" Always load essential CoC extensions
+" Extensions will auto-activate only in projects where they're configured/needed
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-eslint',
+  \ 'coc-prettier'
+\ ]
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-  let g:coc_global_extensions += ['coc-prettier']
-endif
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
-
+" Conditionally load stylelint (less common, keep conditional for performance)
 if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
   let g:coc_global_extensions += ['coc-stylelintplus']
 endif

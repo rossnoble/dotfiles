@@ -15,7 +15,14 @@
   "diagnostic.refreshOnInsertMode": false,
   "diagnostic.refreshAfterSave": true,
   "diagnostic.checkCurrentLine": true,
-  "diagnostic.enableMessage": "jump",
+  "diagnostic.enableMessage": "always",
+  "diagnostic.errorSign": "✗",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.displayByAle": false,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
 
   "suggest.autoTrigger": "always", // always, none, trigger
   "suggest.disableMenu": false,
@@ -25,7 +32,7 @@
   // Don't pre-select first suggestion
   "suggest.noselect": true,
 
-  "workspace.bottomUpFiletypes": ["typescript"],
+  "workspace.bottomUpFiletypes": ["typescript", "typescriptreact"],
   "workspace.workspaceFolderCheckCwd": true,
   "workspace.ignoredFolders": [
     "$HOME",
@@ -42,7 +49,7 @@
 
   "coc.source.typescript.enable": true,
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.messageLevel": "error",
+  "coc.preferences.messageLevel": "warning",
   "coc.preferences.rootPatterns": ["tsconfig.json"],
   "coc.preferences.maxFileSize": "1MB",
   "coc.source.file.ignorePatterns": [
@@ -76,6 +83,7 @@
   "typescript.workspaceSymbols.scope": ["currentProject"],
   "typescript.preferences.includePackageJsonAutoImports": "off",
   "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
   "typescript.disableAutomaticTypeAcquisition": true,
 
   "javascript.validate.enable": true,
@@ -84,6 +92,8 @@
   "javascript.suggest.autoImports": true,
   "javascript.suggest.paths": true,
   "javascript.format.enabled": true,
+  
+  "tsserver.implicitProjectConfig.checkJs": false,
 
   "list.source.symbols.excludes": ["**/node_modules/**"],
   "list.source.files.excludePatterns": ["**/node_modules/**"],
@@ -102,6 +112,9 @@
   "eslint.alwaysShowStatus": true,
   "eslint.run": "onType",
   "eslint.autoFixOnSave": false,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.quiet": false,
+  "eslint.onIgnoredFiles": "off",
   "eslint.options": {
     "cache": true,
     "cacheLocation": ".eslintcache"
