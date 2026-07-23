@@ -113,7 +113,7 @@
   "eslint.run": "onType",
   "eslint.autoFixOnSave": false,
   "eslint.experimental.useFlatConfig": true,
-  "eslint.quiet": false,
+  "eslint.quiet": true,
   "eslint.onIgnoredFiles": "off",
   "eslint.options": {
     "cache": true,

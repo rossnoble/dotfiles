@@ -422,7 +422,7 @@ Plug 'qpkorr/vim-bufkill'                            " https://github.com/qpkorr
 
 " Telescope fuzzy search and dependencies - always needed
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.2.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Tree-sitter for fast incremental syntax highlighting
