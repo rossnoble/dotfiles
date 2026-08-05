@@ -32,7 +32,14 @@ function worktree_new() {
     echo "Usage: new_worktree <branch-name>"
     return 1
   fi
-  branch="$1"
+
+  # Prefix branch name with worktree/ to distinguish from PR branches
+  local prefix="worktree/"
+  if [[ "$1" == ${prefix}* ]]; then
+    branch="$1"
+  else
+    branch="${prefix}$1"
+  fi
 
   # Detect main or master branch
   if git show-ref --verify --quiet "refs/heads/main"; then
