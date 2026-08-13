@@ -18,14 +18,15 @@ windows:
     layout: main-horizontal
     panes:
       - shell_command: vim
+      - shell_command: opencode
 
   # Opencode / Claude
-  - window_name: opencode
-    layout: main-horizontal
-    panes:
-      - echo run opencode
-      # Not run automatically to prevent excess RAM usage when not in use
-      # - shell_command: opencode
+  # - window_name: opencode
+  #   layout: main-horizontal
+  #   panes:
+  #     - echo run opencode
+  #     # Not run automatically to prevent excess RAM usage when not in use
+  #     # - shell_command: opencode
 
   # Backend servers
   - window_name: backends

@@ -16,11 +16,13 @@ windows:
       - focus: true
         shell_command:
         - vim
-
-  - window_name: ai-chat
-    layout: main-horizontal
-    panes:
       - shell_command:
         - opencode
+
+  # - window_name: ai-chat
+  #   layout: main-horizontal
+  #   panes:
+  #     - shell_command:
+  #       - opencode
 
   - window_name: servers
