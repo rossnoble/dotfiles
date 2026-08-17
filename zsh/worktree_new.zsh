@@ -1,7 +1,12 @@
 # Creates a new git worktree alongside the current directory.
 #
 # Usage:
-#   worktree_new <branch-name>
+#   worktree_new [-m|--master] <branch-name>
+#
+# Options:
+#   -m, --master  Force basing the new branch off main/master, even when
+#                 currently on a feature branch. Without this flag, the new
+#                 branch is based off the current branch.
 #
 # Examples:
 #   If inside `~/Code/project-x` on main:
@@ -10,11 +15,11 @@
 #
 #   If inside `~/Code/project-x` on branch `feature-x`:
 #     worktree_new feature-z
-#     -> Creates ~/Code/project-xa__feature-z
+#     -> Creates ~/Code/project-x__feature-z (based off feature-x)
 #
-#   If inside `~/Code/project-x__feature-y` on worktree/branch `feature-x`:
-#     worktree_new feature-z
-#     -> Creates ~/Code/project-a__feature-z
+#   If inside `~/Code/project-x__feature-y` and you want to branch from master:
+#     worktree_new -m feature-z
+#     -> Creates ~/Code/project-x__feature-z (based off main/master)
 #
 function worktree_new() {
   # Always use the main worktree's directory name for consistent naming
@@ -25,11 +30,18 @@ function worktree_new() {
   local current_branch
   local tree_name
   local full_path
+  local force_master=0
+
+  # Parse optional flags (must come before branch name)
+  if [[ "$1" == "-m" || "$1" == "--master" ]]; then
+    force_master=1
+    shift
+  fi
 
   # Branch argument is always required
   if [[ -z "$1" ]]; then
     echo "Error: Branch name is required"
-    echo "Usage: new_worktree <branch-name>"
+    echo "Usage: worktree_new [-m|--master] <branch-name>"
     return 1
   fi
 
@@ -54,8 +66,8 @@ function worktree_new() {
   # Get current branch
   current_branch=$(git branch --show-current)
 
-  # If on a feature branch, use it as base for new branches
-  if [[ "$current_branch" != "main" ]] && [[ "$current_branch" != "master" ]]; then
+  # If on a feature branch, use it as base for new branches (unless -m flag passed)
+  if [[ "$force_master" -eq 0 ]] && [[ "$current_branch" != "main" ]] && [[ "$current_branch" != "master" ]]; then
     base_branch="$current_branch"
   fi
 
