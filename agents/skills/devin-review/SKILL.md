@@ -1,7 +1,7 @@
 ---
 name: devin-review
 description: Create X-Ray testing steps for MX QA team
-srouce: 
+source:
 metadata:
   author: Mike Gabriel
   author_url: https://github.com/shamashel

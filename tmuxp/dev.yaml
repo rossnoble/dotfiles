@@ -11,7 +11,7 @@ windows:
     layout: main-horizontal
 
   - window_name: editor
-    layout: main-horizontal
+    layout: main-vertical
     panes:
       - focus: true
         shell_command:
