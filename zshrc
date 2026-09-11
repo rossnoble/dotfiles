@@ -86,6 +86,7 @@ alias ghostconf='vim ~/.config/ghostty/config'
 alias pryrc='vim ~/.pryrc'
 alias agignore='vim ~/.agignore'
 alias gitconfig='vim ~/.gitconfig'
+alias gitconfiglocal='vim ~/.gitconfig.local'
 alias cocsettings="vim ${DOTFILES_DIR}/vim/coc-settings.json"
 alias hosts='sudo vim /etc/hosts'
 alias python='python3'
