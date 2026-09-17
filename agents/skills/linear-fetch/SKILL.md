@@ -1,6 +1,6 @@
 ---
-name: fetch-linear-ticket
-description: Fetch Linear ticket information from current branch and save to .agent-docs
+name: linear-fetch
+description: Fetch Linear ticket data using branch name and save to .agent-docs
 ---
 
 ## What I do
