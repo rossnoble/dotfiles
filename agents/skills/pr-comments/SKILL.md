@@ -1,5 +1,5 @@
 ---
-name: fetch-pr-comments
+name: pr-comments
 description: Fetch PR review comments and CI bot comments, then prompt user to triage which issues to address. Use when reviewing PR feedback, checking CI failures, or preparing to address review comments.
 ---
 
@@ -18,11 +18,13 @@ Fetch and triage comments on a GitHub Pull Request for the current branch.
 ## How to fetch the PR
 
 1. Get the current branch name:
+
    ```bash
    git branch --show-current
    ```
 
 2. Find the PR for this branch:
+
    ```bash
    gh pr view --json number,title,url,state
    ```
@@ -34,16 +36,19 @@ Fetch and triage comments on a GitHub Pull Request for the current branch.
 Use the GitHub API via `gh`:
 
 ### Code review comments (on specific lines):
+
 ```bash
 gh api repos/{owner}/{repo}/pulls/{pr_number}/comments
 ```
 
 ### Bot/conversation comments (CI failures, etc.):
+
 ```bash
 gh api repos/{owner}/{repo}/issues/{pr_number}/comments
 ```
 
 Extract the owner/repo from:
+
 ```bash
 gh repo view --json nameWithOwner --jq '.nameWithOwner'
 ```
@@ -51,14 +56,18 @@ gh repo view --json nameWithOwner --jq '.nameWithOwner'
 ## How to parse comments
 
 ### Code review comments
+
 Extract from each comment:
+
 - `user.login` - Who left the comment
 - `path` - File path
 - `line` or `original_line` - Line number
 - `body` - Comment text
 
 ### Bot comments (CI failures)
+
 Look for comments from known bots:
+
 - `datadog-maintainx[bot]` - CI pipeline failures
 - `github-actions[bot]` - Workflow failures
 - `cursor[bot]` - Automated code review
@@ -88,6 +97,7 @@ Which issues would you like to address? (e.g., "2, 4, 5" or "all" or "skip 1, 3"
 ## User interaction
 
 After presenting the summary, ask the user which issues to address. Accept formats like:
+
 - `2, 4, 5` - Address specific issues by number
 - `all` - Address all issues
 - `skip 1, 3` - Address all except specified
@@ -96,6 +106,7 @@ After presenting the summary, ask the user which issues to address. Accept forma
 ## After triage
 
 For each issue the user wants to address:
+
 1. Add it to the todo list with status `pending`
 2. Include the file path, line number, and issue description
 3. Begin working through the todos sequentially

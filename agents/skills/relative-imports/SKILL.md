@@ -1,5 +1,5 @@
 ---
-name: replace-relative-imports
+name: relative-imports
 description: Replace relative imports (../../..) in TS/JS files with TypeScript path aliases by analyzing tsconfig.json. Processes changed files in current branch with interactive selection. Use when user wants to convert relative imports to aliases, clean up import paths, or refactor imports.
 disable-model-invocation: false
 ---
@@ -114,16 +114,16 @@ Read each file and extract all import statements:
 
 ```typescript
 // ES6 imports
-import { Something } from '../../../path/to/file'
-import Something from '../../../path/to/file'
-import * as Something from '../../../path/to/file'
-import '../../../path/to/file'
+import { Something } from "../../../path/to/file";
+import Something from "../../../path/to/file";
+import * as Something from "../../../path/to/file";
+import "../../../path/to/file";
 
 // Dynamic imports
-import('../../../path/to/file')
+import("../../../path/to/file");
 
 // CommonJS (if present)
-const Something = require('../../../path/to/file')
+const Something = require("../../../path/to/file");
 ```
 
 **For each import:**
@@ -163,11 +163,11 @@ For each potential replacement, validate that it's safe. **SKIP** the import if 
 
 ```typescript
 // ❌ SKIP - re-export from alias
-export * from '@mx-modules/workorders'
-export { WorkOrderService } from '@mx-modules/workorders'
+export * from "@mx-modules/workorders";
+export { WorkOrderService } from "@mx-modules/workorders";
 
 // ✅ OK - re-export from relative (can be converted if not re-export)
-export * from '../../../modules/workorders'  // But still SKIP because it's a re-export!
+export * from "../../../modules/workorders"; // But still SKIP because it's a re-export!
 ```
 
 **Detection:** Check if the import is part of an `export` statement.
@@ -182,8 +182,8 @@ export * from '../../../modules/workorders'  // But still SKIP because it's a re
 // File: backend/src/modules/workorders/services/WorkOrderService.ts
 
 // ❌ SKIP - within same module, must stay relative
-import { WorkOrderRepo } from '../repositories/WorkOrderRepository'
-import { validateWorkOrder } from '../utils/validation'
+import { WorkOrderRepo } from "../repositories/WorkOrderRepository";
+import { validateWorkOrder } from "../utils/validation";
 ```
 
 **Detection:**
@@ -202,10 +202,10 @@ import { validateWorkOrder } from '../utils/validation'
 // File: backend/src/modules/workorders/services/WorkOrderService.ts
 
 // ❌ SKIP - cross-module relative import (violates architecture)
-import { AssetService } from '../../assets/services/AssetService'
+import { AssetService } from "../../assets/services/AssetService";
 
 // ✅ Should use module context instead (but don't auto-fix)
-const result = await getModules().assets.service.doSomething(context, params)
+const result = await getModules().assets.service.doSomething(context, params);
 ```
 
 **Detection:**
@@ -222,7 +222,7 @@ const result = await getModules().assets.service.doSomething(context, params)
 
 ```typescript
 // ❌ SKIP - no alias defined for this path
-import { util } from '../../../utils/random/helper'
+import { util } from "../../../utils/random/helper";
 // No matching alias in tsconfig paths
 ```
 
@@ -232,8 +232,8 @@ import { util } from '../../../utils/random/helper'
 
 ```typescript
 // ❌ SKIP - workspace package, not a path alias
-import { log } from '@mx-server/log'
-import { permissions } from '@mx-shared/permissions'
+import { log } from "@mx-server/log";
+import { permissions } from "@mx-shared/permissions";
 ```
 
 **Detection:** Check if the import source doesn't start with `./` or `../` and isn't in the tsconfig `paths` map.
@@ -344,10 +344,10 @@ For each file the user selected:
 
 ```typescript
 // oldString
-import { Button } from '../../../components/Button'
+import { Button } from "../../../components/Button";
 
 // newString
-import { Button } from '#components/Button'
+import { Button } from "#components/Button";
 ```
 
 **Preserve formatting:**
@@ -388,12 +388,12 @@ The backend uses a modular architecture with strict import boundaries. This skil
 
 ### Import Rules Summary (from `backend/src/.cursor/BUGBOT.md`)
 
-| Code Location          | Can Import From                         | Using                                                |
-| ---------------------- | --------------------------------------- | ---------------------------------------------------- |
-| Inside a module        | Code in `backend/` (outside `src/`)     | `@mx-common/*`, `@mx-graphql/*`, `@mx-graphql-types/*` |
-| Inside a module        | Code within same module                 | Relative imports (e.g., `../repositories/MyRepo`)    |
-| Outside a module       | Module code                             | `@mx-modules/{module-name}` (via index.ts only)      |
-| Outside a module       | Code in `backend/` (outside `src/`)     | Relative imports or `@mx-common/*`, etc.             |
+| Code Location    | Can Import From                     | Using                                                  |
+| ---------------- | ----------------------------------- | ------------------------------------------------------ |
+| Inside a module  | Code in `backend/` (outside `src/`) | `@mx-common/*`, `@mx-graphql/*`, `@mx-graphql-types/*` |
+| Inside a module  | Code within same module             | Relative imports (e.g., `../repositories/MyRepo`)      |
+| Outside a module | Module code                         | `@mx-modules/{module-name}` (via index.ts only)        |
+| Outside a module | Code in `backend/` (outside `src/`) | Relative imports or `@mx-common/*`, etc.               |
 
 ### What This Skill Does for Backend
 
@@ -402,7 +402,7 @@ The backend uses a modular architecture with strict import boundaries. This skil
 ```typescript
 // File: backend/src/modules/workorders/services/WorkOrderService.ts
 // ✅ CORRECT - keep as relative
-import { WorkOrderRepo } from '../repositories/WorkOrderRepository'
+import { WorkOrderRepo } from "../repositories/WorkOrderRepository";
 ```
 
 **Module importing common:** ✅ **REPLACE** - Convert to aliases
@@ -410,9 +410,9 @@ import { WorkOrderRepo } from '../repositories/WorkOrderRepository'
 ```typescript
 // File: backend/src/modules/workorders/services/WorkOrderService.ts
 // Before
-import { logger } from '../../../common/src/logger'
+import { logger } from "../../../common/src/logger";
 // After
-import { logger } from '@mx-common/logger'
+import { logger } from "@mx-common/logger";
 ```
 
 **Outside module importing module:** ✅ **REPLACE** - Convert to aliases
@@ -420,9 +420,9 @@ import { logger } from '@mx-common/logger'
 ```typescript
 // File: backend/graphql/src/resolvers/workorder.ts
 // Before
-import { WorkOrderService } from '../../../src/modules/workorders/services/WorkOrderService'
+import { WorkOrderService } from "../../../src/modules/workorders/services/WorkOrderService";
 // After
-import { WorkOrderService } from '@mx-modules/workorders/services/WorkOrderService'
+import { WorkOrderService } from "@mx-modules/workorders/services/WorkOrderService";
 ```
 
 **Cross-module relative import:** ✅ **SKIP** - Architecture violation (flag but don't change)
@@ -430,7 +430,7 @@ import { WorkOrderService } from '@mx-modules/workorders/services/WorkOrderServi
 ```typescript
 // File: backend/src/modules/workorders/services/WorkOrderService.ts
 // ❌ SKIP - violates module boundaries
-import { AssetService } from '../../assets/services/AssetService'
+import { AssetService } from "../../assets/services/AssetService";
 // Should use: getModules().assets.service.doSomething(context, params)
 ```
 
@@ -467,16 +467,16 @@ Frontend uses `#` prefix for internal path aliases:
 
 ```typescript
 // Before
-import { Button } from '../../../components/Button'
-import { useAuth } from '../../hooks/useAuth'
-import { WorkOrderCard } from '../../../components/cards/WorkOrderCard'
-import { colors } from '../../../../pantry/tokens/colors'
+import { Button } from "../../../components/Button";
+import { useAuth } from "../../hooks/useAuth";
+import { WorkOrderCard } from "../../../components/cards/WorkOrderCard";
+import { colors } from "../../../../pantry/tokens/colors";
 
 // After
-import { Button } from '#components/Button'
-import { useAuth } from '#hooks/useAuth'
-import { WorkOrderCard } from '#components/cards/WorkOrderCard'
-import { colors } from '#pantry/tokens/colors'
+import { Button } from "#components/Button";
+import { useAuth } from "#hooks/useAuth";
+import { WorkOrderCard } from "#components/cards/WorkOrderCard";
+import { colors } from "#pantry/tokens/colors";
 ```
 
 ## Domain Services Path Aliases
@@ -498,12 +498,12 @@ Domain services (e.g., `domains/search`, `domains/customers`) define minimal loc
 // File: domains/search/services/graphql-api/src/resolvers/search.ts
 
 // Before
-import { createClient } from '../../../../libs/opensearch-client/src/index'
-import { getConfig } from '../../../../libs/search-config/src/index'
+import { createClient } from "../../../../libs/opensearch-client/src/index";
+import { getConfig } from "../../../../libs/search-config/src/index";
 
 // After
-import { createClient } from '@mx/search-opensearch-client'
-import { getConfig } from '@mx/search-config'
+import { createClient } from "@mx/search-opensearch-client";
+import { getConfig } from "@mx/search-config";
 ```
 
 ## tsconfig Path Resolution Details
@@ -661,16 +661,19 @@ When multiple aliases could match, prefer the most specific:
 ### Parameter Details
 
 **`--preview-only`**
+
 - Show analysis and preview of changes
 - Skip the file selection and apply steps
 - Useful for understanding what would change
 
 **`--all`**
+
 - Process all TS/JS files in the workspace
 - Not just files changed in current branch
 - Use with caution on large codebases (can be slow)
 
 **`<path>`**
+
 - Specify a directory or file to process
 - Can be absolute or relative to repo root
 - Examples: `frontend/src/`, `backend/graphql/`, `src/components/Button.tsx`
@@ -684,23 +687,23 @@ When multiple aliases could match, prefer the most specific:
 **Before:**
 
 ```typescript
-import { Button } from '../../../components/Button';
-import { Card } from '../../../components/Card';
-import { useAuth } from '../../hooks/useAuth';
-import { useWorkOrders } from '../../hooks/useWorkOrders';
-import { formatDate } from '../../../core/utils/date';
-import { WorkOrderType } from '../../../typings/workorder';
+import { Button } from "../../../components/Button";
+import { Card } from "../../../components/Card";
+import { useAuth } from "../../hooks/useAuth";
+import { useWorkOrders } from "../../hooks/useWorkOrders";
+import { formatDate } from "../../../core/utils/date";
+import { WorkOrderType } from "../../../typings/workorder";
 ```
 
 **After:**
 
 ```typescript
-import { Button } from '#components/Button';
-import { Card } from '#components/Card';
-import { useAuth } from '#hooks/useAuth';
-import { useWorkOrders } from '#hooks/useWorkOrders';
-import { formatDate } from '#core/utils/date';
-import { WorkOrderType } from '#typings/workorder';
+import { Button } from "#components/Button";
+import { Card } from "#components/Card";
+import { useAuth } from "#hooks/useAuth";
+import { useWorkOrders } from "#hooks/useWorkOrders";
+import { formatDate } from "#core/utils/date";
+import { WorkOrderType } from "#typings/workorder";
 ```
 
 ### Example 2: Backend GraphQL Resolver
@@ -710,19 +713,19 @@ import { WorkOrderType } from '#typings/workorder';
 **Before:**
 
 ```typescript
-import { logger } from '../../../common/src/logger';
-import { validateInput } from '../../../common/src/validation';
-import { WorkOrderService } from '../../../src/modules/workorders';
-import { GraphQLContext } from '../context';
+import { logger } from "../../../common/src/logger";
+import { validateInput } from "../../../common/src/validation";
+import { WorkOrderService } from "../../../src/modules/workorders";
+import { GraphQLContext } from "../context";
 ```
 
 **After:**
 
 ```typescript
-import { logger } from '@mx-common/logger';
-import { validateInput } from '@mx-common/validation';
-import { WorkOrderService } from '@mx-modules/workorders';
-import { GraphQLContext } from '../context';
+import { logger } from "@mx-common/logger";
+import { validateInput } from "@mx-common/validation";
+import { WorkOrderService } from "@mx-modules/workorders";
+import { GraphQLContext } from "../context";
 ```
 
 **Note:** The last import `../context` stays relative because there's no alias for it (and it's a local file).
@@ -734,22 +737,23 @@ import { GraphQLContext } from '../context';
 **Before:**
 
 ```typescript
-import { logger } from '../../../../common/src/logger';
-import { WorkOrderRepo } from '../repositories/WorkOrderRepository';
-import { validateWorkOrder } from '../utils/validation';
-import { AssetService } from '../../assets/services/AssetService';
+import { logger } from "../../../../common/src/logger";
+import { WorkOrderRepo } from "../repositories/WorkOrderRepository";
+import { validateWorkOrder } from "../utils/validation";
+import { AssetService } from "../../assets/services/AssetService";
 ```
 
 **After:**
 
 ```typescript
-import { logger } from '@mx-common/logger';
-import { WorkOrderRepo } from '../repositories/WorkOrderRepository';
-import { validateWorkOrder } from '../utils/validation';
-import { AssetService } from '../../assets/services/AssetService';
+import { logger } from "@mx-common/logger";
+import { WorkOrderRepo } from "../repositories/WorkOrderRepository";
+import { validateWorkOrder } from "../utils/validation";
+import { AssetService } from "../../assets/services/AssetService";
 ```
 
 **Changes:**
+
 - ✅ Line 1: Replaced with `@mx-common/logger` (module importing common)
 - ✅ Line 2: SKIPPED - within-module relative (required by architecture)
 - ✅ Line 3: SKIPPED - within-module relative (required by architecture)
@@ -779,17 +783,17 @@ backend/src/modules/workorders/services/WorkOrderService.ts:4
 **Before:**
 
 ```typescript
-import { createClient } from '../../../../libs/opensearch-client/src/index';
-import { getConfig } from '../../../../libs/search-config/src/index';
-import { logger } from '../utils/logger';
+import { createClient } from "../../../../libs/opensearch-client/src/index";
+import { getConfig } from "../../../../libs/search-config/src/index";
+import { logger } from "../utils/logger";
 ```
 
 **After:**
 
 ```typescript
-import { createClient } from '@mx/search-opensearch-client';
-import { getConfig } from '@mx/search-config';
-import { logger } from '../utils/logger';
+import { createClient } from "@mx/search-opensearch-client";
+import { getConfig } from "@mx/search-config";
+import { logger } from "../utils/logger";
 ```
 
 **Note:** The last import stays relative (no alias for internal utils).
@@ -801,9 +805,9 @@ import { logger } from '../utils/logger';
 **Before:**
 
 ```typescript
-export { WorkOrderService } from './services/WorkOrderService';
-export { WorkOrderRepo } from './repositories/WorkOrderRepository';
-export * from './types';
+export { WorkOrderService } from "./services/WorkOrderService";
+export { WorkOrderRepo } from "./repositories/WorkOrderRepository";
+export * from "./types";
 ```
 
 **After:** (No changes - all are re-exports)
@@ -886,13 +890,13 @@ Track visited configs during resolution to detect cycles.
 
 ```typescript
 // Before
-import { Button } from '../../../components/Button.js'
+import { Button } from "../../../components/Button.js";
 
 // ✅ CORRECT
-import { Button } from '#components/Button.js'
+import { Button } from "#components/Button.js";
 
 // ❌ WRONG
-import { Button } from '#components/Button'
+import { Button } from "#components/Button";
 ```
 
 ### 2. Preserve Quote Style
@@ -901,13 +905,13 @@ import { Button } from '#components/Button'
 
 ```typescript
 // Before (double quotes)
-import { Button } from "../../../components/Button"
+import { Button } from "../../../components/Button";
 
 // ✅ CORRECT
-import { Button } from "#components/Button"
+import { Button } from "#components/Button";
 
 // ❌ WRONG
-import { Button } from '#components/Button'
+import { Button } from "#components/Button";
 ```
 
 ### 3. Backend Module Boundaries
@@ -925,10 +929,10 @@ import { Button } from '#components/Button'
 
 ```typescript
 // ❌ NEVER DO THIS
-export * from '@mx-modules/workorders'  // Breaks import-in-the-middle
+export * from "@mx-modules/workorders"; // Breaks import-in-the-middle
 
 // ✅ CORRECT
-export * from '../../../src/modules/workorders'  // But still skip conversion
+export * from "../../../src/modules/workorders"; // But still skip conversion
 ```
 
 ### 5. Workspace Packages vs Path Aliases
@@ -937,10 +941,10 @@ export * from '../../../src/modules/workorders'  // But still skip conversion
 
 ```typescript
 // ✅ Workspace package (leave as-is)
-import { log } from '@mx-server/log'
+import { log } from "@mx-server/log";
 
 // ✅ Path alias (can be converted from relative)
-import { logger } from '@mx-common/logger'
+import { logger } from "@mx-common/logger";
 ```
 
 ### 6. `baseUrl` Affects Resolution
@@ -950,9 +954,9 @@ TypeScript's `baseUrl` affects how paths are resolved. Default is `.` (the tscon
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",  // Default
+    "baseUrl": ".", // Default
     "paths": {
-      "#components/*": ["./src/components/*"]  // Relative to baseUrl
+      "#components/*": ["./src/components/*"] // Relative to baseUrl
     }
   }
 }
@@ -966,13 +970,13 @@ When an import points to a directory with an `index.ts` file, preserve the direc
 
 ```typescript
 // Before
-import { WorkOrderService } from '../../../src/modules/workorders/index'
+import { WorkOrderService } from "../../../src/modules/workorders/index";
 
 // ✅ CORRECT (preserve /index)
-import { WorkOrderService } from '@mx-modules/workorders/index'
+import { WorkOrderService } from "@mx-modules/workorders/index";
 
 // Also acceptable (if original omitted /index)
-import { WorkOrderService } from '@mx-modules/workorders'
+import { WorkOrderService } from "@mx-modules/workorders";
 ```
 
 Match the original import style.
@@ -983,13 +987,13 @@ Preserve `type` keyword for type-only imports:
 
 ```typescript
 // Before
-import type { WorkOrderType } from '../../../typings/workorder'
+import type { WorkOrderType } from "../../../typings/workorder";
 
 // ✅ CORRECT
-import type { WorkOrderType } from '#typings/workorder'
+import type { WorkOrderType } from "#typings/workorder";
 
 // ❌ WRONG
-import { WorkOrderType } from '#typings/workorder'
+import { WorkOrderType } from "#typings/workorder";
 ```
 
 ### 9. Side-Effect Imports
@@ -998,10 +1002,10 @@ Preserve side-effect imports (no bindings):
 
 ```typescript
 // Before
-import '../../../styles/global.css'
+import "../../../styles/global.css";
 
 // ✅ CORRECT (if alias exists)
-import '#styles/global.css'
+import "#styles/global.css";
 ```
 
 ### 10. Dynamic Imports
@@ -1010,10 +1014,10 @@ Handle dynamic imports (promises):
 
 ```typescript
 // Before
-const module = await import('../../../utils/helper')
+const module = await import("../../../utils/helper");
 
 // ✅ CORRECT
-const module = await import('#core/utils/helper')
+const module = await import("#core/utils/helper");
 ```
 
 ## Key Takeaways
