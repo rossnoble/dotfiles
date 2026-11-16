@@ -468,9 +468,15 @@ if ok then
     defaults = {
       path_display = { "truncate" },
       file_ignore_patterns = {
-        "node_modules", "%.git/", "%.yarn/", "dist", "build",
-        "coverage", "vendor", "%.DS_Store", "target",
-        "tmp", "artifacts", "ios/Pods", "_site"
+        "^node_modules/", "/node_modules/",
+        "^%.git/", "/%.git/",
+        "^%.yarn/",
+        "^dist/", "/dist/",
+        "^build/", "/build/",
+        "^%.vite/", "/%.vite/",
+        "^coverage/", "^vendor/", "^target/", "^tmp/",
+        "^artifacts/", "ios/Pods/", "^_site/", "^%.cache/",
+        "%.DS_Store$",
       },
     },
     pickers = {

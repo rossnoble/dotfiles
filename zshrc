@@ -93,6 +93,8 @@ alias python='python3'
 alias pip='pip3'
 alias vim='nvim'
 
+alias skills='ls ~/.agents/skills'
+
 # MacOS
 alias show_hidden='defaults write com.apple.finder AppleShowAllFiles YES'
 alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO'
