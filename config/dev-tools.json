@@ -11,6 +11,11 @@
       "description": "JS/TS runtime"
     },
     {
+      "name": "fzf",
+      "package": "fzf",
+      "description": "Fuzzy finder"
+    },
+    {
       "name": "gh",
       "package": "gh",
       "description": "GitHub CLI"
