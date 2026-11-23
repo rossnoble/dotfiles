@@ -8,6 +8,7 @@
     { "source": "nvim", "target": "~/.config/nvim", "is_directory": true },
     { "source": "ghostty.config", "target": "~/.config/ghostty/config" },
     { "source": "agents", "target": "~/.agents", "is_directory": true },
-    { "source": "tmuxp", "target": "~/.config/tmuxp", "is_directory": true }
+    { "source": "tmuxp", "target": "~/.config/tmuxp", "is_directory": true },
+    { "source": "karabiner", "target": "~/.config/karabiner", "is_directory": true }
   ]
 }

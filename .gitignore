@@ -11,3 +11,6 @@ nvim/plugged/
 nvim/autoload/
 vim/bundle/*
 vim/.netrwhist
+
+# Karabiner writes timestamped backups on every config change
+karabiner/automatic_backups/
