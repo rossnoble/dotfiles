@@ -182,6 +182,13 @@
       "category": "developer"
     },
     {
+      "name": "Postico",
+      "cask": "postico",
+      "app_bundle": "Postico 2.app",
+      "description": "PostgreSQL database client",
+      "category": "developer"
+    },
+    {
       "name": "Postman",
       "cask": "postman",
       "app_bundle": "Postman.app",
