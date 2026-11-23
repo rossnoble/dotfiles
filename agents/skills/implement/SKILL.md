@@ -163,4 +163,4 @@ Use something else when:
 
 - The bug isn't understood yet → `investigate`
 - The work is already written and needs critique → `self-review`
-- Only the PR needs opening → `pr-create`
+- Only the PR needs opening → `open-pr`

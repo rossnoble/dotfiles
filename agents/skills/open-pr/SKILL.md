@@ -1,5 +1,5 @@
 ---
-name: pr-create
+name: open-pr
 description: Open a pull request with the `gh` CLI using the repo's PR template, filled in from the branch diff
 ---
 
