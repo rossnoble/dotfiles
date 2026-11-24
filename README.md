@@ -16,16 +16,20 @@ as follows:
 
 ### Quick Start
 
-Clone and run the bootstrap script.
+Clone the repository:
 
 > [!IMPORTANT]
 > MacOS will prompt you to install xcode when you try to use git. So you will
 > actually have to run this twice.
 
 ```
-git clone https://github.com/rossnoble/dotfiles.git && \
-cd dotfiles && \
-./bootstrap.sh
+git clone https://github.com/rossnoble/dotfiles.git
+```
+
+Run the bootstrap script:
+
+```
+cd dotfiles && ./bootstrap.sh
 ```
 
 ### CLI Path
@@ -70,7 +74,7 @@ These tools read the configs and prompt for installation.
 The `dotfiles dev install` command installs vim-plug which then needs to be
 called inside Neovim with `:PlugInstall` to install the plugins in `nvim/init.vim`.
 
-#### SSH and Githu
+#### SSH and Github
 
 Run `dotfiles dev ssh` to generate an SSH key and configure it for GitHub.
 The public key is automatically copied to your clipboard. You will need to
