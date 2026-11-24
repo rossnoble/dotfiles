@@ -13,14 +13,6 @@ is_xcode_cli_installed() {
   xcode-select -p &>/dev/null
 }
 
-is_rosetta_installed() {
-  /usr/bin/pgrep -q oahd 2>/dev/null
-}
-
-is_arm64() {
-  [[ $(uname -m) == 'arm64' ]]
-}
-
 is_brew_package_installed() {
   local package="$1"
   brew list "$package" &>/dev/null
@@ -54,21 +46,6 @@ install_system_prerequisites() {
       echo "Installed XCode Command Line Tools"
     else
       echo "Skipped XCode Command Line Tools"
-    fi
-  fi
-
-  # Rosetta (Apple Silicon only)
-  if is_arm64; then
-    if is_rosetta_installed; then
-      echo "Rosetta 2 already installed"
-    else
-      if prompt_yes_no "Install Rosetta 2? (for Intel compatibility)"; then
-        echo "Installing Rosetta 2..."
-        /usr/sbin/softwareupdate --install-rosetta --agree-to-license
-        echo "Installed Rosetta 2"
-      else
-        echo "Skipped Rosetta 2"
-      fi
     fi
   fi
 }
@@ -289,14 +266,6 @@ dev_status() {
     echo -e "  XCode CLI Tools: ${BOLD}installed${NC}"
   else
     echo -e "  XCode CLI Tools: not installed"
-  fi
-
-  if is_arm64; then
-    if is_rosetta_installed; then
-      echo -e "  Rosetta 2: ${BOLD}installed${NC}"
-    else
-      echo -e "  Rosetta 2: not installed"
-    fi
   fi
 
   echo ""
