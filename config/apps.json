@@ -59,6 +59,13 @@
       "show_in_dock": true
     },
     {
+      "name": "Cursor",
+      "cask": "cursor",
+      "app_bundle": "Cursor.app",
+      "description": "AI code editor",
+      "category": "developer"
+    },
+    {
       "name": "Discord",
       "cask": "discord",
       "app_bundle": "Discord.app",
@@ -136,6 +143,13 @@
       "app_bundle": "Krisp.app",
       "description": "Noise cancellation for calls",
       "category": "communication"
+    },
+    {
+      "name": "Linear",
+      "cask": "linear",
+      "app_bundle": "Linear.app",
+      "description": "Issue tracking",
+      "category": "productivity"
     },
     {
       "name": "MacDown",
