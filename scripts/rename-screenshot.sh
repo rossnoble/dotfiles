@@ -2,14 +2,15 @@
 # Rename screenshots with custom format
 # Called by Automator Folder Action when files are added to ~/Screenshots
 #
-# Add the following to Automator
+# The workflow is checked in at automator/Rename screenshots.workflow and
+# installed by `dotfiles macos screenshot`. To recreate it by hand in Automator:
 # 1. New Document
 # 2. Select "Folder Action"
 # 3. Select "Screenshots" folder to watch
-# 4. Search for "Run Shell Script"
+# 4. Search for "Run Shell Script" (Shell: /bin/zsh, Pass input: as arguments)
 # 5. Add the following snippet to source this file:
 # ```
-# "$HOME/Code/dotfiles/scripts/rename-screenshot.sh" "$@"
+# "$HOME/dotfiles/scripts/rename-screenshot.sh" "$@"
 # ```
 
 for f in "$@"; do

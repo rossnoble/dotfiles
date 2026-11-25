@@ -91,11 +91,54 @@ macos_screenshot() {
   defaults write com.apple.screencapture show-thumbnail -bool false
   echo "✓ Disabled screenshot preview thumbnail"
 
+  macos_screenshot_folder_action "$screenshot_dir"
+
   # Restart SystemUIServer to apply changes
   killall SystemUIServer
   echo ""
   echo "Restarted SystemUIServer to apply changes"
   echo ""
+}
+
+# Install the Automator Folder Action that renames new screenshots via
+# scripts/rename-screenshot.sh, and attach it to the screenshots directory
+macos_screenshot_folder_action() {
+  local screenshot_dir="$1"
+  local workflow_name="Rename screenshots.workflow"
+  local workflows_dir="$HOME/Library/Workflows/Applications/Folder Actions"
+
+  local dotfiles_dir
+  dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+  # The workflow hardcodes this path to the rename script
+  if [ "$dotfiles_dir" != "$HOME/dotfiles" ]; then
+    echo "⚠ Dotfiles are not at ~/dotfiles; update the path in the \"$workflow_name\" Run Shell Script action"
+  fi
+
+  mkdir -p "$workflows_dir"
+  rm -rf "$workflows_dir/$workflow_name"
+  cp -R "$dotfiles_dir/automator/$workflow_name" "$workflows_dir/"
+  echo "✓ Installed $workflow_name"
+
+  if osascript <<EOF
+tell application "System Events"
+  set folder actions enabled to true
+  if not (exists folder action "$(basename "$screenshot_dir")") then
+    make new folder action at end of folder actions with properties {enabled:true, name:"$(basename "$screenshot_dir")", path:"$screenshot_dir"}
+  end if
+  tell folder action "$(basename "$screenshot_dir")"
+    if not (exists script "$workflow_name") then
+      make new script at end of scripts with properties {name:"$workflow_name"}
+    end if
+  end tell
+end tell
+EOF
+  then
+    echo "✓ Attached $workflow_name to $screenshot_dir"
+  else
+    echo "⚠ Could not attach folder action. Right-click $screenshot_dir in Finder >"
+    echo "  Services > Folder Actions Setup and attach \"$workflow_name\""
+  fi
 }
 
 macos_dock_apps() {

@@ -74,6 +74,21 @@ These tools read the configs and prompt for installation.
 The `dotfiles dev install` command installs vim-plug which then needs to be
 called inside Neovim with `:PlugInstall` to install the plugins in `nvim/init.vim`.
 
+#### Screenshots
+
+`dotfiles macos screenshot` saves screenshots to `~/Screenshots` and installs
+the `automator/Rename screenshots.workflow` Folder Action, which runs
+`scripts/rename-screenshot.sh` to rename new screenshots to
+`YYYY-MM-DD-screenshot_<unixtime>.png`.
+
+- The workflow calls `$HOME/dotfiles/scripts/rename-screenshot.sh`. If the repo
+  is cloned elsewhere, open the workflow in Automator and update the path.
+- Attaching the Folder Action asks for permission to control System Events.
+  If that fails, right-click `~/Screenshots` in Finder > Services > Folder
+  Actions Setup and attach "Rename screenshots.workflow" manually.
+- After editing the workflow in Automator, copy it back into the repo:
+  `cp -R ~/Library/Workflows/Applications/Folder\ Actions/Rename\ screenshots.workflow automator/`
+
 #### SSH and Github
 
 Run `dotfiles dev ssh` to generate an SSH key and configure it for GitHub.
