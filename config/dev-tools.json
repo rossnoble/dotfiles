@@ -26,6 +26,11 @@
       "description": "Version control"
     },
     {
+      "name": "just",
+      "package": "just",
+      "description": "Command runner"
+    },
+    {
       "name": "neovim",
       "package": "neovim",
       "description": "Text editor"
